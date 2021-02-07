@@ -12,6 +12,7 @@ const CardProduct = ({ product, onAdd }: Props) => {
     const [showModal, setShowModal] = React.useState(false);
     function handleOpenModal() {
         setShowModal(true);
+        document.body.style.overflow = 'hidden'
     }
     return (
         <>

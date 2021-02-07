@@ -9,13 +9,23 @@ interface Props {
     onAdd: (item: itemType) => void
     listProduct: itemType[]
     isLoading: boolean
+    listPictures: string[]
 }
+let settings = {
+    dots: false,
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    fade: true,
+    autoplaySpeed: 5000,
+    autoplay: true,
+};
 
-const Index = ({ onAdd, listProduct, isLoading }: Props) => {
+const Index = ({ onAdd, listProduct, isLoading, listPictures }: Props) => {
     ScrollToTop()
     return (
         <div >
-            <CustomSlider />
+            <CustomSlider settings={settings} listPictures={listPictures} />
             <Catagory />
             <ListProducts onAdd={onAdd} listProduct={listProduct} isLoading={isLoading} />
             <Footer />

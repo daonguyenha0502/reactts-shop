@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './App.css';
 
 import Nav from './components/Nav';
@@ -30,6 +30,8 @@ export interface itemType {
     price: number;
     amount: number | 0;
 }
+
+let pictures: string[] = ["https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517602/shop/other/sl3_j9d1sa.png", "https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517607/shop/other/sl2_w0zrzi.png", "https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517613/shop/other/sl1_hotjpl.png"]
 
 function App({ }: AppProps) {
     const [cartItems, setCartItems] = useState<itemType[] | []>([]);
@@ -90,6 +92,7 @@ function App({ }: AppProps) {
                             onAdd={handleAdd}
                             listProduct={listProduct}
                             isLoading={isLoading}
+                            listPictures={pictures}
                         />
                     </Route>
                     <Route exact path="/login">
