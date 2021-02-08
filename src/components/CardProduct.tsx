@@ -1,5 +1,7 @@
 import React from 'react';
 import type { itemType } from 'src/App';
+import LazyLoad from 'react-lazyload';
+
 import imgSale from '../../public/icon-saleoff.png';
 import Modal from './Modal';
 
@@ -17,7 +19,7 @@ const CardProduct = ({ product, onAdd }: Props) => {
     return (
         <>
             {/* <Modal name={name} img={img} isOpenModal={isOpen} /> */}
-            <Modal onShowModal={showModal} onSetShowModal={setShowModal} item={product} />
+            <Modal onShowModal={showModal} onSetShowModal={setShowModal} item={product} onAdd={onAdd} />
             <div className="relative w-56 sm:w-56 md:w-60 lg:w-56 xl:w-52 2xl:w-full h-96 bg-white rounded-md shadow-lg border border-gray-500 ">
                 <div onClick={handleOpenModal} className="h-auto">
                     <div className="w-full flex justify-between absolute left-1 top-2 z-10">
@@ -40,11 +42,12 @@ const CardProduct = ({ product, onAdd }: Props) => {
                             -12%
             </div>
                     </div>
-                    <img
+                    <LazyLoad><img
                         className="h-64 w-11/12 mx-auto pt-1 pb-2 hover:opacity-80 duration-700 "
                         src={product.image}
                         alt=""
-                    />
+                    /></LazyLoad>
+
                     <hr className="border-t-4 border-gray-600 pb-2" />
 
                     <div className="h-14">

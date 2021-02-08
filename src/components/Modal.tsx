@@ -6,47 +6,44 @@ interface Props {
     onShowModal: boolean;
     onSetShowModal: any;
     item: itemType
+    onAdd: (item: itemType) => void
 }
 
-let pictures: string[] = ["https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg", "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"]
+let pictures: string[] = ["https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg", "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg", "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg", "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"]
 // https://www.creative-tim.com/learning-lab/tailwind-starter-kit/presentation
 
 
 
-export default function Modal({ onShowModal, onSetShowModal, item }: Props) {
-    function customDots({ children }: any) {
-        return (<>
-            <li>{children}</li>
-        </>)
-    }
+export default function Modal({ onShowModal, onSetShowModal, item, onAdd }: Props) {
     const settings = {
         appendDots: (customDots: any) => (
-            <>
-                <ul style={{
-                    display: "block",
-                    position: "absolute",
-                    bottom: "-25px",
-                    width: "100%",
-                    padding: 0,
-                    margin: 0,
-                    listStyle: "none",
-                    textAlign: "center"
-                }}> {customDots} </ul>
-            </>
+
+            <ul className="space-x-2" style={{
+                display: 'flex',
+                justifyContent: 'space-evenly',
+                position: "absolute",
+                bottom: "-50px",
+                width: "100%",
+                padding: 0,
+                marginLeft: 0,
+                listStyle: "none",
+                textAlign: "center"
+            }}> {customDots} </ul>
+
         ),
         customPaging: function (i: number) {
             return (
-                <a>
-                    <img className="border border-gray-900 w-6 h-auto" src={pictures[i]} />
+                <a >
+                    <img className="border border-gray-900 w-10 h-12" src={pictures[i]} />
                 </a>
             );
         },
         dots: true,
-        dotsClass: "slick-dots slick-thumb",
+        dotsClass: "slick-thumb",
         infinite: true,
         //variableWidth: true,
         //slidesToShow: 1,
-        // slidesToScroll: 1,
+        //slidesToScroll: 1,
     }
 
     return (
@@ -84,8 +81,17 @@ export default function Modal({ onShowModal, onSetShowModal, item }: Props) {
                                             thing people are controlled by! Thoughts- their perception
                                             of themselves! They're slowed down by their perception of
                                             themselves. If you're taught you can’t do anything, you
-                                            won’t do anything. I was taught I could do everything.
-                  </p>
+                                            won’t do anything. I was taught I could do everything.</p>
+                                        <div>
+                                            <button
+                                                className="bg-blue-600 active:bg-blue-400 focus:outline-none hover:bg-blue-800  px-4 py-2 z-20 rounded-md mt-2 font-semibold text-white"
+                                                onClick={() =>
+                                                    onAdd({ id: item.id, title: item.title, image: item.image, price: item.price, amount: 0 })
+                                                }
+                                            >
+                                                Add to cart
+        </button>
+                                        </div>
                                     </div>
 
 
