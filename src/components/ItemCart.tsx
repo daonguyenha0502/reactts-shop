@@ -5,27 +5,35 @@ interface Props {
     item: itemType
     onAdd: (item: itemType) => void
     onReducer: (id: string) => void
+    onRemoveFromCart: (id: string) => void
 }
 
-const ItemCart = ({ item, onAdd, onReducer }: Props) => {
-    const [amount, setAmount] = useState<number | 1>(1);
+const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
+    //const [amount, setAmount] = useState<number | 1>(1);
     return (
         <div className="w-120 h-auto border-gray-800 border rounded-lg leading-10 mb-8">
             <div className="flex">
                 <img
-                    className="border-gray-800 border-r rounded-l-md"
+                    className="border-gray-800 border-r py-2 rounded-l-md"
                     width="150px"
                     height="auto"
-                    src={item.image}
+                    src={item.img}
                     alt=""
                 />
                 <div className="flex-row text-center w-full py-2">
-                    <p className="text-center font-bold">
-                        {item.title}
-                    </p>
-                    <p>Price: {(item.amount * item.price).toLocaleString()} $</p>
+                    <div className="flex mx-4">
+                        <p className="text-center font-bold">
+                            {item.name}
+                        </p>
+                        <button onClick={() => onRemoveFromCart(item._id)} className="ml-auto bg-transparent mb-3 border-0 outline-none focus:outline-none">
+                            <span className="bg-transparent text-red-500 h-6 w-6 text-2xl block outline-none focus:outline-none">×</span>
+                        </button>
+                    </div>
+
+
+                    <p>Price: {(item.cartAmount * item.price).toLocaleString()} Đồng</p>
                     <div className="flex w-full justify-center leading-4">
-                        {item.amount <= 0 ? (
+                        {item.cartAmount <= 0 ? (
                             <button
                                 className="px-7 cursor-not-allowed rounded-md py-1 focus:outline-none bg-blue-600  opacity-50 text-xl"
                                 disabled={true}
@@ -35,12 +43,12 @@ const ItemCart = ({ item, onAdd, onReducer }: Props) => {
                         ) : (
                                 <button
                                     className="px-7 rounded-md py-1 focus:outline-none bg-blue-600 hover:bg-blue-500 text-xl "
-                                    onClick={() => onReducer(item.id)}
+                                    onClick={() => onReducer(item._id)}
                                 >
                                     -
                                 </button>
                             )}
-                        <p className="px-5 py-1">{`< ${item.amount} >`}</p>
+                        <p className="px-5 py-1">{`< ${item.cartAmount} >`}</p>
                         <button
                             className="px-7 rounded-md py-1 focus:outline-none bg-red-600 hover:bg-red-500 text-xl"
                             onClick={() => onAdd(item)}

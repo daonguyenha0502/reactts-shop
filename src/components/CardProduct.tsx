@@ -4,6 +4,7 @@ import LazyLoad from 'react-lazyload';
 
 import imgSale from '../../public/icon-saleoff.png';
 import Modal from './Modal';
+import { Link } from 'react-router-dom';
 
 interface Props {
     product: itemType
@@ -11,17 +12,17 @@ interface Props {
 }
 
 const CardProduct = ({ product, onAdd }: Props) => {
-    const [showModal, setShowModal] = React.useState(false);
-    function handleOpenModal() {
-        setShowModal(true);
-        document.body.style.overflow = 'hidden'
-    }
+    //const [showModal, setShowModal] = React.useState(false);
+    // function handleOpenModal() {
+    //     setShowModal(true);
+    //     document.body.style.overflow = 'hidden'
+    // }
     return (
         <>
-            {/* <Modal name={name} img={img} isOpenModal={isOpen} /> */}
-            <Modal onShowModal={showModal} onSetShowModal={setShowModal} item={product} onAdd={onAdd} />
+            {/* <Modal onShowModal={showModal} onSetShowModal={setShowModal} item={product} onAdd={onAdd} /> */}
             <div className="relative w-56 sm:w-56 md:w-60 lg:w-56 xl:w-52 2xl:w-full h-96 bg-white rounded-md shadow-lg border border-gray-500 ">
-                <div onClick={handleOpenModal} className="h-auto">
+                {/* <div onClick={handleOpenModal} className="h-auto"> */}
+                <Link to={`products/${product._id}`}>
                     <div className="w-full flex justify-between absolute left-1 top-2 z-10">
                         <div className="flex-col text-sm font-bold">
                             <div>
@@ -31,33 +32,40 @@ const CardProduct = ({ product, onAdd }: Props) => {
                                 <span> đ</span>
                             </div>
                             <div className="text-red-500">
-                                {product.price.toLocaleString('en-US')}
+                                {(product.price - Math.ceil(product.price / 10000 * product.sale / 100) * 10000).toLocaleString('en-US')}
                                 <span> đ</span>
                             </div>
                         </div>
-                        <div
+                        {product.sale !== 0 ? (<div
                             className="bg-no-repeat w-12 h-12 text-center pt-2 pr-2"
                             style={{ backgroundImage: `url(${imgSale})` }}
                         >
-                            -12%
-            </div>
+                            -{product.sale}%
+                        </div>) : (<div
+                            className="bg-no-repeat hidden w-12 h-12 text-center pt-2 pr-2"
+                            style={{ backgroundImage: `url(${imgSale})` }}
+                        >
+                            -{product.sale}%
+                        </div>)}
+
                     </div>
                     <LazyLoad><img
-                        className="h-64 w-11/12 mx-auto pt-1 pb-2 hover:opacity-80 duration-700 "
-                        src={product.image}
+                        className="h-60 w-11/12 mx-auto pt-2 pb-2 hover:opacity-80 duration-700 "
+                        src={product.img}
                         alt=""
                     /></LazyLoad>
 
                     <hr className="border-t-4 border-gray-600 pb-2" />
 
-                    <div className="h-14">
-                        <p className="h-14 overflow-ellipsis overflow-y-hidden text-lg font-semibold">{product.title}</p>
+                    <div className="h-16">
+                        <p className="h-16 overflow-ellipsis overflow-y-hidden text-lg font-semibold">{product.name}</p>
                     </div>
-                </div>
+                </Link>
+
                 <button
                     className="bg-blue-600 active:bg-blue-400 focus:outline-none hover:bg-blue-800  px-4 py-2 z-20 rounded-md mt-2 font-semibold text-white"
                     onClick={() =>
-                        onAdd({ id: product.id, title: product.title, image: product.image, price: product.price, amount: 0 })
+                        onAdd(product)
                     }
                 >
                     Add to cart
