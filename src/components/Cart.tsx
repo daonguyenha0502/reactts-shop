@@ -9,7 +9,7 @@ interface Props {
 
 const Cart = ({ cartItems }: Props) => {
     const getTotalItems = (items: itemType[]) =>
-        items.reduce((ack: number, item) => ack + item.amount, 0);
+        items.reduce((ack: number, item) => ack + item.cartAmount, 0);
     return (
         <>
             <FontAwesomeIcon icon={faShoppingCart} /><span className="relative bottom-2 px-1 bg-gray-300 text-black rounded-xl text-sm">{getTotalItems(cartItems)}</span>

@@ -60,7 +60,7 @@ export default function Modal({ onShowModal, onSetShowModal, item, onAdd }: Prop
                             <div className=" border-0 mt-12 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
                                 <div className="flex h-20 w-full items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                                    <p className="text-xl font-semibold">{item.title}</p>
+                                    <p className="text-xl font-semibold">{item.name}</p>
                                     <button
                                         className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                                         onClick={() => { onSetShowModal(false), document.body.style.overflow = 'unset' }}
@@ -86,7 +86,7 @@ export default function Modal({ onShowModal, onSetShowModal, item, onAdd }: Prop
                                             <button
                                                 className="bg-blue-600 active:bg-blue-400 focus:outline-none hover:bg-blue-800  px-4 py-2 z-20 rounded-md mt-2 font-semibold text-white"
                                                 onClick={() =>
-                                                    onAdd({ id: item.id, title: item.title, image: item.image, price: item.price, amount: 0 })
+                                                    onAdd(item)
                                                 }
                                             >
                                                 Add to cart
