@@ -7,7 +7,8 @@ import ItemCart from '../components/ItemCart';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
 import { addToCart, reducerCart, deleteFromCart } from '../app/cartsSlice';
-import { setStateToast } from '../app/toastSlice'
+//import { setStateToast } from '../app/toastSlice'
+import { toast } from 'react-toastify';
 
 interface Props {
 }
@@ -20,21 +21,48 @@ const Cart = (props: Props) => {
         console.log('addtoCart: ', product);
         const action = addToCart(product);
         dispatch(action);
-        const actionToast = setStateToast({ data: product, state: true, type: "S" })
-        dispatch(actionToast)
+        // const actionToast = setStateToast({ data: product, state: true, type: "S" })
+        // dispatch(actionToast)
+        toast.info(`🦄 ${product.name} added to cart`, {
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
     }
     const handleReducerFromCart = (product: itemType) => {
         console.log('reducer: ', product);
         const action = reducerCart(product);
         dispatch(action);
-        const actionToast = setStateToast({ data: product, state: true, type: "W" })
-        dispatch(actionToast)
+        // const actionToast = setStateToast({ data: product, state: true, type: "W" })
+        // dispatch(actionToast)
+        toast.warning(`🦄 ${product.name} reducer from cart`, {
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
     }
     const handleRemoveFromCart = (product: itemType) => {
         const action = deleteFromCart(product)
         dispatch(action);
-        const actionToast = setStateToast({ data: product, state: true, type: "W" })
-        dispatch(actionToast)
+        // const actionToast = setStateToast({ data: product, state: true, type: "W" })
+        // dispatch(actionToast)
+        toast.error(`🦄 ${product.name} removed from cart`, {
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
     }
     return (
         <>

@@ -7,13 +7,17 @@ import Index from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Carts from './pages/Carts';
-import Toast from './components/Toast';
+//import Toast from './components/Toast';
 import { useLocation } from "react-router-dom";
 import ProductDetail from './pages/ProductDetail';
 
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from './app/store';
-import { setStateToast } from './app/toastSlice'
+//import { setStateToast } from './app/toastSlice'
+
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export function ScrollToTop(): any {
@@ -53,10 +57,10 @@ function App({ }: AppProps) {
     // const [typeToast, setTypeToast] = useState<"S" | "W">("W")
     const state = useSelector((state: RootState) => state.toasts)
     const dispatch = useDispatch()
-    const handleCloseToast = () => {
-        const actionToast = setStateToast({ data: null, state: false, type: "S" })
-        dispatch(actionToast)
-    }
+    // const handleCloseToast = () => {
+    //     const actionToast = setStateToast({ data: null, state: false, type: "S" })
+    //     dispatch(actionToast)
+    // }
 
     const addTask = async ({ search }: string) => {
         console.log(search);
@@ -132,7 +136,19 @@ function App({ }: AppProps) {
                         render={() => <div className="text-5xl mt-52">Page not found</div>}
                     />
                 </Switch>
-                <Toast stateToast={state} onClose={handleCloseToast} />
+                {/* <Toast stateToast={state} onClose={handleCloseToast} /> */}
+                <ToastContainer
+                    style={{ width: "20rem" }}
+                    position="bottom-center"
+                    autoClose={4000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
             </div>
         </Router>
     );

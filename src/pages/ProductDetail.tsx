@@ -5,7 +5,9 @@ import { useParams } from 'react-router-dom';
 import { addToCart } from '../app/cartsSlice';
 import {useDispatch} from 'react-redux'
 import productApi from '../api/productApi';
-import { setStateToast } from '../app/toastSlice';
+//import { setStateToast } from '../app/toastSlice';
+
+import {  toast } from 'react-toastify';
 
 interface Props {
 }
@@ -27,8 +29,17 @@ export default function ProductDetail() {
         console.log('addtoCart: ', product);
         const action = addToCart(product);
         dispatch(action);
-        const actionToast = setStateToast({ data: product, state: true, type: "S" })
-        dispatch(actionToast)
+        //const actionToast = setStateToast({ data: product, state: true, type: "S" })
+        //dispatch(actionToast)
+        toast.info(`🦄 ${product.name} added to cart`, {
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
     }
 
     let { id }:any = useParams()
