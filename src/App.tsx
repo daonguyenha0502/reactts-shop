@@ -11,6 +11,10 @@ import Toast from './components/Toast';
 import { useLocation } from "react-router-dom";
 import ProductDetail from './pages/ProductDetail';
 
+import { useSelector, useDispatch } from 'react-redux'
+import type { RootState } from './app/store';
+import { setStateToast } from './app/toastSlice'
+
 
 export function ScrollToTop(): any {
     const location = useLocation();
@@ -44,12 +48,15 @@ export interface itemType {
 let pictures: string[] = ["https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517602/shop/other/sl3_j9d1sa.png", "https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517607/shop/other/sl2_w0zrzi.png", "https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517613/shop/other/sl1_hotjpl.png"]
 
 function App({ }: AppProps) {
-    const [cartItems, setCartItems] = useState<itemType[] | []>([]);
-    const [isOpen, setIsOpen] = useState<boolean | false>(false)
-    const [dataToast, setDataToast] = useState<itemType | null>(null)
-    const [typeToast, setTypeToast] = useState<"S" | "W">("W")
-
-
+    // const [isOpen, setIsOpen] = useState<boolean | false>(false)
+    // const [dataToast, setDataToast] = useState<itemType | null>(null)
+    // const [typeToast, setTypeToast] = useState<"S" | "W">("W")
+    const state = useSelector((state: RootState) => state.toasts)
+    const dispatch = useDispatch()
+    const handleCloseToast = () => {
+        const actionToast = setStateToast({ data: null, state: false, type: "S" })
+        dispatch(actionToast)
+    }
 
     const addTask = async ({ search }: string) => {
         console.log(search);
@@ -125,7 +132,7 @@ function App({ }: AppProps) {
                         render={() => <div className="text-5xl mt-52">Page not found</div>}
                     />
                 </Switch>
-                <Toast isOpen={isOpen} setIsOpen={setIsOpen} dataToast={dataToast} type={typeToast} />
+                <Toast stateToast={state} onClose={handleCloseToast} />
             </div>
         </Router>
     );

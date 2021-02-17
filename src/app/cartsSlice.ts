@@ -48,4 +48,4 @@ const cart = createSlice({
 
 const { reducer, actions } = cart;
 export const { addToCart, reducerCart, deleteFromCart } = actions;
-export default reducer;
+export default cart;

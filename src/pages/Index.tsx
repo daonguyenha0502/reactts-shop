@@ -23,6 +23,7 @@ const Index = ({ listPictures }: Props) => {
     ScrollToTop()
     const [listProduct, setListProduct] = useState<itemType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
     useEffect(() => {
         const getAllProduct = async () => {
             // const res: any = await fetch('https://gearshop.glitch.me/api/products');

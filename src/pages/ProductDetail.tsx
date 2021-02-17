@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { addToCart } from '../app/cartsSlice';
 import {useDispatch} from 'react-redux'
 import productApi from '../api/productApi';
+import { setStateToast } from '../app/toastSlice';
 
 interface Props {
 }
@@ -26,6 +27,8 @@ export default function ProductDetail() {
         console.log('addtoCart: ', product);
         const action = addToCart(product);
         dispatch(action);
+        const actionToast = setStateToast({ data: product, state: true, type: "S" })
+        dispatch(actionToast)
     }
 
     let { id }:any = useParams()

@@ -7,6 +7,7 @@ import ItemCart from '../components/ItemCart';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
 import { addToCart, reducerCart, deleteFromCart } from '../app/cartsSlice';
+import { setStateToast } from '../app/toastSlice'
 
 interface Props {
 }
@@ -19,15 +20,21 @@ const Cart = (props: Props) => {
         console.log('addtoCart: ', product);
         const action = addToCart(product);
         dispatch(action);
+        const actionToast = setStateToast({ data: product, state: true, type: "S" })
+        dispatch(actionToast)
     }
     const handleReducerFromCart = (product: itemType) => {
         console.log('reducer: ', product);
         const action = reducerCart(product);
         dispatch(action);
+        const actionToast = setStateToast({ data: product, state: true, type: "W" })
+        dispatch(actionToast)
     }
     const handleRemoveFromCart = (product: itemType) => {
         const action = deleteFromCart(product)
         dispatch(action);
+        const actionToast = setStateToast({ data: product, state: true, type: "W" })
+        dispatch(actionToast)
     }
     return (
         <>
