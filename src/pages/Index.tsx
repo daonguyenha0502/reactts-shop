@@ -31,16 +31,25 @@ const Index = ({ listPictures }: Props) => {
             // console.log(list)
             // setListProduct(list);
             // await setIsLoading(true);
-            try {
-                const response: any = await productApi.getAll();
-                console.log(response)
-                setListProduct(response);
+            if (localStorage.getItem('listProducts') as any) {
+                setListProduct(JSON.parse(localStorage.getItem('listProducts') as any))
                 await setIsLoading(true);
-            } catch (error) {
-                console.log('Failed to fetch product list: ', error);
+            } else {
+                try {
+                    const response: any = await productApi.getAll();
+                    //console.log(response)
+                    setListProduct(response);
+                    await setIsLoading(true);
+                    await localStorage.setItem('listProducts', JSON.stringify(response)) as any
+                } catch (error) {
+                    console.log('Failed to fetch product list: ', error);
+                }
+
             }
+
         };
-        getAllProduct();
+        getAllProduct()
+
     }, []);
     return (
         <div >
