@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
 import { itemType, ScrollToTop } from '../App';
 import CustomSlider from '../components/Carousel';
 import Catagory from '../components/Catagory';
 import ListProducts from '../components/ListProducts';
+import productApi from '../api/productApi';
 
 interface Props {
-    onAdd: (item: itemType) => void
-    listProduct: itemType[]
-    isLoading: boolean
     listPictures: string[]
 }
 let settings = {
@@ -21,13 +19,39 @@ let settings = {
     autoplay: true,
 };
 
-const Index = ({ onAdd, listProduct, isLoading, listPictures }: Props) => {
+const Index = ({ listPictures }: Props) => {
     ScrollToTop()
+    const [listProduct, setListProduct] = useState<itemType[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    useEffect(() => {
+        const getAllProduct = async () => {
+            // const res: any = await fetch('https://gearshop.glitch.me/api/products');
+            // const list = await res.json();
+            // console.log(list)
+            // setListProduct(list);
+            // await setIsLoading(true);
+            try {
+                const response: any = await productApi.getAll();
+                console.log(response)
+                setListProduct(response);
+                await setIsLoading(true);
+            } catch (error) {
+                console.log('Failed to fetch product list: ', error);
+            }
+        };
+        getAllProduct();
+    }, []);
     return (
         <div >
-            <CustomSlider settings={settings} listPictures={listPictures} />
+            <CustomSlider
+                settings={settings}
+                listPictures={listPictures}
+            />
             <Catagory />
-            <ListProducts onAdd={onAdd} listProduct={listProduct} isLoading={isLoading} />
+            <ListProducts
+                listProduct={listProduct}
+                isLoading={isLoading}
+            />
             <Footer />
         </div>
     );

@@ -15,7 +15,7 @@ export default function CustomSlider({ settings, listPictures }: CustomSlider) {
         <div className="w-4/5 mx-auto mt-12 z-40">
             <Slider {...settings} prevArrow={<PrevArrow />} nextArrow={<NextArrow />} >
                 {listPictures.map((picture) => {
-                    return (<div key={picture} style={{ width: 200 }}>
+                    return (<div key={picture}>
                         <img
                             src={picture}
                             alt=""

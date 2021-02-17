@@ -45,79 +45,64 @@ let pictures: string[] = ["https://res.cloudinary.com/daoha0502/image/upload/q_a
 
 function App({ }: AppProps) {
     const [cartItems, setCartItems] = useState<itemType[] | []>([]);
-    const [listProduct, setListProduct] = useState<itemType[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isOpen, setIsOpen] = useState<boolean | false>(false)
     const [dataToast, setDataToast] = useState<itemType | null>(null)
     const [typeToast, setTypeToast] = useState<"S" | "W">("W")
 
-
-    useEffect(() => {
-        const getAllProduct = async () => {
-            const res: any = await fetch('https://gearshop.glitch.me/api/products');
-            const list = await res.json();
-            setListProduct(list);
-            await setIsLoading(true);
-        };
-        getAllProduct();
-    }, []);
 
 
     const addTask = async ({ search }: string) => {
         console.log(search);
     };
 
-    const handleAdd = (product: itemType): void => {
-        setCartItems(prev => {
-            // 1. Is the item already added in the cart?
-            const isItemInCart = prev.find((item: itemType) => item._id === product._id);
+    // const handleAdd = (product: itemType): void => {
+    //     setCartItems(prev => {
+    //         // 1. Is the item already added in the cart?
+    //         const isItemInCart = prev.find((item: itemType) => item._id === product._id);
 
-            if (isItemInCart) {
-                return (prev as itemType[]).map((item: itemType) =>
-                    item._id === product._id
-                        ? { ...item, cartAmount: item.cartAmount + 1 }
-                        : item
-                );
-            }
-            // First time the item is added
-            return [...prev, { ...product, cartAmount: 1 }];
-        });
-        setIsOpen(true)
-        setDataToast(product)
-        setTypeToast("S")
-    }
-    const handleReducerCart = (_id: string) => {
-        setCartItems(prev =>
-            (prev as itemType[]).reduce((ack: any, item: itemType) => {
-                if (item._id === _id) {
-                    if (item.cartAmount === 1) return ack;
-                    return [...ack, { ...item, cartAmount: item.cartAmount - 1 }];
-                } else {
-                    return [...ack, item];
-                }
-            }, [] as itemType[])
-        );
-        setIsOpen(true)
-        setDataToast(null)
-        setTypeToast("W")
-    };
+    //         if (isItemInCart) {
+    //             return (prev as itemType[]).map((item: itemType) =>
+    //                 item._id === product._id
+    //                     ? { ...item, cartAmount: item.cartAmount + 1 }
+    //                     : item
+    //             );
+    //         }
+    //         // First time the item is added
+    //         return [...prev, { ...product, cartAmount: 1 }];
+    //     });
+    //     setIsOpen(true)
+    //     setDataToast(product)
+    //     setTypeToast("S")
+    // }
+    // const handleReducerCart = (_id: string) => {
+    //     setCartItems(prev =>
+    //         (prev as itemType[]).reduce((ack: any, item: itemType) => {
+    //             if (item._id === _id) {
+    //                 if (item.cartAmount === 1) return ack;
+    //                 return [...ack, { ...item, cartAmount: item.cartAmount - 1 }];
+    //             } else {
+    //                 return [...ack, item];
+    //             }
+    //         }, [] as itemType[])
+    //     );
+    //     setIsOpen(true)
+    //     setDataToast(null)
+    //     setTypeToast("W")
+    // };
 
-    const handleRemoveFromCart = (_id: string) => {
-        setCartItems(prev => {
-            return prev.filter(product => product._id !== _id)
-        })
-    }
+    // const handleRemoveFromCart = (_id: string) => {
+    //     setCartItems(prev => {
+    //         return prev.filter(product => product._id !== _id)
+    //     })
+    // }
 
     return (
         <Router basename="/">
             <div className="App">
-                <Nav onSearch={addTask} cartItems={cartItems} />
+                <Nav onSearch={addTask} />
                 <Switch>
                     <Route exact path="/">
                         <Index
-                            onAdd={handleAdd}
-                            listProduct={listProduct}
-                            isLoading={isLoading}
                             listPictures={pictures}
                         />
                     </Route>
@@ -128,10 +113,10 @@ function App({ }: AppProps) {
                         <Register />
                     </Route>
                     <Route exact path="/cart">
-                        <Carts cartItems={cartItems} onAdd={handleAdd} onReducer={handleReducerCart} onRemoveFromCart={handleRemoveFromCart} />
+                        <Carts />
                     </Route>
                     <Route exact path="/products/:id">
-                        <ProductDetail onAdd={handleAdd} />
+                        <ProductDetail />
                     </Route>
 
                     <Route
