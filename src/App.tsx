@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import './App.css';
 
 import Nav from './components/Nav';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import Index from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -10,12 +10,10 @@ import Carts from './pages/Carts';
 import { useLocation } from "react-router-dom";
 import ProductDetail from './pages/ProductDetail';
 
-import { useSelector, useDispatch } from 'react-redux'
-import type { RootState } from './app/store';
-
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import PageSearch from './pages/PageSearch';
 
 
 export function ScrollToTop(): any {
@@ -50,14 +48,11 @@ export interface itemType {
 let pictures: string[] = ["https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517602/shop/other/sl3_j9d1sa.png", "https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517607/shop/other/sl2_w0zrzi.png", "https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517613/shop/other/sl1_hotjpl.png"]
 
 function App({ }: AppProps) {
-    const addTask = async ({ search }: string) => {
-        console.log(search);
-    };
 
     return (
         <Router basename="/">
             <div className="App">
-                <Nav onSearch={addTask} />
+                <Nav />
                 <Switch>
                     <Route exact path="/">
                         <Index
@@ -75,6 +70,9 @@ function App({ }: AppProps) {
                     </Route>
                     <Route exact path="/products/:id">
                         <ProductDetail />
+                    </Route>
+                    <Route exact path="/search">
+                        <PageSearch />
                     </Route>
 
                     <Route
@@ -95,6 +93,7 @@ function App({ }: AppProps) {
                     pauseOnFocusLoss
                     draggable
                     pauseOnHover
+                    limit={4}
                 />
             </div>
         </Router>

@@ -9,7 +9,6 @@ interface Props {
 }
 
 const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
-    //const [amount, setAmount] = useState<number | 1>(1);
     return (
         <div className="w-120 h-auto border-gray-800 border rounded-lg leading-10 mb-8">
             <div className="flex">

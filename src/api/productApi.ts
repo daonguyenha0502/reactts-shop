@@ -10,6 +10,10 @@ const productApi = {
         const url = `/products/${id}`;
         return axiosClient.get(url);
     },
+    searchProduct: (name: string) => {
+        const url = `/search?q=${name}`
+        return axiosClient.get(url);
+    }
 }
 
 export default productApi;

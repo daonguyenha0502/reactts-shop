@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 import productApi from '../api/productApi';
 
 import Footer from '../components/Footer';
 import { itemType, ScrollToTop } from '../App';
 import CustomSlider from '../components/Carousel';
-import Catagory from '../components/Catagory';
+import Category from '../components/Category';
 import ListProducts from '../components/ListProducts';
 
 
@@ -31,13 +31,8 @@ const Index = ({ listPictures }: Props) => {
 
     useEffect(() => {
         const getAllProduct = async () => {
-            // const res: any = await fetch('https://gearshop.glitch.me/api/products');
-            // const list = await res.json();
-            // console.log(list)
-            // setListProduct(list);
-            // await setIsLoading(true);
-            if (localStorage.getItem('listProducts') as any) {
-                setListProduct(JSON.parse(localStorage.getItem('listProducts') as any))
+            if (sessionStorage.getItem('listProducts')) {
+                setListProduct(JSON.parse(sessionStorage.getItem('listProducts') as string))
                 await setIsLoading(true);
             } else {
                 try {
@@ -45,7 +40,7 @@ const Index = ({ listPictures }: Props) => {
                     //console.log(response)
                     setListProduct(response);
                     await setIsLoading(true);
-                    await localStorage.setItem('listProducts', JSON.stringify(response)) as any
+                    await sessionStorage.setItem('listProducts', JSON.stringify(response)) as any
                 } catch (error) {
                     console.log('Failed to fetch product list: ', error);
                 }
@@ -67,7 +62,7 @@ const Index = ({ listPictures }: Props) => {
                 settings={settings}
                 listPictures={listPictures}
             />
-            <Catagory />
+            <Category />
             <ListProducts
                 listProduct={listProduct}
                 isLoading={isLoading}

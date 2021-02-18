@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-import Cart from './Cart';
+import LinkItemCart from './LinkItemCart';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Menu from './Menu';
@@ -13,16 +13,22 @@ import { useSelector } from 'react-redux'
 import type { RootState } from '../app/store';
 
 interface Props {
-    onSearch: any;
+
 }
 
-const Nav = ({ onSearch }: Props) => {
+
+const Nav = ({ }: Props) => {
     const [search, setSearch] = useState('');
     const [isOpenMenu, setIsOpenMenu] = useState<boolean | false>(false);
     const carts = useSelector((state: RootState) => state.carts);
 
     const pathName = useLocation();
     const refSearch = useRef<HTMLInputElement | null>(null);
+    let history = useHistory()
+    const handleSearch = async (search: string) => {
+        //console.log(search);
+        history.push(`/search?q=${search}`);
+    };
 
     const onSubmit = (e: any) => {
         e.preventDefault();
@@ -31,7 +37,7 @@ const Nav = ({ onSearch }: Props) => {
             if (!search) {
                 refSearch.current.focus();
             } else {
-                onSearch({ search });
+                handleSearch(search);
                 setSearch('');
             }
         }
@@ -48,7 +54,7 @@ const Nav = ({ onSearch }: Props) => {
                     </li>
                     <li className="w-36 text-white">
                         <Link to="/cart">
-                            <Cart cartItems={carts} /> <span className={pathName.pathname === '/cart' ? "border-gray-200 border-b-2" : ""}>Cart</span>
+                            <LinkItemCart cartItems={carts} /> <span className={pathName.pathname === '/cart' ? "border-gray-200 border-b-2" : ""}>Cart</span>
                         </Link>
                     </li>
                     <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
@@ -73,24 +79,26 @@ const Nav = ({ onSearch }: Props) => {
                     )}
                 </ul>
                 <ul className="w-1/2 justify-end space-x-4 items-center mr-4 hidden sm:hidden md:hidden lg:flex">
-                    <li className="text-white">
-                        <input
-                            ref={refSearch}
-                            className="w-56 pl-2 focus:outline-none focus:ring rounded text-black text-xl"
-                            type="text"
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
-                    </li>
-                    <li className="h-auto text-white">
-                        <button
-                            className="bg-green-600 p-1 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700"
-                            type="submit"
-                            onClick={onSubmit}
-                        >
-                            Search
+                    <form className="flex justify-end space-x-4 items-center" onSubmit={onSubmit}>
+                        <li className="text-white">
+                            <input
+                                ref={refSearch}
+                                className="w-56 pl-2 focus:outline-none focus:ring rounded text-black text-xl"
+                                type="text"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
+                        </li>
+                        <li className="h-auto text-white">
+                            <button
+                                className="bg-green-600 p-1 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700"
+                                type="submit"
+
+                            >
+                                Search
             </button>
-                    </li>
+                        </li>
+                    </form>
                 </ul>
             </nav>
         </>

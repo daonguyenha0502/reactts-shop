@@ -7,7 +7,7 @@ interface Props {
     cartItems: itemType[]
 }
 
-const Cart = ({ cartItems }: Props) => {
+const LinkItemCart = ({ cartItems }: Props) => {
     const getTotalItems = (items: itemType[]) =>
         items.reduce((ack: number, item) => ack + item.cartAmount, 0);
     return (
@@ -17,4 +17,4 @@ const Cart = ({ cartItems }: Props) => {
     )
 }
 
-export default Cart
+export default LinkItemCart

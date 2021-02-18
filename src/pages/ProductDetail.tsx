@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {useDispatch} from 'react-redux'
 import {  toast } from 'react-toastify';
-import {Helmet} from 'react-helmet'
+import {Helmet} from 'react-helmet-async'
 
 import type { itemType } from '../App';
 import productApi from '../api/productApi';
@@ -101,7 +101,7 @@ export default function ProductDetail() {
                     <div className=" border-0 mt-12 rounded-lg shadow-lg  flex flex-col w-full bg-white outline-none focus:outline-none">
                         {/*header*/}
                         <div className="flex h-20 w-full items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                            <p className="text-xl font-semibold">{productDetail.idProduct.name}</p>
+                            <p className="text-xl font-semibold">Name: {productDetail.idProduct.name}</p>
 
                         </div>
                         {/*body*/}
@@ -110,16 +110,16 @@ export default function ProductDetail() {
                                 <CustomSlider settings={settings} listPictures={pictures} />
                             </div >
                             <div className="w-full h-auto text-left mb-4 pl-4">
-                                <p className="my-4 text-gray-600 text-lg leading-relaxed">
-                                {productDetail.idProduct.company}</p>
+                                <p className="my-4  text-lg leading-relaxed">
+                                Company: <span className="text-gray-600">{productDetail.idProduct.company}</span></p>
                                 
-                                <p className="my-4 text-gray-600 text-lg leading-relaxed">
-                                {productDetail.idProduct.price}</p>
-                                <p className="my-4 text-gray-600 text-lg leading-relaxed">
-                                {productDetail.idProduct.sale}</p>
-                                <p className="my-4 text-gray-600 text-lg leading-relaxed">
-                                {productDetail.idProduct.amount - productDetail.idProduct.sold}</p>
-        <p>{productDetail.info}</p>
+                                <p className="my-4 text-lg leading-relaxed">
+                                Price: <span className="text-gray-600 line-through">{(productDetail.idProduct.price).toLocaleString("en-US")}đ</span> -  
+                                {' '}<span className="text-red-500">{(productDetail.idProduct.price - Math.ceil((productDetail.idProduct.price/10000 * productDetail.idProduct.sale /100))*10000).toLocaleString('en-US')}đ</span></p>
+                                <p className="my-4 text-red-500 text-lg leading-relaxed">
+                                Sale: <span className="text-gray-600 ">{productDetail.idProduct.sale}%</span></p>
+                                <p className="my-4 text-lg leading-relaxed">Amount: <span className="text-gray-600">{productDetail.idProduct.amount - productDetail.idProduct.sold}</span></p>
+        <p>Information: <span className="text-gray-600">{productDetail.info}</span></p>
                                 <div>
                                     <button
                                         className="bg-blue-600 active:bg-blue-400 focus:outline-none hover:bg-blue-800  px-4 py-2 z-20 rounded-md mt-2 font-semibold text-white"

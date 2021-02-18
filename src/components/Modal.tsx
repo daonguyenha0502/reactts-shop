@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import type { itemType } from '../App';
 import CustomSlider from './Carousel';
 

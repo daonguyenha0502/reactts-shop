@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/dist/yup'
 import * as yup from 'yup';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 
 import { InputField, Error } from '../components/InputField';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 
 import { itemType, ScrollToTop } from '../App';
 import type { RootState } from '../app/store';
