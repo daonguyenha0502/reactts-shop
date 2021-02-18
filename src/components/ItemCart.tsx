@@ -10,7 +10,7 @@ interface Props {
 
 const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
     return (
-        <div className="w-120 h-auto border-gray-800 border rounded-lg leading-10 mb-8">
+        <div className="w-92 sm:w-120 h-auto border-gray-800 border rounded-lg leading-10 mb-8">
             <div className="flex">
                 <img
                     className="border-gray-800 border-r py-2 rounded-l-md"

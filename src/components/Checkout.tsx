@@ -14,7 +14,7 @@ const getTotalPrice = (items: itemType[]) =>
 const Checkout = ({ cartItems }: Props) => {
 
     return (
-        <div className="bg-indigo-400 w-120 py-4 rounded-md leading-8">
+        <div className="w-92 sm:w-120 bg-indigo-400 py-4 rounded-md leading-8">
             <div className="flex justify-between px-2">
                 <p>Subtotal({getTotalItems(cartItems)} items)</p> <p>{getTotalPrice(cartItems)}</p>
             </div>
