@@ -1,6 +1,8 @@
 import React from 'react';
 import type { itemType } from 'src/App';
 import LazyLoad from 'react-lazyload';
+import { forceCheck } from 'react-lazyload';
+
 
 import imgSale from '../../public/icon-saleoff.png';
 import { Link } from 'react-router-dom';
@@ -12,14 +14,9 @@ interface Props {
 }
 
 const CardProduct = ({ product, onAdd }: Props) => {
-    //const [showModal, setShowModal] = React.useState(false);
-    // function handleOpenModal() {
-    //     setShowModal(true);
-    //     document.body.style.overflow = 'hidden'
-    // }
+    forceCheck();
     return (
         <>
-            {/* <Modal onShowModal={showModal} onSetShowModal={setShowModal} item={product} onAdd={onAdd} /> */}
             <div className="relative w-56 sm:w-56 md:w-60 lg:w-56 xl:w-52 2xl:w-full h-96 bg-white rounded-md shadow-lg border border-gray-500 ">
                 {/* <div onClick={handleOpenModal} className="h-auto"> */}
                 <Link to={`products/${product._id}`}>

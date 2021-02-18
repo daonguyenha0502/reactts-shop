@@ -10,7 +10,6 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import cartReducer from './cartsSlice'
-import toastReducer from './toastSlice'
 
 const persistConfig = {
     key: 'root',
@@ -20,7 +19,7 @@ const persistConfig = {
 
 }
 
-const rootReducer = combineReducers({ carts: cartReducer.reducer, toasts: toastReducer.reducer })
+const rootReducer = combineReducers({ carts: cartReducer.reducer })
 
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

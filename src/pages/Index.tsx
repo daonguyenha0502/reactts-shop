@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
+
+import productApi from '../api/productApi';
+
 import Footer from '../components/Footer';
 import { itemType, ScrollToTop } from '../App';
 import CustomSlider from '../components/Carousel';
 import Catagory from '../components/Catagory';
 import ListProducts from '../components/ListProducts';
-import productApi from '../api/productApi';
+
+
 
 interface Props {
     listPictures: string[]
@@ -53,6 +58,11 @@ const Index = ({ listPictures }: Props) => {
     }, []);
     return (
         <div >
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Home</title>
+                <link rel="canonical" href="cpt-ha.web.app" />
+            </Helmet>
             <CustomSlider
                 settings={settings}
                 listPictures={listPictures}

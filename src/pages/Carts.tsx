@@ -1,14 +1,16 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet'
+
 import { itemType, ScrollToTop } from '../App';
+import type { RootState } from '../app/store';
+import { addToCart, reducerCart, deleteFromCart } from '../app/cartsSlice';
+
 import Checkout from '../components/Checkout';
 import Footer from '../components/Footer';
 import ItemCart from '../components/ItemCart';
 
-import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '../app/store';
-import { addToCart, reducerCart, deleteFromCart } from '../app/cartsSlice';
-//import { setStateToast } from '../app/toastSlice'
-import { toast } from 'react-toastify';
 
 interface Props {
 }
@@ -21,8 +23,6 @@ const Cart = (props: Props) => {
         console.log('addtoCart: ', product);
         const action = addToCart(product);
         dispatch(action);
-        // const actionToast = setStateToast({ data: product, state: true, type: "S" })
-        // dispatch(actionToast)
         toast.info(`🦄 ${product.name} added to cart`, {
             position: "bottom-center",
             autoClose: 4000,
@@ -52,8 +52,6 @@ const Cart = (props: Props) => {
     const handleRemoveFromCart = (product: itemType) => {
         const action = deleteFromCart(product)
         dispatch(action);
-        // const actionToast = setStateToast({ data: product, state: true, type: "W" })
-        // dispatch(actionToast)
         toast.error(`🦄 ${product.name} removed from cart`, {
             position: "bottom-center",
             autoClose: 4000,
@@ -66,6 +64,12 @@ const Cart = (props: Props) => {
     }
     return (
         <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>My cart</title>
+                <link rel="canonical" href="cpt-ha.web.app" />
+            </Helmet>
+
             <h1 className="text-2xl mt-16 font-bold text-center">Cart</h1>
             <div className="px-40 h-screen mt-4 mx-auto space-x-4 lg:flex">
                 <div className="overflow-y-auto h-5/6  max-w-min pr-4">

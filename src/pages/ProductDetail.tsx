@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import type { itemType } from '../App';
-import CustomSlider from '../components/Carousel';
 import { useParams } from 'react-router-dom';
-import { addToCart } from '../app/cartsSlice';
 import {useDispatch} from 'react-redux'
-import productApi from '../api/productApi';
-//import { setStateToast } from '../app/toastSlice';
-
 import {  toast } from 'react-toastify';
+import {Helmet} from 'react-helmet'
+
+import type { itemType } from '../App';
+import productApi from '../api/productApi';
+
+import CustomSlider from '../components/Carousel';
+import { addToCart } from '../app/cartsSlice';
+
+
+
 
 interface Props {
 }
@@ -29,8 +33,6 @@ export default function ProductDetail() {
         console.log('addtoCart: ', product);
         const action = addToCart(product);
         dispatch(action);
-        //const actionToast = setStateToast({ data: product, state: true, type: "S" })
-        //dispatch(actionToast)
         toast.info(`🦄 ${product.name} added to cart`, {
             position: "bottom-center",
             autoClose: 4000,
@@ -45,8 +47,6 @@ export default function ProductDetail() {
     let { id }:any = useParams()
     useEffect(() => {
         const getProductDetail = async (id: string) => {
-            // const res: any = await fetch(`https://gearshop.glitch.me/api/products/${id}`);
-            // const product = await res.json();
             const product: any = await productApi.get(id)
             console.log(product)
             setProductDetail(product);
@@ -90,6 +90,12 @@ export default function ProductDetail() {
     if (productDetail ) {
         return (
             <>
+            <Helmet>
+                <meta charSet="utf-8" />
+        <title>{productDetail.idProduct.name}</title>
+                <link rel="canonical" href="cpt-ha.web.app" />
+            </Helmet>
+            
                 <div className="h-auto my-6 mx-auto max-w-5xl" >
                     {/*content*/}
                     <div className=" border-0 mt-12 rounded-lg shadow-lg  flex flex-col w-full bg-white outline-none focus:outline-none">

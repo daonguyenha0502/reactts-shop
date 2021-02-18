@@ -1,11 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
+
+import { addToCart } from '../app/cartsSlice';
+
 import type { itemType } from '../App';
 import CardProduct from './CardProduct';
 import Skeleton from './Skeleton';
 
-import { useDispatch } from 'react-redux'
-import { addToCart } from '../app/cartsSlice';
-import { setStateToast } from '../app/toastSlice';
 
 interface Props {
     listProduct: itemType[];
@@ -18,8 +20,15 @@ const ListProducts = ({ listProduct, isLoading }: Props) => {
         console.log('addtoCart: ', product);
         const action = addToCart(product);
         dispatch(action);
-        const actionToast = setStateToast({ data: product, state: true, type: "S" })
-        dispatch(actionToast)
+        toast.info(`🦄 ${product.name} added to cart`, {
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
     }
     return (
         <div className="w-5/6 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 2xl:w-3/4 grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 gap-9 justify-items-center mt-5 mx-auto">
