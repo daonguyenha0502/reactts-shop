@@ -54,6 +54,7 @@ const Index = ({ listPictures }: Props) => {
             }
             if (response.length >= 0 && response.length < 8) {
                 setHasMore(false)
+                await sessionStorage.setItem('listProducts', JSON.stringify([...listProduct, ...response]))
                 return;
             }
             await setIsLoading(false);
@@ -62,6 +63,15 @@ const Index = ({ listPictures }: Props) => {
         }
 
     }
+    useEffect(() => {
+        if (sessionStorage.getItem('listProducts')) {
+            setHasMore(false)
+            setListProduct(JSON.parse(sessionStorage.getItem('listProducts') as string))
+            setIsLoading(false);
+        } else {
+            getProduct()
+        }
+    }, [])
     //non scroll loading
     // useEffect(() => {
     //     const getAllProduct = async () => {
