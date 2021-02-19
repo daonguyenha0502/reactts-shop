@@ -27,19 +27,19 @@ let settings = {
 const Index = ({ listPictures }: Props) => {
     ScrollToTop()
     const [listProduct, setListProduct] = useState<itemType[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const getAllProduct = async () => {
             if (sessionStorage.getItem('listProducts')) {
                 setListProduct(JSON.parse(sessionStorage.getItem('listProducts') as string))
-                await setIsLoading(true);
+                await setIsLoading(false);
             } else {
                 try {
                     const response: any = await productApi.getAll();
                     //console.log(response)
                     setListProduct(response);
-                    await setIsLoading(true);
+                    await setIsLoading(false);
                     await sessionStorage.setItem('listProducts', JSON.stringify(response)) as any
                 } catch (error) {
                     console.log('Failed to fetch product list: ', error);

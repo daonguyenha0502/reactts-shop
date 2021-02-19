@@ -21,7 +21,7 @@ const InputField = ({
             <label className="font-bold ml-4" htmlFor={name}>{labelContent} </label>
             <div className="mb-2 w-92">
                 <input
-                    className="text-lg ml-3 w-64 sm:w-80 pl-2 py-3 focus:border-blue-500 focus:outline-none border border-gray-900 rounded-md"
+                    className="text-lg ml-3 w-80 pl-2 py-3 focus:border-blue-500 focus:outline-none border border-gray-900 rounded-md"
                     type={typeInput}
                     name={name}
                     id={name}

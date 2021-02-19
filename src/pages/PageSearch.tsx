@@ -12,50 +12,45 @@ interface Props {
 const PageSearch = (props: Props) => {
     ScrollToTop()
     const [listProduct, setListProduct] = useState<itemType[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     let location = useLocation()
     useEffect(() => {
+        setIsLoading(true)
         let { search } = location
         let query = search.slice(3, search.length)
-        console.log(query)
-        const searchProduct = async () => {
-            try {
-                const response: any = await productApi.searchProduct(query);
-                console.log(response)
-                setListProduct(response);
-                await setIsLoading(true);
-            } catch (error) {
-                console.log('Failed to fetch product list: ', error);
-            }
-        };
-        searchProduct()
-
+        //console.log(query)
+        if (query) {
+            const searchProduct = async () => {
+                try {
+                    const response: any = await productApi.searchProduct(query);
+                    //console.log(response)
+                    setListProduct(response);
+                    await setIsLoading(false);
+                } catch (error) {
+                    console.log('Failed to fetch product list: ', error);
+                }
+            };
+            searchProduct()
+        } else {
+            setListProduct([]);
+            setIsLoading(false);
+        }
     }, [location.search]);
-    if (listProduct.length !== 0) {
-        return (
-            <div className="mt-16">
-                <h1 className="text-3xl">Result for <span className="text-red-600">{location.search.slice(3, location.search.length)}</span></h1>
-                <Helmet>
-                    <meta charSet="utf-8" />
-                    <title>Search</title>
-                    <link rel="canonical" href="cpt-ha.web.app" />
-                </Helmet>
-                <ListProducts listProduct={listProduct} isLoading={isLoading} />
-            </div>
-        )
-    } else {
-        return (
-            <div className="mt-40">
-                <Helmet>
-                    <meta charSet="utf-8" />
-                    <title>Search</title>
-                    <link rel="canonical" href="cpt-ha.web.app" />
-                </Helmet>
-                <h1 className="text-3xl">Not found product <span className="text-red-600">{location.search.slice(3, location.search.length)}</span></h1>
-            </div>
-        )
-    }
+    return (
+        <div className="mt-16">
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Search</title>
+                <link rel="canonical" href="cpt-ha.web.app" />
+            </Helmet>
+            <h1 className="text-3xl">Result for <span className="text-red-600">{location.search.slice(3, location.search.length)}</span></h1>
+            {isLoading ? (<ListProducts listProduct={listProduct} isLoading={isLoading} />) : (<>
+                {listProduct.length === 0 ? (<h1 className="text-3xl mt-40">Not found product <span className="text-red-600">{location.search.slice(3, location.search.length)}</span></h1>) : (<ListProducts listProduct={listProduct} isLoading={isLoading} />)}
+            </>
+            )}
 
+        </div>
+    )
 }
 
 export default PageSearch

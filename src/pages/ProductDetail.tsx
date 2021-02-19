@@ -9,9 +9,7 @@ import productApi from '../api/productApi';
 
 import CustomSlider from '../components/Carousel';
 import { addToCart } from '../app/cartsSlice';
-
-
-
+import './CustomImage.css';
 
 interface Props {
 }
@@ -30,7 +28,7 @@ export default function ProductDetail() {
 
         const dispatch = useDispatch();
     const handleAddToCart = (product: itemType) => {
-        console.log('addtoCart: ', product);
+        //console.log('addtoCart: ', product);
         const action = addToCart(product);
         dispatch(action);
         toast.info(`🦄 ${product.name} added to cart`, {
@@ -48,7 +46,7 @@ export default function ProductDetail() {
     useEffect(() => {
         const getProductDetail = async (id: string) => {
             const product: any = await productApi.get(id)
-            console.log(product)
+            //console.log(product)
             setProductDetail(product);
             setPictures(await product.img.split(','))
             //await setIsLoading(true);
