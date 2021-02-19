@@ -30,10 +30,11 @@ const ListProducts = ({ listProduct, isLoading }: Props) => {
             progress: undefined,
         });
     }
+
     return (
         <div className="w-5/6 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 2xl:w-3/4 grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 gap-9 justify-items-center mt-5 mx-auto">
             {
-                !isLoading ? (listProduct.map((product) => (
+                !isLoading ? (listProduct.filter((v, i, a) => a.findIndex(t => (t._id === v._id && t.name === v.name)) === i).map((product) => (
                     <CardProduct
                         key={product._id}
                         onAdd={handleAddToCart}
