@@ -50,9 +50,23 @@ export interface itemType {
 let pictures: string[] = ["https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517602/shop/other/sl3_j9d1sa.png", "https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517607/shop/other/sl2_w0zrzi.png", "https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517613/shop/other/sl1_hotjpl.png"]
 
 function App({ }: AppProps) {
+    const [hiddenScroll, setHiddenScroll] = useState<boolean | true>(true)
     function handleUpTop() {
         window.scroll(0, 0)
     }
+    const heightScreen = window.innerHeight
+    function handleGetPositionScroll() {
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > heightScreen) {
+                setHiddenScroll(false)
+            } else {
+                setHiddenScroll(true)
+            }
+        })
+    }
+    useEffect(() => {
+        handleGetPositionScroll()
+    }, [])
 
     return (
         <Router basename="/">
@@ -100,9 +114,12 @@ function App({ }: AppProps) {
                     pauseOnHover
                     limit={4}
                 />
-                <div onClick={() => handleUpTop()} className="fixed bottom-12 right-6 cursor-pointer" title="Scroll Back to Top" >
-                    <FontAwesomeIcon icon={faArrowAltCircleUp} size="lg" />
-                </div>
+                {
+                    !hiddenScroll && (<div onClick={() => handleUpTop()} className="fixed bottom-12 right-6 cursor-pointer" title="Scroll Back to Top" >
+                        <FontAwesomeIcon icon={faArrowAltCircleUp} size="lg" />
+                    </div>)
+                }
+
 
             </div>
         </Router>

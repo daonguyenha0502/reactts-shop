@@ -15,12 +15,11 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: ['toasts']
+    blacklist: []
 
 }
 
 const rootReducer = combineReducers({ carts: cartReducer.reducer })
-
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

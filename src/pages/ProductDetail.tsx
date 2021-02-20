@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import {useDispatch} from 'react-redux'
-import {  toast } from 'react-toastify';
-import {Helmet} from 'react-helmet-async'
+import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet-async'
 
 import type { itemType } from '../App';
 import productApi from '../api/productApi';
 
 import CustomSlider from '../components/Carousel';
 import { addToCart } from '../app/cartsSlice';
-import './CustomImage.css';
+import './CustomImage.css'
+import SkeletonDetailProduct from '../components/SkeletonDetailProduct';
 
 interface Props {
 }
 
-interface Product{
+interface Product {
     guarantee: string
     idProduct: itemType
     img: string
@@ -24,9 +25,10 @@ interface Product{
 
 export default function ProductDetail() {
     const [productDetail, setProductDetail] = useState<Product | null>(null)
-    const [pictures, setPictures] = useState<string[]|[]>([])
+    const [pictures, setPictures] = useState<string[] | []>([])
+    const [isLoading, setIsLoading] = useState<boolean | true>(true)
 
-        const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const handleAddToCart = (product: itemType) => {
         //console.log('addtoCart: ', product);
         const action = addToCart(product);
@@ -39,21 +41,26 @@ export default function ProductDetail() {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            });
+        });
     }
 
-    let { id }:any = useParams()
+    let { id }: any = useParams()
     useEffect(() => {
         const getProductDetail = async (id: string) => {
             const product: any = await productApi.get(id)
             //console.log(product)
-            setProductDetail(product);
-            setPictures(await product.img.split(','))
-            //await setIsLoading(true);
+            if (!product.error) {
+                setProductDetail(product);
+                setPictures(await product.img.split(','))
+            } else {
+                setProductDetail(null);
+                setPictures([])
+            }
+            await setIsLoading(false);
         };
         getProductDetail(id);
     }, [id])
-    
+
 
     const settings = {
         appendDots: (customDots: any) => (
@@ -85,15 +92,15 @@ export default function ProductDetail() {
         //slidesToShow: 1,
         //slidesToScroll: 1,
     }
-    if (productDetail ) {
+    if (productDetail) {
         return (
             <>
-            <Helmet>
-                <meta charSet="utf-8" />
-        <title>{productDetail.idProduct.name}</title>
-                <link rel="canonical" href="cpt-ha.web.app" />
-            </Helmet>
-            
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>{productDetail.idProduct.name}</title>
+                    <link rel="canonical" href="cpt-ha.web.app" />
+                </Helmet>
+
                 <div className="h-auto my-6 mx-auto max-w-5xl" >
                     {/*content*/}
                     <div className=" border-0 mt-12 rounded-lg shadow-lg  flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -103,21 +110,21 @@ export default function ProductDetail() {
 
                         </div>
                         {/*body*/}
-                        <div className="px-12 py-6 flex">
+                        <div className="px-12 py-6 sm:flex-row md:flex">
                             <div className="w-80 h-auto -mt-12">
                                 <CustomSlider settings={settings} listPictures={pictures} />
                             </div >
-                            <div className="w-full h-auto text-left mb-4 pl-4">
+                            <div className="mt-14 md:mt-0 w-full h-auto text-left mb-4 pl-4">
                                 <p className="my-4  text-lg leading-relaxed">
-                                Company: <span className="text-gray-600">{productDetail.idProduct.company}</span></p>
-                                
+                                    Company: <span className="text-gray-600">{productDetail.idProduct.company}</span></p>
+
                                 <p className="my-4 text-lg leading-relaxed">
-                                Price: <span className="text-gray-600 line-through">{(productDetail.idProduct.price).toLocaleString("en-US")}đ</span> -  
-                                {' '}<span className="text-red-500">{(productDetail.idProduct.price - Math.ceil((productDetail.idProduct.price/10000 * productDetail.idProduct.sale /100))*10000).toLocaleString('en-US')}đ</span></p>
+                                    Price: <span className="text-gray-600 line-through">{(productDetail.idProduct.price).toLocaleString("en-US")}đ</span> -
+                                {' '}<span className="text-red-500">{(productDetail.idProduct.price - Math.ceil((productDetail.idProduct.price / 10000 * productDetail.idProduct.sale / 100)) * 10000).toLocaleString('en-US')}đ</span></p>
                                 <p className="my-4 text-red-500 text-lg leading-relaxed">
-                                Sale: <span className="text-gray-600 ">{productDetail.idProduct.sale}%</span></p>
+                                    Sale: <span className="text-gray-600 ">{productDetail.idProduct.sale}%</span></p>
                                 <p className="my-4 text-lg leading-relaxed">Amount: <span className="text-gray-600">{productDetail.idProduct.amount - productDetail.idProduct.sold}</span></p>
-        <p>Information: <span className="text-gray-600">{productDetail.info}</span></p>
+                                <p>Information: <span className="text-gray-600">{productDetail.info}</span></p>
                                 <div>
                                     <button
                                         className="bg-blue-600 active:bg-blue-400 focus:outline-none hover:bg-blue-800  px-4 py-2 z-20 rounded-md mt-2 font-semibold text-white"
@@ -147,25 +154,15 @@ export default function ProductDetail() {
         );
     } else {
         return (
-            <div>
-                asdasfasds
-                 asdasfasds
-                  asdasfasds
-                   asdasfasds
+            !isLoading ? (<div className="mt-48">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>Product</title>
+                    <link rel="canonical" href="cpt-ha.web.app" />
+                </Helmet>
+                <h1 className="text-4xl text-red-600">Something went wrong 🤣</h1>
+            </div>) : (<SkeletonDetailProduct />)
 
-                    asdasfasds
-                     asdasfasds
-                      asdasfasds
-                       asdasfasds
-
-                        asdasfasds
-                         asdasfasds
-                          asdasfasds
-                           asdasfasds
-                            asdasfasds
-                            
-               
-            </div>
         )
     }
 

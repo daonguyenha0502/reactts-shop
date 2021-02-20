@@ -4,7 +4,7 @@ import queryString from 'query-string';
 // Set up default config for http requests here
 // Please have a look at here `https://github.com/axios/axios#request- config` for the full list of configs
 const axiosClient = axios.create({
-    baseURL: "https://gearshop.glitch.me/api/",
+    baseURL: import.meta.env.SNOWPACK_PUBLIC_APP_API_URL,
     headers: {
         'content-type': 'application/json',
     },
@@ -13,6 +13,12 @@ const axiosClient = axios.create({
 
 // axiosClient.interceptors.request.use(async (config) => {
 //     // Handle token here ...
+//     const currentUser = firebase.auth().currentUser;
+//     if (currentUser) {
+//         const token = await currentUser.getIdToken();
+//         config.headers.Authorization = `Bearer ${token}`;
+//     }
+
 //     return config;
 // });
 
