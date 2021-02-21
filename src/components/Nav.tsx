@@ -9,8 +9,10 @@ import Menu from './Menu';
 import type { itemType } from 'src/App';
 import { faReact } from '@fortawesome/free-brands-svg-icons';
 import { useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { deleteToken } from '../app/userSlice'
 import type { RootState } from '../app/store';
+import { toast } from 'react-toastify';
 
 interface Props {
 
@@ -21,7 +23,8 @@ const Nav = ({ }: Props) => {
     const [search, setSearch] = useState('');
     const [isOpenMenu, setIsOpenMenu] = useState<boolean | false>(false);
     const carts = useSelector((state: RootState) => state.carts);
-
+    const users = useSelector((state: RootState) => state.users)
+    const dispatch = useDispatch()
     const pathName = useLocation();
     const refSearch = useRef<HTMLInputElement | null>(null);
     let history = useHistory()
@@ -29,6 +32,18 @@ const Nav = ({ }: Props) => {
         //console.log(search);
         history.push(`/search?q=${search}`);
     };
+    const handleLogOut = () => {
+        dispatch(deleteToken())
+        toast.info(`Logout`, {
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
 
     const onSubmit = (e: any) => {
         e.preventDefault();
@@ -48,21 +63,30 @@ const Nav = ({ }: Props) => {
             <nav className="lg:flex w-full h-12 bg-gray-800 fixed top-0 z-50">
                 <ul className="h-12 lg:w-1/2 sm:w-full w-full justify-center flex space-x-4 items-center">
                     <li className="w-36 h-auto text-white">
-                        <Link to="/">
+                        <Link className="cursor-pointer" to="/">
                             <FontAwesomeIcon icon={faReact} size="2x" />
                         </Link>
                     </li>
                     <li className="w-36 text-white">
-                        <Link to="/cart">
+                        <Link className="cursor-pointer" to="/cart">
                             <LinkItemCart cartItems={carts} /> <span className={pathName.pathname === '/cart' ? "border-gray-200 border-b-2" : ""}>Cart</span>
                         </Link>
                     </li>
-                    <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
-                        <Link to="/login"><span className={pathName.pathname === '/login' ? "border-gray-200 border-b-2" : ""}>Login</span></Link>
+
+                    {!users.accessToken ? (<><li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
+                        <Link className="cursor-pointer" to="/login"><span className={pathName.pathname === '/login' ? "border-gray-200 border-b-2" : ""}>Login</span></Link>
                     </li>
-                    <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
-                        <Link to="/register"><span className={pathName.pathname === '/register' ? "border-gray-200 border-b-2" : ""}>Register</span></Link>
-                    </li>
+                        <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
+                            <Link className="cursor-pointer" to="/register"><span className={pathName.pathname === '/register' ? "border-gray-200 border-b-2" : ""}>Register</span></Link>
+                        </li></>) : (<><li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
+                            <Link to="/profile"><span className={pathName.pathname === '/profile' ? "border-gray-200 border-b-2" : ""}>Profile</span></Link>
+                        </li>
+                            <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
+                                <Link className="cursor-pointer" to="/" onClick={() => handleLogOut()}><span className={pathName.pathname === '/logout' ? "border-gray-200 border-b-2" : ""}>Logout</span></Link>
+                            </li></>)}
+
+
+
                     <li
                         className="w-36 block sm:block md:block lg:hidden cursor-pointer"
                         onClick={() => setIsOpenMenu(!isOpenMenu)}

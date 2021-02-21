@@ -12,7 +12,6 @@ const cart = createSlice({
             const isItemInCart = state.find((item: itemType) => item._id === action.payload._id);
 
             if (isItemInCart) {
-
                 return (state as itemType[]).map((item: itemType) =>
                     item._id === action.payload._id
                         ? { ...item, cartAmount: item.cartAmount + 1 }

@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/dist/yup'
 import * as yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async'
 
 import userApi from '../api/userApi'
 
 import { InputField, Error } from '../components/InputField';
+import { useSelector, useDispatch } from 'react-redux';
+import { saveToken } from '../app/userSlice'
 
 interface Props { }
 
@@ -18,9 +20,20 @@ const loginSchema = yup.object().shape({
 
 const Login = (props: Props) => {
     const [errorLogin, setErrorLogin] = useState<string | null>(null)
+    const history = useHistory()
+    const dispatch = useDispatch()
     async function Login(info: any) {
         const response: any = await userApi.login(info)
-        console.log(response)
+        if (response.accessToken && response.refreshToken) {
+            //console.log(response)
+            const action = saveToken(response)
+            dispatch(action)
+            console.log('save token')
+            history.push('/')
+        } else {
+            console.log(response)
+        }
+        //console.log()
     }
     const { register, handleSubmit, errors } = useForm({ resolver: yupResolver(loginSchema) });
     const onSubmit = (data: any) => {
