@@ -2,10 +2,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/dist/yup';
 import * as yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async'
 
 import { InputField, Error } from '../components/InputField';
+import userApi from '../api/userApi';
+import { toast } from 'react-toastify';
 
 
 const registerSchema = yup.object().shape({
@@ -27,10 +29,29 @@ const registerSchema = yup.object().shape({
 interface Props { }
 
 const Register = (props: Props) => {
+    const history = useHistory()
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(registerSchema),
     });
-    const onSubmit = (data: any) => console.log(data);
+    const onSubmit = async (data: any) => {
+        console.log(data)
+        const response: any = await userApi.register(JSON.stringify(data))
+        if (response === 'Registered') {
+            history.push('/login')
+            toast.info(`Registered, login please!`, {
+                position: "bottom-center",
+                autoClose: 4000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        } else {
+            console.log(response)
+        }
+
+    };
     if (errors) {
         // console.log(errors.password);
         //console.log(errors.email);

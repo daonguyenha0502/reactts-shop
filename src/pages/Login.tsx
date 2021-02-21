@@ -10,6 +10,7 @@ import userApi from '../api/userApi'
 import { InputField, Error } from '../components/InputField';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveToken } from '../app/userSlice'
+import { toast } from 'react-toastify';
 
 interface Props { }
 
@@ -30,6 +31,15 @@ const Login = (props: Props) => {
             dispatch(action)
             console.log('save token')
             history.push('/')
+            toast.info(`You are logged in`, {
+                position: "bottom-center",
+                autoClose: 4000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         } else {
             console.log(response)
         }
