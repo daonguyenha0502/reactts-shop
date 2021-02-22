@@ -14,8 +14,12 @@ module.exports = {
             },
             height: {
                 '120': '30rem'
+            },
+            minHeight: {
+                '32': '8rem'
             }
         },
+
     },
     variants: {
         extend: {

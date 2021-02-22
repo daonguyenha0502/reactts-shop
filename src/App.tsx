@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import './App.css';
 
 import Nav from './components/Nav';
-import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Index from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
