@@ -15,6 +15,7 @@ interface Props {
 }
 
 const ListProducts = ({ listProduct, isLoading }: Props) => {
+    //console.log('lisproduct')
     const dispatch = useDispatch();
     const handleAddToCart = (product: itemType) => {
         console.log('addtoCart: ', product);

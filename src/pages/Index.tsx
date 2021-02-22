@@ -64,6 +64,7 @@ const Index = ({ listPictures }: Props) => {
 
     }
     useEffect(() => {
+
         if (sessionStorage.getItem('listProducts')) {
             setHasMore(false)
             setListProduct(JSON.parse(sessionStorage.getItem('listProducts') as string))

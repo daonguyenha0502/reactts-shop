@@ -1,7 +1,6 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import jwt_decode from "jwt-decode";
-import userApi from './userApi'
 
 // Set up default config for http requests here
 // Please have a look at here `https://github.com/axios/axios#request- config` for the full list of configs
@@ -35,7 +34,7 @@ const myInterceptor = axiosClient.interceptors.request.use(async (config) => {
     if (accessToken) {
         const token = accessToken;
         const decodeAccessToken: any = await jwt_decode(token);
-        console.log(decodeAccessToken)
+        //console.log(decodeAccessToken)
         if (decodeAccessToken.exp < (Date.now() / 1000)) {
             //axios.interceptors.request.eject(myInterceptor);
             console.log("Token expire")

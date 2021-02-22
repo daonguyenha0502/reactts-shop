@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import PageSearch from './pages/PageSearch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
+import PageTypeProducts from './pages/PageTypeProducts';
 
 
 export function ScrollToTop(): any {
@@ -92,6 +93,9 @@ function App({ }: AppProps) {
                     </Route>
                     <Route exact path="/search">
                         <PageSearch />
+                    </Route>
+                    <Route exact path="/products">
+                        <PageTypeProducts />
                     </Route>
 
                     <Route

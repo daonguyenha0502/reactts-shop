@@ -13,6 +13,10 @@ const productApi = {
     searchProduct: (name: string) => {
         const url = `/search?q=${name}`
         return axiosClient.get(url);
+    },
+    searchByType: (type: string) => {
+        const url = `/search/${type}`
+        return axiosClient.get(url);
     }
 }
 
