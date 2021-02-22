@@ -13,7 +13,22 @@ const axiosClient = axios.create({
     paramsSerializer: params => queryString.stringify(params),
 });
 
-axiosClient.interceptors.request.use(async (config) => {
+const getToken = (token: string) => {
+    axios.post('https://gearshop.glitch.me/api/getToken', {
+        token: token,
+    })
+        .then(function (response: any) {
+            //console.log(response.data);
+            if (response.data.accessToken) {
+                localStorage.setItem("accessToken", response.data.accessToken)
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+const myInterceptor = axiosClient.interceptors.request.use(async (config) => {
     // Handle token here ...
     const accessToken = await localStorage.getItem("accessToken")
     const refreshToken = await localStorage.getItem("refreshToken")
@@ -21,11 +36,14 @@ axiosClient.interceptors.request.use(async (config) => {
         const token = accessToken;
         const decodeAccessToken: any = await jwt_decode(token);
         console.log(decodeAccessToken)
-        if (decodeAccessToken.exp < Date.now() / 1000) {
+        if (decodeAccessToken.exp < (Date.now() / 1000)) {
+            //axios.interceptors.request.eject(myInterceptor);
             console.log("Token expire")
-            //userApi.getToken({ "refreshToken": refreshToken })
+            if (refreshToken) { getToken(refreshToken) }
+        } else {
+            config.headers.Authorization = `Bearer ${token}`;
         }
-        config.headers.Authorization = `Bearer ${token}`;
+
     }
 
     return config;
@@ -43,4 +61,5 @@ axiosClient.interceptors.response.use((response) => {
     throw error;
 });
 
+export { myInterceptor }
 export default axiosClient;

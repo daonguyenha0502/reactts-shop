@@ -10,11 +10,6 @@ const userApi = {
         const url = '/register';
         console.log(info)
         return axiosClient.post(url, info);
-    },
-    getToken: (info: any) => {
-        const url = '/getToken';
-        console.log(info)
-        return axiosClient.post(url, info);
     }
 }
 
