@@ -6,6 +6,18 @@ html {
   font-size: 20px;
   scroll-behavior: smooth;
 }
+@media (min-width: 320px) {
+  html {
+  font-size: 12px;
+  scroll-behavior: smooth;
+}
+    .Toastify__toast-container {
+    width: 100vw !important;
+}
+    .Toastify__toast{
+    margin-bottom: 0.5rem !important;
+}
+}
 
 @media (min-width: 375px) {
   html {

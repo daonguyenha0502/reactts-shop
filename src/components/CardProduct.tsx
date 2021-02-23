@@ -16,7 +16,7 @@ const CardProduct = ({ product, onAdd }: Props) => {
             <div className="relative w-56 sm:w-56 md:w-60 lg:w-56 xl:w-52 2xl:w-full h-96 bg-white rounded-md shadow-lg border border-gray-500 ">
                 <Link to={`products/${product._id}`}>
                     <div className="w-full flex justify-between absolute left-1 top-2 z-10">
-                        <div className="flex-col text-sm font-bold">
+                        {product.sale !== 0 ? (<div className="flex-col text-sm font-bold">
                             <div>
                                 <span className="line-through">
                                     {product.price.toLocaleString('en-US')}
@@ -27,9 +27,19 @@ const CardProduct = ({ product, onAdd }: Props) => {
                                 {(product.price - Math.ceil(product.price / 10000 * product.sale / 100) * 10000).toLocaleString('en-US')}
                                 <span> đ</span>
                             </div>
-                        </div>
+                        </div>) : <div className="flex-col text-sm font-bold">
+                                <div>
+                                    <span>
+                                        {product.price.toLocaleString('en-US')}
+                                    </span>
+                                    <span> đ</span>
+                                </div>
+                            </div>
+                        }
+
+
                         {product.sale !== 0 ? (<div
-                            className="bg-no-repeat w-12 h-12 text-center pt-2 pr-2"
+                            className="bg-contain bg-no-repeat w-12 h-12 text-center pt-2 pr-2"
                             style={{ backgroundImage: `url(${imgSale})` }}
                         >
                             -{product.sale}%

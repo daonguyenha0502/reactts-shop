@@ -13,9 +13,9 @@ const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
         <div className="w-92 sm:w-120 h-auto border-gray-800 border rounded-lg leading-5 mb-8">
             <div className="flex min-h-32">
                 <img
-                    className="border-gray-800 border-r py-2 rounded-l-md"
-                    width="150px"
-                    height="auto"
+                    className="border-gray-800 w-28 h-auto border-r py-2 rounded-l-md"
+                    //width="150px"
+                    //height="auto"
                     src={item.img}
                     alt=""
                 />

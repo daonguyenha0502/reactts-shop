@@ -114,7 +114,7 @@ const Index = ({ listPictures }: Props) => {
                 hasMore={hasMore}
                 loader={<Temp />}
                 endMessage={
-                    <p style={{ textAlign: "center", color: "red", fontSize: "30px", marginTop: "10px" }}>
+                    <p style={{ textAlign: "center", color: "red", fontSize: "1.5rem", marginTop: "0.5rem" }}>
                         <b>Out of Product</b>
                     </p>
                 }
