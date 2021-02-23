@@ -20,7 +20,7 @@ const Cart = (props: Props) => {
     const carts = useSelector((state: RootState) => state.carts);
     const dispatch = useDispatch();
     const handleAddToCart = (product: itemType) => {
-        console.log('addtoCart: ', product);
+        //console.log('addtoCart: ', product);
         const action = addToCart(product);
         dispatch(action);
         toast.info(`🦄 ${product.name} added to cart`, {
@@ -34,11 +34,9 @@ const Cart = (props: Props) => {
         });
     }
     const handleReducerFromCart = (product: itemType) => {
-        console.log('reducer: ', product);
+        //console.log('reducer: ', product);
         const action = reducerCart(product);
         dispatch(action);
-        // const actionToast = setStateToast({ data: product, state: true, type: "W" })
-        // dispatch(actionToast)
         toast.warning(`🦄 ${product.name} reducer from cart`, {
             position: "bottom-center",
             autoClose: 4000,

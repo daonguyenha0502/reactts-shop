@@ -22,6 +22,7 @@ let settings = {
     fade: true,
     autoplaySpeed: 5000,
     autoplay: true,
+    lazyLoad: "ondemand"
 };
 
 const Temp = () => {

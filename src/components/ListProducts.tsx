@@ -18,7 +18,7 @@ const ListProducts = ({ listProduct, isLoading }: Props) => {
     //console.log('lisproduct')
     const dispatch = useDispatch();
     const handleAddToCart = (product: itemType) => {
-        console.log('addtoCart: ', product);
+        //console.log('addtoCart: ', product);
         const action = addToCart(product);
         dispatch(action);
         toast.info(`🦄 ${product.name} added to cart`, {

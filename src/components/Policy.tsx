@@ -7,18 +7,15 @@ interface Props { }
 const Policy = (props: Props) => {
     return (
         <>
-            <ul className="flex-col text-left w-64 mx-auto pt-10 pl-8">
+            <ul className="flex-col text-left w-72 mx-auto pt-10 pl-8">
                 <li>
-                    <FontAwesomeIcon icon={faHome} />
-          Hà Nội
+                    <FontAwesomeIcon icon={faHome} /> Hà Nội
         </li>
                 <li>
-                    <FontAwesomeIcon icon={faPhone} />
-          0376214088
+                    <FontAwesomeIcon icon={faPhone} /> 0376214088
         </li>
                 <li>
-                    <FontAwesomeIcon icon={faEnvelope} />
-          daonguyenhaxx@gmail.com
+                    <FontAwesomeIcon icon={faEnvelope} /> daonguyxx@gmail.com
         </li>
             </ul>
         </>

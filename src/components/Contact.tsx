@@ -8,7 +8,7 @@ interface Props { }
 function Contact({ }: Props): ReactElement {
     return (
         <>
-            <ul className="flex-col text-left w-64 mx-auto pt-10 pl-8">
+            <ul className="flex-col text-left w-72 mx-auto pt-10 pl-8">
                 <li>
                     <FontAwesomeIcon icon={faHome} /> Hà Nội
         </li>

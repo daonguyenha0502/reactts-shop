@@ -15,7 +15,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PageSearch from './pages/PageSearch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { faCaretSquareUp } from '@fortawesome/free-solid-svg-icons';
 import PageTypeProducts from './pages/PageTypeProducts';
 
 
@@ -119,8 +119,8 @@ function App({ }: AppProps) {
                     limit={4}
                 />
                 {
-                    !hiddenScroll && (<div onClick={() => handleUpTop()} className="fixed bottom-12 right-6 cursor-pointer" title="Scroll Back to Top" >
-                        <FontAwesomeIcon icon={faArrowAltCircleUp} size="lg" />
+                    !hiddenScroll && (<div onClick={() => handleUpTop()} className="fixed bottom-20 right-12 cursor-pointer" title="Scroll Back to Top" >
+                        <FontAwesomeIcon icon={faCaretSquareUp} size="2x" />
                     </div>)
                 }
 
