@@ -17,6 +17,7 @@ import PageSearch from './pages/PageSearch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretSquareUp } from '@fortawesome/free-solid-svg-icons';
 import PageTypeProducts from './pages/PageTypeProducts';
+import CheckOut from './pages/CheckOut';
 
 
 export function ScrollToTop(): any {
@@ -96,6 +97,9 @@ function App({ }: AppProps) {
                     </Route>
                     <Route exact path="/products">
                         <PageTypeProducts />
+                    </Route>
+                    <Route exact path="/checkout">
+                        <CheckOut />
                     </Route>
 
                     <Route
