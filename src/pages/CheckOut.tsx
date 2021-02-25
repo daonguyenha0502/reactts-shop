@@ -14,6 +14,43 @@ type LocationType = {
     value: string;
     label: string;
 };
+const customStyles = {
+    input: (provided: any, state: any) => ({
+        ...provided,
+        margin: 0,
+        fontSize: "1.125rem",
+        lineHeight: "1.75rem",
+        width: "20rem",
+        paddingTop: "0.75rem",
+        paddingBottom: "0.75rem",
+        borderRadius: "0.375rem",
+    }),
+    control: (provided: any, state: any) => ({
+        ...provided,
+        borderRadius: "0.375rem",
+        borderColor: `rgb(17, 24, 39)`,
+        fontSize: "1.125rem",
+        lineHeight: "1.75rem",
+        padding: 0,
+        margin: 0,
+    }),
+    valueContainer: (provided: any, state: any) => ({
+        ...provided,
+        padding: 0,
+        margin: 0,
+        marginLeft: "0.75rem",
+        fontSize: "1.125rem",
+        lineHeight: "1.75rem",
+    }),
+    placeholder: (provided: any, state: any) => ({
+        ...provided,
+        padding: 0,
+        margin: 0,
+        fontSize: "1.125rem",
+        lineHeight: "1.75rem",
+
+    }),
+}
 
 const CheckOut = (props: Props) => {
     const [listCity, setListCity] = useState<LocationType[] | []>([])
@@ -79,29 +116,30 @@ const CheckOut = (props: Props) => {
         <div className="w-5/6 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 2xl:w-3/4 text-left mt-20 mx-auto">
             <h1 className="text-2xl text-red-700 text-center mb-4">This is checkout</h1>
             <div className="mx-auto overflow-y-auto h-1/2 xl:h-5/6 max-w-min mb-4">
-                {carts.map((item) => (<div className="w-92 sm:w-120 h-auto border-gray-800 border rounded-lg leading-5 mb-8">
-                    <div className="flex min-h-32">
-                        <img
-                            className="border-gray-800 w-28 h-auto border-r py-2 rounded-l-md"
-                            //width="150px"
-                            //height="auto"
-                            src={item.img}
-                            alt=""
-                        />
-                        <div className="flex-row text-center w-full py-2 relative">
-                            <div className="flex mx-4">
-                                <p className="text-center text-sm sm:text-base font-bold">
-                                    {item.name}
-                                </p>
+                {carts.map((item) =>
+                    (<div key={item._id} className="w-80 sm:w-100 md:w-120 h-auto border-gray-800 border rounded-lg leading-5 mb-8">
+                        <div className="flex min-h-32">
+                            <img
+                                className="border-gray-800 w-28 h-auto border-r py-2 rounded-l-md"
+                                //width="150px"
+                                //height="auto"
+                                src={item.img}
+                                alt=""
+                            />
+                            <div className="flex-row text-center w-full py-2 relative">
+                                <div className="flex mx-4">
+                                    <p className="text-center text-sm sm:text-base font-bold">
+                                        {item.name}
+                                    </p>
 
-                            </div>
-                            <p>Price: {(item.cartAmount * item.price).toLocaleString()} Đồng</p>
-                            <div className="flex w-full justify-center absolute bottom-2">
+                                </div>
+                                <p>Price: {(item.cartAmount * item.price).toLocaleString()} Đồng</p>
+                                <div className="flex w-full justify-center absolute bottom-2">
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>))
+                    </div>))
 
                 }
             </div>
@@ -114,42 +152,48 @@ const CheckOut = (props: Props) => {
 
                 </div>
                 <div>
+
                     <InputField labelContent="Street address" name="street" register={register} typeInput="text" />
-                    <p className="text-base font-bold py-2 ml-3">City</p>
+
+
+                    <p className="text-base font-bold ml-3">City</p>
                     <Select
                         onChange={(data: any) => { setCurrentCity(data) }}
-                        className="text-lg ml-3 w-80 focus:border-blue-500 focus:outline-none border border-gray-900 rounded-sm"
+                        className="text-lg ml-3 w-80 focus:border-blue-500 focus:outline-none rounded-sm mb-2"
                         classNamePrefix="select"
                         //value={currentCity}
                         //defaultValue={options[0]}
-                        isClearable={true}
+                        //isClearable={true}
                         isSearchable={true}
-                        name="color"
+                        name="city"
                         options={listCity}
+                        styles={customStyles}
                     />
-                    <p className="text-base py-2 font-bold ml-3">District</p>
+                    <p className="text-base font-bold ml-3">District</p>
                     <Select
                         onChange={(data) => { if (data) { setCurrentDistrict(data) } }}
-                        className="text-lg w-80 ml-3 focus:border-blue-500 focus:outline-none border border-gray-900 rounded-sm"
+                        className="text-lg ml-3 w-80 focus:border-blue-500 focus:outline-none rounded-sm mb-2"
                         classNamePrefix="select"
                         value={currentDistrict}
                         //defaultValue={options[0]}
-                        isClearable={true}
+                        //isClearable={true}
                         isSearchable={true}
-                        name="color"
+                        name="district"
                         options={listDistrict}
+                        styles={customStyles}
                     />
-                    <p className="text-base font-bold py-2 ml-3">Ward</p>
+                    <p className="text-base font-bold ml-3">Ward</p>
                     <Select
                         onChange={(data) => { if (data) { setCurrentWard(data) } }}
-                        className="text-lg w-80 ml-3 focus:border-blue-500 focus:outline-none border border-gray-900 rounded-sm"
+                        className="text-lg ml-3 w-80 focus:border-blue-500 focus:outline-none rounded-sm mb-2"
                         classNamePrefix="select"
                         value={currentWard}
                         //defaultValue={options[0]}
-                        isClearable={true}
+                        //isClearable={true}
                         isSearchable={true}
-                        name="color"
+                        name="ward"
                         options={listWard}
+                        styles={customStyles}
                     />
                     <input className="text-white hover:text-black py-2 mt-4 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400" type="submit" />
                 </div>

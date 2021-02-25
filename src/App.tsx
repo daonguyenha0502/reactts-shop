@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretSquareUp } from '@fortawesome/free-solid-svg-icons';
 import PageTypeProducts from './pages/PageTypeProducts';
 import CheckOut from './pages/CheckOut';
+//import TestCheckOut from './pages/TestCheckOut';
 
 
 export function ScrollToTop(): any {
