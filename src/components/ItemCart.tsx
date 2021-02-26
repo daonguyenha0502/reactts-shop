@@ -29,8 +29,11 @@ const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
                         </button>
                     </div>
 
+                    <div className="flex space-x-4 w-full justify-center">
+                        <p>Price: {(item.cartAmount * item.price).toLocaleString()} Đồng</p>
+                        <p className="text-red-700">Sale: {item.sale}%</p>
+                    </div>
 
-                    <p>Price: {(item.cartAmount * item.price).toLocaleString()} Đồng</p>
                     <div className="flex w-full justify-center absolute bottom-2">
                         <button
                             className="px-7 rounded-md py-1 focus:outline-none bg-blue-600 hover:bg-blue-500 text-xl "
