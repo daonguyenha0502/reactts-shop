@@ -11,6 +11,47 @@ import { useSelector } from 'react-redux'
 import type { RootState } from '../app/store';
 import ListProductOnCheckout from '../components/ListProductOnCheckout';
 
+//zalo pay
+//import HmacSHA256 from 'crypto-js/hmac-sha256.js';
+import CryptoJS from 'crypto-js'
+import moment from 'moment'
+import axios from 'axios'
+const configZalo = {
+    app_id: "2553",
+    key1: "PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL",
+    key2: "kLtgPl8HHhfvMuDHPwKfgfsY4Ydm9eIz",
+    endpoint: "https://sb-openapi.zalopay.vn/v2/create"
+}
+
+const ZaloPay = async () => {
+    const embed_data = {};
+
+    const items = [{}];
+    const transID = Math.floor(Math.random() * 1000000);
+    const order = {
+        app_id: configZalo.app_id,
+        app_trans_id: `${moment().format('YYMMDD')}_${transID}`, // translation missing: vi.docs.shared.sample_code.comments.app_trans_id
+        app_user: "Haaaa",
+        app_time: Date.now(), // miliseconds
+        item: JSON.stringify(items),
+        embed_data: JSON.stringify(embed_data),
+        amount: 50000,
+        description: `Test Payment for the order by H #${transID}`,
+        bank_code: "zalopayapp",
+        mac: ""
+    };
+
+    // appid|app_trans_id|appuser|amount|apptime|embeddata|item
+    const data = await configZalo.app_id + "|" + order.app_trans_id + "|" + order.app_user + "|" + order.amount + "|" + order.app_time + "|" + order.embed_data + "|" + order.item;
+    order.mac = await CryptoJS.HmacSHA256(data, configZalo.key1).toString();
+    console.log(order)
+    axios.post(configZalo.endpoint, null, { params: order })
+        .then(res => {
+            console.log(res.data);
+        })
+        .catch(err => console.log(err));
+}
+
 interface Props {
 
 }
@@ -68,6 +109,11 @@ const customStyles = {
 }
 
 const CheckOut = (props: Props) => {
+
+    const handlePayment = () => {
+        ZaloPay()
+    }
+
     const user = useSelector((state: RootState) => state.users)
     const [stateCheckout, setStateCheckout] = useState<TypeCheckout | 'VIEW_CART'>('VIEW_CART')
     const [errorsLocation, setErrorsLocation] = useState<boolean | false>(false)
@@ -270,6 +316,7 @@ const CheckOut = (props: Props) => {
 
 
                     </form>
+                    <button className="bg-red-700 px-6 py-3" onClick={() => handlePayment()}>tets</button>
 
                 </div>) : (<div className="p-4">
                     <p className="mt-40 text-4xl font-bold text-red-600">Please login to checkout</p>
