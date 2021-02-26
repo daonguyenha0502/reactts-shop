@@ -6,7 +6,8 @@ interface Props {
     labelContent: string;
     typeInput: string;
     register: any;
-    autocomplete?: string
+    autocomplete?: string,
+    pattern?: string
 }
 
 const InputField = ({
@@ -14,7 +15,8 @@ const InputField = ({
     typeInput,
     labelContent,
     register,
-    autocomplete
+    autocomplete,
+    pattern
 }: Props) => {
     return (
         <>
@@ -29,6 +31,7 @@ const InputField = ({
                     id={name}
                     ref={register()}
                     autoComplete={autocomplete}
+                    pattern={pattern}
                 />
             </div>
         </>

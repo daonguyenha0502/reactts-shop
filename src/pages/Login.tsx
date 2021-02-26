@@ -26,10 +26,10 @@ const Login = (props: Props) => {
     async function Login(info: any) {
         const response: any = await userApi.login(info)
         if (response.accessToken && response.refreshToken) {
-            //console.log(response)
+            console.log(response)
             const action = saveToken(response)
             dispatch(action)
-            console.log('save token')
+            //console.log('save token')
             history.push('/')
             toast.info(`You are logged in`, {
                 position: "bottom-center",
@@ -41,7 +41,8 @@ const Login = (props: Props) => {
                 progress: undefined,
             });
         } else {
-            console.log(response)
+            //console.log(response)
+            setErrorLogin(response)
         }
         //console.log()
     }
@@ -86,6 +87,7 @@ const Login = (props: Props) => {
                 {errors.password?.type === "matches" && <Error error="Password is invalid" />}
                 {errors.password?.type === "min" && <Error error="Min is 6" />}
                 {errors.password?.type === "max" && <Error error="Max is 50" />}
+                {errorLogin && <Error error={errorLogin} />}
                 <div className="mb-3 w-max mx-auto">
                     <button className="bg-blue-600 w-24 text-white py-2 focus:outline-none active:bg-blue-500 rounded px-4 hover:bg-red-600" type="submit" >Login</button>
                     <button className="bg-green-600 w-24 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700 ml-2"><Link to="/register">Register</Link></button>

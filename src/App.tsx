@@ -68,6 +68,7 @@ function App({ }: AppProps) {
         })
     }
     useEffect(() => {
+        //bug
         handleGetPositionScroll()
     }, [])
 

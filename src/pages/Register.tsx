@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/dist/yup';
 import * as yup from 'yup';
@@ -30,6 +30,7 @@ interface Props { }
 
 const Register = (props: Props) => {
     const history = useHistory()
+    const [errorRegister, setErrorRegister] = useState<string | null>(null)
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(registerSchema),
     });
@@ -48,7 +49,8 @@ const Register = (props: Props) => {
                 progress: undefined,
             });
         } else {
-            console.log(response)
+            //console.log(response)
+            setErrorRegister(response)
         }
 
     };
@@ -114,6 +116,9 @@ const Register = (props: Props) => {
                 )}
                 {errors.re_password?.type === 'match' && (
                     <Error error={errors.re_password.message} />
+                )}
+                {errorRegister && (
+                    <Error error={errorRegister} />
                 )}
 
                 <div className="mt-4 w-max mx-auto">
