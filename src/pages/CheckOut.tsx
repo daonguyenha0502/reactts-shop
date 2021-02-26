@@ -12,45 +12,19 @@ import type { RootState } from '../app/store';
 import ListProductOnCheckout from '../components/ListProductOnCheckout';
 
 //zalo pay
-//import HmacSHA256 from 'crypto-js/hmac-sha256.js';
 import CryptoJS from 'crypto-js'
 import moment from 'moment'
 import axios from 'axios'
+import type { itemType } from '../App';
+import cart from 'src/app/cartsSlice';
+import { useHistory } from 'react-router-dom';
 const configZalo = {
     app_id: "2553",
     key1: "PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL",
     key2: "kLtgPl8HHhfvMuDHPwKfgfsY4Ydm9eIz",
     endpoint: "https://sb-openapi.zalopay.vn/v2/create"
 }
-
-const ZaloPay = async () => {
-    const embed_data = {};
-
-    const items = [{}];
-    const transID = Math.floor(Math.random() * 1000000);
-    const order = {
-        app_id: configZalo.app_id,
-        app_trans_id: `${moment().format('YYMMDD')}_${transID}`, // translation missing: vi.docs.shared.sample_code.comments.app_trans_id
-        app_user: "Haaaa",
-        app_time: Date.now(), // miliseconds
-        item: JSON.stringify(items),
-        embed_data: JSON.stringify(embed_data),
-        amount: 50000,
-        description: `Test Payment for the order by H #${transID}`,
-        bank_code: "zalopayapp",
-        mac: ""
-    };
-
-    // appid|app_trans_id|appuser|amount|apptime|embeddata|item
-    const data = await configZalo.app_id + "|" + order.app_trans_id + "|" + order.app_user + "|" + order.amount + "|" + order.app_time + "|" + order.embed_data + "|" + order.item;
-    order.mac = await CryptoJS.HmacSHA256(data, configZalo.key1).toString();
-    console.log(order)
-    axios.post(configZalo.endpoint, null, { params: order })
-        .then(res => {
-            console.log(res.data);
-        })
-        .catch(err => console.log(err));
-}
+//
 
 interface Props {
 
@@ -110,9 +84,35 @@ const customStyles = {
 
 const CheckOut = (props: Props) => {
 
-    const handlePayment = () => {
-        ZaloPay()
+    const ZaloPay = async (carts: itemType[]) => {
+        const getTotalPrice = (carts: itemType[]) =>
+            carts.reduce((ack: number, item: itemType) => ack + item.cartAmount * (item.price - (Math.ceil(item.price / 10000 * item.sale / 100) * 10000)), 0);
+        const embed_data = {};
+        const items = carts;
+        const transID = Math.floor(Math.random() * 1000000);
+        const order = {
+            app_id: configZalo.app_id,
+            app_trans_id: `${moment().format('YYMMDD')}_${transID}`,
+            app_user: "Haaaa",
+            app_time: Date.now(),
+            item: JSON.stringify(items),
+            embed_data: JSON.stringify(embed_data),
+            amount: getTotalPrice(carts),
+            description: `Test Payment for the order by H #${transID}`,
+            bank_code: "zalopayapp",
+            mac: ""
+        };
+        const data = await configZalo.app_id + "|" + order.app_trans_id + "|" + order.app_user + "|" + order.amount + "|" + order.app_time + "|" + order.embed_data + "|" + order.item;
+        order.mac = await CryptoJS.HmacSHA256(data, configZalo.key1).toString();
+        //console.log(order)
+        axios.post(configZalo.endpoint, null, { params: order })
+            .then(res => {
+                //console.log(res.data);
+                window.open(res.data.order_url)
+            })
+            .catch(err => console.log(err));
     }
+
 
     const user = useSelector((state: RootState) => state.users)
     const [stateCheckout, setStateCheckout] = useState<TypeCheckout | 'VIEW_CART'>('VIEW_CART')
@@ -188,7 +188,7 @@ const CheckOut = (props: Props) => {
     const onSubmit = (data: any) => {
         if (currentCity && currentDistrict && currentWard) {
             setErrorsLocation(false)
-            console.log({ ...data, city: currentCity.value, district: currentDistrict.value, ward: currentWard.value });
+            //console.log({ ...data, city: currentCity.value, district: currentDistrict.value, ward: currentWard.value });
             setStateCheckout('ADD_PAYMENT')
         } else {
             setErrorsLocation(true)
@@ -196,6 +196,27 @@ const CheckOut = (props: Props) => {
     }
     if (errors) {
         //console.log(errors);
+    }
+    const {
+        register: register2,
+        errors: errors2,
+        handleSubmit: handleSubmit2
+    } = useForm({
+        mode: "onBlur"
+    });
+    const history = useHistory()
+    const onSubmit2 = (data: any) => {
+        //console.log(data);
+        if (data.Payment === "ZaloPay") {
+            ZaloPay(carts)
+            history.push('/profile')
+        } else {
+            console.log("COD")
+            history.push('/profile')
+        }
+    }
+    if (errors2) {
+        console.log(errors2)
     }
 
     return (
@@ -215,116 +236,127 @@ const CheckOut = (props: Props) => {
 
                     <form
                         onSubmit={handleSubmit(onSubmit)}>
-                        <div className={clsx(stateCheckout === "ADD_ADDRESS" ? "flex-col w-min mx-auto justify-center lg:w-full lg:flex-row lg:flex pb-4" : "flex-col w-min mx-auto justify-center lg:w-full lg:flex-row lg:flex pb-4 bg-gray-200 opacity-50 pt-4 rounded-lg")}>
 
-                            <div>
-                                <InputField labelContent="First Name" name="firstname"
-                                    register={register} typeInput="text" />
-                                {errors.firstname?.type === 'required' && (
-                                    <Error error="First name is required" />
-                                )}
-                                {errors.firstname?.type === 'min' && <Error error="Min is 2" />}
-                                {errors.firstname?.type === 'max' && <Error error="Max is 50" />}
+                        <div className={clsx(stateCheckout === "ADD_ADDRESS" ? "w-min mx-auto justify-center lg:w-full pb-4" : "w-min mx-auto lg:w-full pb-4 bg-gray-200 opacity-50 cursor-not-allowed rounded-lg")}>
+                            <div className="space-x-0 lg:space-x-4 flex-col w-min mx-auto justify-center lg:w-full lg:flex-row lg:flex pb-4" >
+                                <div>
+                                    <InputField labelContent="First Name" name="firstname"
+                                        register={register} typeInput="text" />
+                                    {errors.firstname?.type === 'required' && (
+                                        <Error error="First name is required" />
+                                    )}
+                                    {errors.firstname?.type === 'min' && <Error error="Min is 2" />}
+                                    {errors.firstname?.type === 'max' && <Error error="Max is 50" />}
 
 
-                                <InputField labelContent="Last Name" name="lastname"
-                                    register={register} typeInput="text" />
-                                {errors.lastname?.type === 'required' && (
-                                    <Error error="Last name is required" />
-                                )}
-                                {errors.lastname?.type === 'min' && <Error error="Min is 2" />}
-                                {errors.lastname?.type === 'max' && <Error error="Max is 70" />}
+                                    <InputField labelContent="Last Name" name="lastname"
+                                        register={register} typeInput="text" />
+                                    {errors.lastname?.type === 'required' && (
+                                        <Error error="Last name is required" />
+                                    )}
+                                    {errors.lastname?.type === 'min' && <Error error="Min is 2" />}
+                                    {errors.lastname?.type === 'max' && <Error error="Max is 70" />}
 
-                                <InputField labelContent="Email" name="email"
-                                    register={register} typeInput="email" />
-                                {errors.email?.type === 'email' && (
-                                    <Error error={errors.email.message} />
-                                )}
-                                {errors.email?.type === 'required' && (
-                                    <Error error="Email is required" />
-                                )}
-                                {errors.email?.type === 'min' && <Error error="Min is 12" />}
-                                {errors.email?.type === 'max' && <Error error="Max is 50" />}
+                                    <InputField labelContent="Email" name="email"
+                                        register={register} typeInput="email" />
+                                    {errors.email?.type === 'email' && (
+                                        <Error error={errors.email.message} />
+                                    )}
+                                    {errors.email?.type === 'required' && (
+                                        <Error error="Email is required" />
+                                    )}
+                                    {errors.email?.type === 'min' && <Error error="Min is 12" />}
+                                    {errors.email?.type === 'max' && <Error error="Max is 50" />}
 
-                                <InputField labelContent="Telephone" name="phonenumber"
-                                    register={register} typeInput="tel" pattern="[0]{1}[0-9]{9}" />
-                                {errors.phonenumber?.type === 'tel' && (
-                                    <Error error={errors.password.message} />
-                                )}
-                                {errors.phonenumber?.type === 'required' && (
-                                    <Error error="Phone number is required" />
-                                )}
-                                {errors.phonenumber?.type === 'matches' && (
-                                    <Error error="Phone number is invalid" />
-                                )}
-                                {errors.phonenumber?.type === 'min' && <Error error="Min is 6" />}
-                                {errors.phonenumber?.type === 'max' && <Error error="Max is 50" />}
+                                    <InputField labelContent="Telephone" name="phonenumber"
+                                        register={register} typeInput="tel" pattern="[0]{1}[0-9]{9}" />
+                                    {errors.phonenumber?.type === 'tel' && (
+                                        <Error error={errors.password.message} />
+                                    )}
+                                    {errors.phonenumber?.type === 'required' && (
+                                        <Error error="Phone number is required" />
+                                    )}
+                                    {errors.phonenumber?.type === 'matches' && (
+                                        <Error error="Phone number is invalid" />
+                                    )}
+                                    {errors.phonenumber?.type === 'min' && <Error error="Min is 6" />}
+                                    {errors.phonenumber?.type === 'max' && <Error error="Max is 50" />}
 
+                                </div>
+                                <div>
+
+                                    <InputField labelContent="Street address" name="street"
+                                        register={register} typeInput="text" />
+                                    {errors.street?.type === 'required' && (
+                                        <Error error="Street address name is required" />
+                                    )}
+                                    {errors.street?.type === 'min' && <Error error="Min is 5" />}
+                                    {errors.street?.type === 'max' && <Error error="Max is 120" />}
+
+                                    <p className="text-base font-bold ml-3">City</p>
+                                    {errorsLocation && (
+                                        <Error error="Please choose address!" />
+                                    )}
+                                    <Select
+                                        onChange={(data: any) => { setCurrentCity(data) }}
+                                        className="text-lg ml-3 w-80 focus:border-blue-500 focus:outline-none rounded-sm mb-2"
+                                        classNamePrefix="select"
+                                        //value={currentCity}
+                                        isSearchable={true}
+                                        name="city"
+                                        options={listCity}
+                                        styles={customStyles}
+                                    />
+                                    <p className="text-base font-bold ml-3">District</p>
+                                    <Select
+                                        onChange={(data) => { if (data) { setCurrentDistrict(data) } }}
+                                        className="text-lg ml-3 w-80 focus:border-blue-500 focus:outline-none rounded-sm mb-2"
+                                        classNamePrefix="select"
+                                        value={currentDistrict}
+                                        isSearchable={true}
+                                        name="district"
+                                        options={listDistrict}
+                                        styles={customStyles}
+                                    />
+                                    <p className="text-base font-bold ml-3">Ward</p>
+                                    <Select
+                                        onChange={(data) => { if (data) { setCurrentWard(data) } }}
+                                        className="text-lg ml-3 w-80 focus:border-blue-500 focus:outline-none rounded-sm mb-2"
+                                        classNamePrefix="select"
+                                        value={currentWard}
+                                        isSearchable={true}
+                                        name="ward"
+                                        options={listWard}
+                                        styles={customStyles}
+                                    />
+
+                                </div>
                             </div>
-                            <div>
 
-                                <InputField labelContent="Street address" name="street"
-                                    register={register} typeInput="text" />
-                                {errors.street?.type === 'required' && (
-                                    <Error error="Street address name is required" />
-                                )}
-                                {errors.street?.type === 'min' && <Error error="Min is 5" />}
-                                {errors.street?.type === 'max' && <Error error="Max is 120" />}
-
-                                <p className="text-base font-bold ml-3">City</p>
-                                {errorsLocation && (
-                                    <Error error="Please choose address!" />
-                                )}
-                                <Select
-                                    onChange={(data: any) => { setCurrentCity(data) }}
-                                    className="text-lg ml-3 w-80 focus:border-blue-500 focus:outline-none rounded-sm mb-2"
-                                    classNamePrefix="select"
-                                    //value={currentCity}
-                                    isSearchable={true}
-                                    name="city"
-                                    options={listCity}
-                                    styles={customStyles}
-                                />
-                                <p className="text-base font-bold ml-3">District</p>
-                                <Select
-                                    onChange={(data) => { if (data) { setCurrentDistrict(data) } }}
-                                    className="text-lg ml-3 w-80 focus:border-blue-500 focus:outline-none rounded-sm mb-2"
-                                    classNamePrefix="select"
-                                    value={currentDistrict}
-                                    isSearchable={true}
-                                    name="district"
-                                    options={listDistrict}
-                                    styles={customStyles}
-                                />
-                                <p className="text-base font-bold ml-3">Ward</p>
-                                <Select
-                                    onChange={(data) => { if (data) { setCurrentWard(data) } }}
-                                    className="text-lg ml-3 w-80 focus:border-blue-500 focus:outline-none rounded-sm mb-2"
-                                    classNamePrefix="select"
-                                    value={currentWard}
-                                    isSearchable={true}
-                                    name="ward"
-                                    options={listWard}
-                                    styles={customStyles}
-                                />
+                            <div className="text-center pb-4">
+                                {stateCheckout === 'ADD_ADDRESS' ? (<input className="text-white hover:text-black py-2 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400" type="submit" />) : <input className="text-white hover:text-black py-2 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400" disabled type="submit" />}
 
                             </div>
                         </div>
-                        <div className="text-center pb-4">
-                            <input className="text-white hover:text-black py-2 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400" type="submit" />
-                        </div>
-
-
                     </form>
-                    <button className="bg-red-700 px-6 py-3" onClick={() => handlePayment()}>tets</button>
+                    <div>
+                        <form onSubmit={handleSubmit2(onSubmit2)}>
+                            <label>ZaloPay&nbsp;<input name="Payment" type="radio" value="ZaloPay" ref={register2({ required: true })} /></label>
+                            <label>COD&nbsp;<input name="Payment" type="radio" value="COD" ref={register2({ required: true })} /></label>
+                            {errors2.Payment?.type === 'required' && <Error error="Please choose method payment!" />}
+                            <div className="text-center pb-4">
+                                {stateCheckout === 'ADD_PAYMENT' ? (<input className="bg-red-700 px-6 py-3 rounded-md" type="submit" value="Test" />) : (<input className="bg-red-700 px-6 py-3 rounded-md" disabled onClick={() => ZaloPay(carts)} type="submit" value="Test" />)}
+                            </div>
+                        </form>
+
+                    </div>
+
 
                 </div>) : (<div className="p-4">
                     <p className="mt-40 text-4xl font-bold text-red-600">Please login to checkout</p>
-
                 </div>)
             }
         </>
-
     )
 }
 

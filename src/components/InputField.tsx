@@ -21,7 +21,7 @@ const InputField = ({
     return (
         <>
             <label className="font-bold ml-4" htmlFor={name}>{labelContent} </label>
-            <div className="mb-2 w-92">
+            <div className="mb-2 w-84">
                 <input
                     className="text-lg ml-3 w-80 pl-2 py-3
                      focus:border-blue-500 focus:outline-none border
