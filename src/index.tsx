@@ -1,15 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
 import { Provider } from 'react-redux'
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from 'react-helmet-async'
 import { PersistGate } from 'redux-persist/integration/react'
-import store from './app/store'
-import {
-    persistStore
-} from 'redux-persist'
+import store from './stores/store'
+import { persistStore } from 'redux-persist'
 
-import './index.css';
+import './index.css'
 
 let persistor = persistStore(store)
 
@@ -24,10 +22,10 @@ ReactDOM.render(
         </Provider>
     </React.StrictMode>,
     document.getElementById('root'),
-);
+)
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
 // Learn more: https://snowpack.dev/concepts/hot-module-replacement
 if (import.meta.hot) {
-    import.meta.hot.accept();
+    import.meta.hot.accept()
 }

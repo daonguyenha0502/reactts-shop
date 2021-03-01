@@ -1,17 +1,19 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface TypeUser {
-    accessToken: string | null;
-    refreshToken: string | null;
+    accessToken: string | null
+    refreshToken: string | null
 }
 let initialUser: TypeUser = { accessToken: null, refreshToken: null }
-if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) {
+if (
+    localStorage.getItem('accessToken') &&
+    localStorage.getItem('refreshToken')
+) {
     initialUser = {
-        accessToken: localStorage.getItem("accessToken") as string,
-        refreshToken: localStorage.getItem("refreshToken") as string,
+        accessToken: localStorage.getItem('accessToken') as string,
+        refreshToken: localStorage.getItem('refreshToken') as string,
     }
 }
-
 
 const user = createSlice({
     name: 'users',
@@ -23,20 +25,20 @@ const user = createSlice({
                 state.accessToken = action.payload.accessToken
                 state.refreshToken = action.payload.refreshToken
                 localStorage.setItem('accessToken', action.payload.accessToken)
-                localStorage.setItem('refreshToken', action.payload.refreshToken)
+                localStorage.setItem(
+                    'refreshToken',
+                    action.payload.refreshToken,
+                )
             }
-
         },
         deleteToken: (state) => {
-            state.accessToken = null,
-                state.refreshToken = null
+            ;(state.accessToken = null), (state.refreshToken = null)
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
-        }
+        },
+    },
+})
 
-    }
-});
-
-const { reducer, actions } = user;
-export const { saveToken, deleteToken } = actions;
-export default user;
+const { reducer, actions } = user
+export const { saveToken, deleteToken } = actions
+export default user

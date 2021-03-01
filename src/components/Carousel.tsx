@@ -1,8 +1,8 @@
-import React from 'react';
-import Slider from 'react-slick';
+import React from 'react'
+import Slider from 'react-slick'
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 interface CustomSlider {
     settings: object
@@ -10,26 +10,27 @@ interface CustomSlider {
 }
 
 export default function CustomSlider({ settings, listPictures }: CustomSlider) {
-
     return (
         <div className="w-4/5 mx-auto mt-12 z-40">
-            <Slider {...settings} prevArrow={<PrevArrow />} nextArrow={<NextArrow />} >
+            <Slider
+                {...settings}
+                prevArrow={<PrevArrow />}
+                nextArrow={<NextArrow />}
+            >
                 {listPictures.map((picture) => {
-                    return (<div key={picture}>
-                        <img
-                            src={picture}
-                            alt=""
-                        />
-                    </div>)
+                    return (
+                        <div key={picture}>
+                            <img src={picture} alt="" />
+                        </div>
+                    )
                 })}
-
             </Slider>
         </div>
-    );
+    )
 }
 
 function PrevArrow(props: any) {
-    const { className, style, onClick } = props;
+    const { className, style, onClick } = props
     return (
         <div
             className={className}
@@ -41,11 +42,11 @@ function PrevArrow(props: any) {
             }}
             onClick={onClick}
         />
-    );
+    )
 }
 
 function NextArrow(props: any) {
-    const { className, style, onClick } = props;
+    const { className, style, onClick } = props
     return (
         <div
             className={className}
@@ -56,5 +57,5 @@ function NextArrow(props: any) {
             }}
             onClick={onClick}
         />
-    );
+    )
 }

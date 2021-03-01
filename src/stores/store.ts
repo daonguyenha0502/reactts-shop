@@ -1,4 +1,8 @@
-import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit'
+import {
+    configureStore,
+    getDefaultMiddleware,
+    combineReducers,
+} from '@reduxjs/toolkit'
 import {
     persistReducer,
     FLUSH,
@@ -16,10 +20,13 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: ["users"]
+    blacklist: ['users'],
 }
 
-const rootReducer = combineReducers({ carts: cartReducer.reducer, users: userReducer.reducer })
+const rootReducer = combineReducers({
+    carts: cartReducer.reducer,
+    users: userReducer.reducer,
+})
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
@@ -27,9 +34,9 @@ const store = configureStore({
     reducer: persistedReducer,
     middleware: getDefaultMiddleware({
         serializableCheck: {
-            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-        }
-    })
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+    }),
 })
 export type RootState = ReturnType<typeof store.getState>
 export default store

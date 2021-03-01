@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import type { itemType } from 'src/App';
+import React from 'react'
+import type { itemType } from '../App'
 
 interface Props {
     item: itemType
@@ -24,13 +24,22 @@ const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
                         <p className="text-center text-sm sm:text-base font-bold">
                             {item.name}
                         </p>
-                        <button onClick={() => onRemoveFromCart(item)} className="ml-auto bg-transparent mb-3 border-0 outline-none focus:outline-none">
-                            <span className="bg-transparent text-red-500 h-6 w-6 text-2xl block outline-none focus:outline-none">×</span>
+                        <button
+                            onClick={() => onRemoveFromCart(item)}
+                            className="ml-auto bg-transparent mb-3 border-0 outline-none focus:outline-none"
+                        >
+                            <span className="bg-transparent text-red-500 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                ×
+                            </span>
                         </button>
                     </div>
 
                     <div className="flex space-x-4 w-full justify-center">
-                        <p>Price: {(item.cartAmount * item.price).toLocaleString()} Đồng</p>
+                        <p>
+                            Price:{' '}
+                            {(item.cartAmount * item.price).toLocaleString()}{' '}
+                            Đồng
+                        </p>
                         <p className="text-red-700">Sale: {item.sale}%</p>
                     </div>
 
@@ -40,19 +49,19 @@ const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
                             onClick={() => onReducer(item)}
                         >
                             -
-                                </button>
+                        </button>
                         <p className="px-5 py-1">{`< ${item.cartAmount} >`}</p>
                         <button
                             className="px-7 rounded-md py-1 focus:outline-none bg-red-600 hover:bg-red-500 text-xl"
                             onClick={() => onAdd(item)}
                         >
                             +
-            </button>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default ItemCart;
+export default ItemCart

@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 
-import Contact from './Contact';
-import Policy from './Policy';
-import Socials from './Socials';
+import Contact from './Contact'
+import Policy from './Policy'
+import Socials from './Socials'
 
-interface Props { }
+interface Props {}
 
 const Footer = (props: Props) => {
     return (
@@ -13,7 +13,7 @@ const Footer = (props: Props) => {
             <Contact />
             <Policy />
         </div>
-    );
-};
+    )
+}
 
-export default Footer;
+export default Footer

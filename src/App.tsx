@@ -1,65 +1,68 @@
-import React, { useEffect, useState, useRef } from 'react';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import './App.css'
 
-import Nav from './components/Nav';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Index from './pages/Index';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Carts from './pages/Carts';
-import { useLocation } from "react-router-dom";
-import ProductDetail from './pages/ProductDetail';
+import Nav from './components/Nav'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Index from './pages/Index'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Carts from './pages/Carts'
+import { useLocation } from 'react-router-dom'
+import ProductDetail from './pages/ProductDetail'
 
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify'
 
-import 'react-toastify/dist/ReactToastify.css';
-import PageSearch from './pages/PageSearch';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretSquareUp } from '@fortawesome/free-solid-svg-icons';
-import PageTypeProducts from './pages/PageTypeProducts';
-import CheckOut from './pages/CheckOut';
+import 'react-toastify/dist/ReactToastify.css'
+import PageSearch from './pages/PageSearch'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretSquareUp } from '@fortawesome/free-solid-svg-icons'
+import PageTypeProducts from './pages/PageTypeProducts'
+import CheckOut from './pages/CheckOut'
 //import TestCheckOut from './pages/TestCheckOut';
 
-
 export function ScrollToTop(): any {
-    const location = useLocation();
+    const location = useLocation()
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [location]);
+        window.scrollTo(0, 0)
+    }, [location])
 
-    return null;
+    return null
 }
-
 
 interface AppProps { }
 
 export interface itemType {
-    _id: string;
-    type?: string;
-    name: string;
-    company: string;
-    price: number;
-    sale: number;
-    sold: number;
+    _id: string
+    type?: string
+    name: string
+    company: string
+    price: number
+    sale: number
+    sold: number
     state?: boolean
     published: string
-    img: string;
+    img: string
     idDetailProduct: string
-    amount: number;
-    cartAmount: number | 0;
+    amount: number
+    cartAmount: number | 0
 }
 
-let pictures: string[] = ["https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517602/shop/other/sl3_j9d1sa.png", "https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517607/shop/other/sl2_w0zrzi.png", "https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517613/shop/other/sl1_hotjpl.png"]
+let pictures: string[] = [
+    'https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517602/shop/other/sl3_j9d1sa.png',
+    'https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517607/shop/other/sl2_w0zrzi.png',
+    'https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517613/shop/other/sl1_hotjpl.png',
+]
 
 function App({ }: AppProps) {
+    console.log('a')
     const [hiddenScroll, setHiddenScroll] = useState<boolean | true>(true)
     function handleUpTop() {
         window.scroll(0, 0)
     }
     const heightScreen = window.innerHeight
     function handleGetPositionScroll() {
-        window.addEventListener("scroll", () => {
+        window.addEventListener('scroll', () => {
             if (window.scrollY > heightScreen) {
                 setHiddenScroll(false)
             } else {
@@ -78,9 +81,7 @@ function App({ }: AppProps) {
                 <Nav />
                 <Switch>
                     <Route exact path="/">
-                        <Index
-                            listPictures={pictures}
-                        />
+                        <Index listPictures={pictures} />
                     </Route>
                     <Route exact path="/login">
                         <Login />
@@ -107,12 +108,14 @@ function App({ }: AppProps) {
                     <Route
                         exact
                         path="*"
-                        render={() => <div className="text-5xl mt-52">Page not found</div>}
+                        render={() => (
+                            <div className="text-5xl mt-52">Page not found</div>
+                        )}
                     />
                 </Switch>
                 {/* <Toast stateToast={state} onClose={handleCloseToast} /> */}
                 <ToastContainer
-                    style={{ width: "20rem" }}
+                    style={{ width: '20rem' }}
                     position="bottom-center"
                     autoClose={4000}
                     hideProgressBar
@@ -124,16 +127,18 @@ function App({ }: AppProps) {
                     pauseOnHover
                     limit={4}
                 />
-                {
-                    !hiddenScroll && (<div onClick={() => handleUpTop()} className="fixed bottom-20 right-12 cursor-pointer" title="Scroll Back to Top" >
+                {!hiddenScroll && (
+                    <div
+                        onClick={() => handleUpTop()}
+                        className="fixed bottom-20 right-12 cursor-pointer"
+                        title="Scroll Back to Top"
+                    >
                         <FontAwesomeIcon icon={faCaretSquareUp} size="2x" />
-                    </div>)
-                }
-
-
+                    </div>
+                )}
             </div>
         </Router>
-    );
+    )
 }
 
-export default App;
+export default App

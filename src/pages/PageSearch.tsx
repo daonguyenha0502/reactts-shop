@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import ListProducts from '../components/ListProducts'
-import { ScrollToTop, itemType } from '../App'
+import { ScrollToTop } from '../App'
+import type { itemType } from '../App'
 import productApi from '../api/productApi'
 import { useLocation } from 'react-router-dom'
 
-interface Props {
-
-}
+interface Props {}
 
 const PageSearch = (props: Props) => {
     ScrollToTop()
-    const [listProduct, setListProduct] = useState<itemType[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [listProduct, setListProduct] = useState<itemType[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(true)
     let location = useLocation()
     useEffect(() => {
         setIsLoading(true)
@@ -22,20 +21,20 @@ const PageSearch = (props: Props) => {
         if (query) {
             const searchProduct = async () => {
                 try {
-                    const response: any = await productApi.searchProduct(query);
+                    const response: any = await productApi.searchProduct(query)
                     //console.log(response)
-                    setListProduct(response);
-                    await setIsLoading(false);
+                    setListProduct(response)
+                    await setIsLoading(false)
                 } catch (error) {
-                    console.log('Failed to fetch product list: ', error);
+                    console.log('Failed to fetch product list: ', error)
                 }
-            };
+            }
             searchProduct()
         } else {
-            setListProduct([]);
-            setIsLoading(false);
+            setListProduct([])
+            setIsLoading(false)
         }
-    }, [location.search]);
+    }, [location.search])
     return (
         <div className="mt-16">
             <Helmet>
@@ -43,12 +42,34 @@ const PageSearch = (props: Props) => {
                 <title>Search</title>
                 <link rel="canonical" href="cpt-ha.web.app" />
             </Helmet>
-            <h1 className="text-3xl">Result for <span className="text-red-600">{location.search.slice(3, location.search.length)}</span></h1>
-            {isLoading ? (<ListProducts listProduct={listProduct} isLoading={isLoading} />) : (<>
-                {listProduct.length === 0 ? (<h1 className="text-3xl mt-40">Not found product <span className="text-red-600">{location.search.slice(3, location.search.length)}</span></h1>) : (<ListProducts listProduct={listProduct} isLoading={isLoading} />)}
-            </>
+            <h1 className="text-3xl">
+                Result for{' '}
+                <span className="text-red-600">
+                    {location.search.slice(3, location.search.length)}
+                </span>
+            </h1>
+            {isLoading ? (
+                <ListProducts listProduct={listProduct} isLoading={isLoading} />
+            ) : (
+                <>
+                    {listProduct.length === 0 ? (
+                        <h1 className="text-3xl mt-40">
+                            Not found product{' '}
+                            <span className="text-red-600">
+                                {location.search.slice(
+                                    3,
+                                    location.search.length,
+                                )}
+                            </span>
+                        </h1>
+                    ) : (
+                        <ListProducts
+                            listProduct={listProduct}
+                            isLoading={isLoading}
+                        />
+                    )}
+                </>
             )}
-
         </div>
     )
 }

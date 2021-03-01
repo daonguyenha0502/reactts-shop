@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/dist/yup';
-import * as yup from 'yup';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/dist/yup'
+import * as yup from 'yup'
+import { Link, useHistory } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 
-import { InputField, Error } from '../components/InputField';
-import userApi from '../api/userApi';
-import { toast } from 'react-toastify';
-
+import { InputField, Error } from '../components/InputField'
+import userApi from '../api/userApi'
+import { toast } from 'react-toastify'
 
 const registerSchema = yup.object().shape({
     email: yup.string().email().required().min(12).max(50),
@@ -21,39 +20,38 @@ const registerSchema = yup.object().shape({
     re_password: yup
         .mixed()
         .test('match', 'Password not math re-password', function () {
-            return this.parent.password === this.parent.re_password;
+            return this.parent.password === this.parent.re_password
         })
-        .required()
-});
+        .required(),
+})
 
-interface Props { }
+interface Props {}
 
 const Register = (props: Props) => {
     const history = useHistory()
     const [errorRegister, setErrorRegister] = useState<string | null>(null)
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(registerSchema),
-    });
+    })
     const onSubmit = async (data: any) => {
         console.log(data)
         const response: any = await userApi.register(JSON.stringify(data))
         if (response === 'Registered') {
             history.push('/login')
             toast.info(`Registered, login please!`, {
-                position: "bottom-center",
+                position: 'bottom-center',
                 autoClose: 4000,
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-            });
+            })
         } else {
             //console.log(response)
             setErrorRegister(response)
         }
-
-    };
+    }
     if (errors) {
         // console.log(errors.password);
         //console.log(errors.email);
@@ -117,9 +115,7 @@ const Register = (props: Props) => {
                 {errors.re_password?.type === 'match' && (
                     <Error error={errors.re_password.message} />
                 )}
-                {errorRegister && (
-                    <Error error={errorRegister} />
-                )}
+                {errorRegister && <Error error={errorRegister} />}
 
                 <div className="mt-4 w-max mx-auto">
                     <button
@@ -127,14 +123,14 @@ const Register = (props: Props) => {
                         type="submit"
                     >
                         Register
-          </button>
+                    </button>
                     <button className="bg-green-600 w-24 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-red-600 ml-8">
                         <Link to="/login">Login</Link>
                     </button>
                 </div>
             </form>
         </div>
-    );
-};
+    )
+}
 
-export default Register;
+export default Register

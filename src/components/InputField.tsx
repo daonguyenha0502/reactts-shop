@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 interface Props {
-    name: string;
-    id?: string;
-    labelContent: string;
-    typeInput: string;
-    register: any;
-    autocomplete?: string,
+    name: string
+    id?: string
+    labelContent: string
+    typeInput: string
+    register: any
+    autocomplete?: string
     pattern?: string
 }
 
@@ -16,11 +16,13 @@ const InputField = ({
     labelContent,
     register,
     autocomplete,
-    pattern
+    pattern,
 }: Props) => {
     return (
         <>
-            <label className="font-bold ml-4" htmlFor={name}>{labelContent} </label>
+            <label className="font-bold ml-4" htmlFor={name}>
+                {labelContent}{' '}
+            </label>
             <div className="mb-2 w-84">
                 <input
                     className="text-lg ml-3 w-80 pl-2 py-3
@@ -35,15 +37,15 @@ const InputField = ({
                 />
             </div>
         </>
-    );
-};
+    )
+}
 
 const Error = ({ error }: string | any) => {
     return (
         <>
             <p className="text-red-500 text-left pl-4 mb-2">{error}</p>
         </>
-    );
-};
+    )
+}
 
-export { InputField, Error };
+export { InputField, Error }
