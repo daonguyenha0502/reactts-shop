@@ -16,6 +16,7 @@ import CryptoJS from 'crypto-js'
 import moment from 'moment'
 import axios from 'axios'
 import type { itemType } from '../App'
+import cart from '../stores/cartsSlice'
 import { useHistory } from 'react-router-dom'
 const configZalo = {
     app_id: '2553',
@@ -25,7 +26,7 @@ const configZalo = {
 }
 //
 
-interface Props {}
+interface Props { }
 
 const InformationSchema = yup.object().shape({
     email: yup.string().email().required().min(12).max(50),
@@ -88,11 +89,11 @@ const CheckOut = (props: Props) => {
                 (ack: number, item: itemType) =>
                     ack +
                     item.cartAmount *
-                        (item.price -
-                            Math.ceil(
-                                ((item.price / 10000) * item.sale) / 100,
-                            ) *
-                                10000),
+                    (item.price -
+                        Math.ceil(
+                            ((item.price / 10000) * item.sale) / 100,
+                        ) *
+                        10000),
                 0,
             )
         const embed_data = {}
@@ -272,7 +273,7 @@ const CheckOut = (props: Props) => {
                             className={clsx(
                                 stateCheckout === 'ADD_ADDRESS'
                                     ? 'w-min mx-auto justify-center lg:w-full pb-4'
-                                    : 'w-min mx-auto lg:w-full pb-4 bg-gray-200 opacity-50 cursor-not-allowed rounded-lg',
+                                    : 'w-min mx-auto lg:w-full pb-4 bg-gray-200 opacity-50 cursor-not-allowed rounded-lg select-none',
                             )}
                         >
                             <div className="space-x-0 lg:space-x-4 flex-col w-min mx-auto justify-center lg:w-full lg:flex-row lg:flex pb-4">
@@ -342,8 +343,8 @@ const CheckOut = (props: Props) => {
                                     )}
                                     {errors.phonenumber?.type ===
                                         'required' && (
-                                        <Error error="Phone number is required" />
-                                    )}
+                                            <Error error="Phone number is required" />
+                                        )}
                                     {errors.phonenumber?.type === 'matches' && (
                                         <Error error="Phone number is invalid" />
                                     )}
@@ -433,65 +434,86 @@ const CheckOut = (props: Props) => {
                                         type="submit"
                                     />
                                 ) : (
-                                    <input
-                                        className="text-white hover:text-black py-2 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400"
-                                        disabled
-                                        type="submit"
-                                    />
-                                )}
+                                        <input
+                                            className="text-white hover:text-black py-2 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400"
+                                            disabled
+                                            type="submit"
+                                        />
+                                    )}
                             </div>
                         </div>
                     </form>
-                    <div>
+                    <div
+                        className={clsx(
+                            stateCheckout !== 'ADD_PAYMENT'
+                                ? 'w-full text-left mt-4 mx-auto bg-gray-200 opacity-50 cursor-not-allowed rounded-lg select-none'
+                                : 'w-full text-left mt-4 mx-auto',
+                        )}
+                    >
                         <form onSubmit={handleSubmit2(onSubmit2)}>
-                            <label>
-                                ZaloPay&nbsp;
-                                <input
-                                    name="Payment"
-                                    type="radio"
-                                    value="ZaloPay"
-                                    ref={register2({ required: true })}
-                                />
-                            </label>
-                            <label>
-                                COD&nbsp;
-                                <input
-                                    name="Payment"
-                                    type="radio"
-                                    value="COD"
-                                    ref={register2({ required: true })}
-                                />
-                            </label>
-                            {errors2.Payment?.type === 'required' && (
-                                <Error error="Please choose method payment!" />
-                            )}
-                            <div className="text-center pb-4">
+                            <div className="flex-row justify-center">
+                                <div className="flex space-x-8 justify-center py-4">
+                                    <div>
+                                        <label className="text-lg">
+                                            ZaloPay&nbsp;
+                                            <input
+                                                name="Payment"
+                                                type="radio"
+                                                value="ZaloPay"
+                                                ref={register2({
+                                                    required: true,
+                                                })}
+                                            />
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label className="text-lg">
+                                            COD&nbsp;
+                                            <input
+                                                name="Payment"
+                                                type="radio"
+                                                value="COD"
+                                                ref={register2({
+                                                    required: true,
+                                                })}
+                                            />
+                                        </label>
+                                    </div>
+                                </div>
+                                {errors2.Payment?.type === 'required' && (
+                                    <p className="text-center text-red-500">
+                                        Please choose method payment!
+                                    </p>
+                                )}
+                            </div>
+
+                            <div className="text-center py-4">
                                 {stateCheckout === 'ADD_PAYMENT' ? (
                                     <input
-                                        className="bg-red-700 px-6 py-3 rounded-md"
+                                        className="bg-red-700 px-6 py-2 rounded-md"
                                         type="submit"
-                                        value="Test"
+                                        value="Pay"
                                     />
                                 ) : (
-                                    <input
-                                        className="bg-red-700 px-6 py-3 rounded-md"
-                                        disabled
-                                        onClick={() => ZaloPay(carts)}
-                                        type="submit"
-                                        value="Test"
-                                    />
-                                )}
+                                        <input
+                                            className="bg-red-700 px-6 py-2 rounded-md"
+                                            disabled
+                                            onClick={() => ZaloPay(carts)}
+                                            type="submit"
+                                            value="Pay"
+                                        />
+                                    )}
                             </div>
                         </form>
                     </div>
                 </div>
             ) : (
-                <div className="p-4">
-                    <p className="mt-40 text-4xl font-bold text-red-600">
-                        Please login to checkout
+                    <div className="p-4">
+                        <p className="mt-40 text-4xl font-bold text-red-600">
+                            Please login to checkout
                     </p>
-                </div>
-            )}
+                    </div>
+                )}
         </>
     )
 }

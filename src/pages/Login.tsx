@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { saveToken } from '../stores/userSlice'
 import { toast } from 'react-toastify'
 
-interface Props {}
+interface Props { }
 
 const loginSchema = yup.object().shape({
     email: yup.string().email().required().min(12).max(50),
@@ -31,7 +31,7 @@ const Login = (props: Props) => {
     async function Login(info: any) {
         const response: any = await userApi.login(info)
         if (response.accessToken && response.refreshToken) {
-            console.log(response)
+            //console.log(response)
             const action = saveToken(response)
             dispatch(action)
             //console.log('save token')

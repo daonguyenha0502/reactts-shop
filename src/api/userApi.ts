@@ -11,6 +11,11 @@ const userApi = {
         //console.log(info)
         return axiosClient.post(url, info)
     },
+    logOut: (info: any) => {
+        const url = '/logout'
+        //console.log(info)
+        return axiosClient.delete(url, info)
+    }
 }
 
 export default userApi

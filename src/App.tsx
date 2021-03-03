@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretSquareUp } from '@fortawesome/free-solid-svg-icons'
 import PageTypeProducts from './pages/PageTypeProducts'
 import CheckOut from './pages/CheckOut'
+import Blog from './pages/Blog'
 //import TestCheckOut from './pages/TestCheckOut';
 
 export function ScrollToTop(): any {
@@ -55,7 +56,6 @@ let pictures: string[] = [
 ]
 
 function App({ }: AppProps) {
-    console.log('a')
     const [hiddenScroll, setHiddenScroll] = useState<boolean | true>(true)
     function handleUpTop() {
         window.scroll(0, 0)
@@ -103,6 +103,9 @@ function App({ }: AppProps) {
                     </Route>
                     <Route exact path="/checkout">
                         <CheckOut />
+                    </Route>
+                    <Route exact path="/blog">
+                        <Blog />
                     </Route>
 
                     <Route

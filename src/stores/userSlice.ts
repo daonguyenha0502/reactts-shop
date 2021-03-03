@@ -20,7 +20,7 @@ const user = createSlice({
     initialState: initialUser,
     reducers: {
         saveToken: (state, action: PayloadAction<TypeUser>) => {
-            console.log(action.payload)
+            //console.log(action.payload)
             if (action.payload.refreshToken && action.payload.accessToken) {
                 state.accessToken = action.payload.accessToken
                 state.refreshToken = action.payload.refreshToken
@@ -32,7 +32,7 @@ const user = createSlice({
             }
         },
         deleteToken: (state) => {
-            ;(state.accessToken = null), (state.refreshToken = null)
+            ; (state.accessToken = null), (state.refreshToken = null)
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
         },

@@ -13,7 +13,7 @@ const ListProductOnCheckout = ({ carts, stateCheckout }: Props) => {
         <div
             className={clsx(
                 stateCheckout !== 'VIEW_CART' &&
-                    'bg-gray-200 opacity-50 w-full pt-4 rounded-lg',
+                    'bg-gray-200 opacity-50 w-full pt-4 rounded-lg select-none',
             )}
         >
             <div className="mx-auto overflow-y-auto h-1/2 xl:h-5/6 max-w-min mb-4">
