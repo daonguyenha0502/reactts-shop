@@ -1,0 +1,67 @@
+/* Override tailwindCss */
+.demo-wrapper {
+    min-height: 80vh;
+}
+.demo-editor {
+    border: 1px black solid;
+    max-height: 80vh;
+    border-radius: 5px;
+}
+h1 {
+  display: block !important;
+  font-size: 2rem !important;
+  margin-top: 0.67rem !important;
+  margin-bottom: 0.67rem !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  font-weight: bold !important;
+}
+h2 {
+  display: block !important;
+  font-size: 1.5rem !important;
+  margin-top: 0.83rem !important;
+  margin-bottom: 0.83rem !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  font-weight: bold !important;
+}
+
+h3 {
+  display: block !important;
+  font-size: 1.17rem !important;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  font-weight: bold !important;
+}
+
+h4 {
+  display: block !important;
+  font-size: 1rem !important;
+  margin-top: 1.33rem !important;
+  margin-bottom: 1.33rem !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  font-weight: bold !important;
+}
+
+h5 {
+  display: block !important;
+  font-size: .83rem !important;
+  margin-top: 1.67rem !important;
+  margin-bottom: 1.67rem !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  font-weight: bold !important;
+}
+
+h6 {
+  display: block !important;
+  font-size: .67rem !important;
+  margin-top: 2.33rem !important;
+  margin-bottom: 2.33rem !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  font-weight: bold !important;
+}

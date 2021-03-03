@@ -1,4 +1,4 @@
-
+/* Override Slick */
 #root > div > div.h-auto.my-6.mx-auto.max-w-5xl > div > div.px-12.py-6.sm\:flex-row.md\:flex > div.w-80.h-auto.-mt-12 > div > div > div.slick-list > div > div > div > div > img {
     width: 320px !important;
     height: 320px !important;

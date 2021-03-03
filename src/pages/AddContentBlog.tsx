@@ -5,7 +5,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import './OverLayTailwind.css'
 
 
-const Blog = () => {
+const AddContentBlog = () => {
     const [editorState, setEditorState] = useState(Draft.EditorState.createEmpty())
     const onEditorStateChange = (editorState: any) => {
         setEditorState(editorState)
@@ -30,4 +30,4 @@ const Blog = () => {
     );
 }
 
-export default Blog
+export default AddContentBlog
