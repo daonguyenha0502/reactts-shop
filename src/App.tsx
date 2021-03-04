@@ -19,6 +19,7 @@ import { faCaretSquareUp } from '@fortawesome/free-solid-svg-icons'
 import PageTypeProducts from './pages/PageTypeProducts'
 import CheckOut from './pages/CheckOut'
 import Blog from './pages/Blog'
+import AddContentBlog from './pages/AddContentBlog'
 //import TestCheckOut from './pages/TestCheckOut';
 
 export function ScrollToTop(): any {
@@ -104,7 +105,10 @@ function App({ }: AppProps) {
                     <Route exact path="/checkout">
                         <CheckOut />
                     </Route>
-                    <Route exact path="/blog">
+                    <Route exact path="/admin/addBlog">
+                        <AddContentBlog />
+                    </Route>
+                    <Route exact path="/blog/:idBlog">
                         <Blog />
                     </Route>
 

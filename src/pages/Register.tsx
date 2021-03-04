@@ -9,6 +9,12 @@ import { InputField, Error } from '../components/InputField'
 import userApi from '../api/userApi'
 import { toast } from 'react-toastify'
 
+export interface TypeRegister {
+    email: string,
+    password: string,
+    re_password: string
+}
+
 const registerSchema = yup.object().shape({
     email: yup.string().email().required().min(12).max(50),
     password: yup
@@ -33,9 +39,9 @@ const Register = (props: Props) => {
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(registerSchema),
     })
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data: TypeRegister) => {
         console.log(data)
-        const response: any = await userApi.register(JSON.stringify(data))
+        const response: any = await userApi.register(data)
         if (response === 'Registered') {
             history.push('/login')
             toast.info(`Registered, login please!`, {

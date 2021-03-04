@@ -1,20 +1,24 @@
 import axiosClient from './axiosClient'
 
+import type { TypeRegister} from '../pages/Register'
+import type { TypeLogin} from '../pages/Login'
+
 const userApi = {
-    login: (info: any) => {
+    login: (info: TypeLogin) => {
         const url = '/login'
         //console.log(info)
-        return axiosClient.post(url, info)
+        let temp = JSON.stringify(info)
+        return axiosClient.post(url, temp)
     },
-    register: (info: any) => {
+    register: (info: TypeRegister) => {
         const url = '/register'
-        //console.log(info)
-        return axiosClient.post(url, info)
+        let temp = JSON.stringify(info)
+        return axiosClient.post(url, temp)
     },
-    logOut: (info: any) => {
+    logOut: (id: any) => {
         const url = '/logout'
         //console.log(info)
-        return axiosClient.delete(url, info)
+        return axiosClient.delete(url, id)
     }
 }
 

@@ -8,11 +8,15 @@ import { Helmet } from 'react-helmet-async'
 import userApi from '../api/userApi'
 
 import { InputField, Error } from '../components/InputField'
-import { useSelector, useDispatch } from 'react-redux'
+import {  useDispatch } from 'react-redux'
 import { saveToken } from '../stores/userSlice'
 import { toast } from 'react-toastify'
 
 interface Props { }
+export interface TypeLogin{
+    email:string,
+    password: string
+}
 
 const loginSchema = yup.object().shape({
     email: yup.string().email().required().min(12).max(50),
@@ -28,8 +32,8 @@ const Login = (props: Props) => {
     const [errorLogin, setErrorLogin] = useState<string | null>(null)
     const history = useHistory()
     const dispatch = useDispatch()
-    async function Login(info: any) {
-        const response: any = await userApi.login(info)
+    async function Login(infLogin: TypeLogin) {
+        const response: any = await userApi.login(infLogin)
         if (response.accessToken && response.refreshToken) {
             //console.log(response)
             const action = saveToken(response)
@@ -56,7 +60,7 @@ const Login = (props: Props) => {
     })
     const onSubmit = (data: any) => {
         //console.log(data);
-        Login(JSON.stringify(data))
+        Login(data)
     }
     if (errors) {
         // console.log(errors.password);
