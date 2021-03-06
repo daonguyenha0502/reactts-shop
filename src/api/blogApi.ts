@@ -1,18 +1,15 @@
 import axiosClient from './axiosClient'
 
 const blogApi = {
-    getAll: () => {
-        const url = `/carousel`
-        return axiosClient.get(url)
-    },
-    getOne: (id: any) => {
-        console.log(id)
-        const url = `/carousel/${id}`
+    getOne: (alias: any) => {
+        console.log(alias)
+        const url = `/blog/${alias}`
         return axiosClient.get(url)
     },
     postOne: (blog: any)=>{
-        const url = `/carousel`
-        return axiosClient.post(url, blog)
+        let temp = JSON.stringify(blog)
+        const url = `/blog`
+        return axiosClient.post(url, temp)
     }
 }
 

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 //import jwt_decode from 'jwt-decode'
-//import userApi from '../api/userApi'
+import {logOut} from '../api/userApi'
 
 export interface TypeUser {
     accessToken: string | null
@@ -34,13 +34,15 @@ const user = createSlice({
             }
         },
         deleteToken: (state) => {
-            // if(state.refreshToken && state.accessToken){
-            //     const res = userApi.logOut(state.refreshToken)
-            // }
+            if(state.refreshToken && state.accessToken){
+                let temp = {token: state.refreshToken}
+                const res = logOut(temp)
+                //console.log(temp)
             state.accessToken = null
             state.refreshToken = null
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
+            }
         },
     },
 })
