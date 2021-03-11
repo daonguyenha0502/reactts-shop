@@ -1,6 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 //import jwt_decode from 'jwt-decode'
-import {logOut} from '../api/userApi'
+import { logOut } from '../api/userApi'
+import type { RootState } from './store'
 
 export interface TypeUser {
     accessToken: string | null
@@ -16,6 +17,18 @@ if (
         refreshToken: localStorage.getItem('refreshToken') as string,
     }
 }
+
+export const deleteToken = createAsyncThunk("users/deleteToken", async (_, { getState, rejectWithValue }) => {
+    let { users } = getState() as RootState;
+    console.log(users);
+    let temp = { token: users.refreshToken };
+    const res = logOut(temp);
+    console.log(res);
+    if (res === undefined) {
+        console.log("d");
+        return rejectWithValue('error');
+    }
+});
 
 const user = createSlice({
     name: 'users',
@@ -33,20 +46,27 @@ const user = createSlice({
                 )
             }
         },
-        deleteToken: (state) => {
-            if(state.refreshToken && state.accessToken){
-                let temp = {token: state.refreshToken}
-                const res = logOut(temp)
-                //console.log(temp)
-            state.accessToken = null
-            state.refreshToken = null
-            localStorage.removeItem('accessToken')
-            localStorage.removeItem('refreshToken')
-            }
-        },
+        // deleteToken: (state) => {
+        //     if (state.refreshToken && state.accessToken) {
+        //         let temp = { token: state.refreshToken }
+        //         const res = logOut(temp)
+        //         //console.log(temp)
+        //         state.accessToken = null
+        //         state.refreshToken = null
+        //         localStorage.removeItem('accessToken')
+        //         localStorage.removeItem('refreshToken')
+        //     }
+        // },
     },
+    extraReducers: (builder) => {
+        builder.addCase(deleteToken.fulfilled, (state, _) => {
+            console.log("a");
+        }), builder.addCase(deleteToken.rejected, (state, _) => {
+            console.log("error");
+        });
+    }
 })
 
 const { reducer, actions } = user
-export const { saveToken, deleteToken } = actions
+export const { saveToken } = actions
 export default user
