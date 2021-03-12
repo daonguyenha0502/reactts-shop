@@ -4,22 +4,23 @@ import { toast } from 'react-toastify'
 import { Helmet } from 'react-helmet-async'
 
 import { ScrollToTop } from '../App'
-import type { itemType } from '../App'
 
 import type { RootState } from '../stores/store'
 import { addToCart, reducerCart, deleteFromCart } from '../stores/cartsSlice'
+
+import type { TypeItemCart } from '../stores/cartsSlice'
 
 import Checkout from '../components/Checkout'
 import Footer from '../components/Footer'
 import ItemCart from '../components/ItemCart'
 
-interface Props {}
+interface Props { }
 
 const Cart = (props: Props) => {
     ScrollToTop()
     const carts = useSelector((state: RootState) => state.carts)
     const dispatch = useDispatch()
-    const handleAddToCart = (product: itemType) => {
+    const handleAddToCart = (product: TypeItemCart) => {
         //console.log('addtoCart: ', product);
         const action = addToCart(product)
         dispatch(action)
@@ -33,7 +34,7 @@ const Cart = (props: Props) => {
             progress: undefined,
         })
     }
-    const handleReducerFromCart = (product: itemType) => {
+    const handleReducerFromCart = (product: TypeItemCart) => {
         //console.log('reducer: ', product);
         const action = reducerCart(product)
         dispatch(action)
@@ -47,7 +48,7 @@ const Cart = (props: Props) => {
             progress: undefined,
         })
     }
-    const handleRemoveFromCart = (product: itemType) => {
+    const handleRemoveFromCart = (product: TypeItemCart) => {
         const action = deleteFromCart(product)
         dispatch(action)
         toast.error(`🦄 ${product.name} removed from cart`, {
@@ -82,12 +83,12 @@ const Cart = (props: Props) => {
                             />
                         ))
                     ) : (
-                        <div className="w-92 sm:w-120 h-4/5 py-4 border-gray-800 border rounded-lg leading-10 mb-8">
-                            <p className="font-bold text-xl text-red-700">
-                                No product
+                            <div className="w-92 sm:w-120 h-4/5 py-4 border-gray-800 border rounded-lg leading-10 mb-8">
+                                <p className="font-bold text-xl text-red-700">
+                                    No product
                             </p>
-                        </div>
-                    )}
+                            </div>
+                        )}
                 </div>
                 <div className="mx-auto h-1/2 xl:h-5/6 max-w-min">
                     <Checkout cartItems={carts} />

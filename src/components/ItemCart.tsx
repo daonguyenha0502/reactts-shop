@@ -1,11 +1,11 @@
 import React from 'react'
-import type { itemType } from '../App'
+import type { TypeItemCart } from '../stores/cartsSlice'
 
 interface Props {
-    item: itemType
-    onAdd: (item: itemType) => void
-    onReducer: (product: itemType) => void
-    onRemoveFromCart: (product: itemType) => void
+    item: TypeItemCart
+    onAdd: (item: TypeItemCart) => void
+    onReducer: (product: TypeItemCart) => void
+    onRemoveFromCart: (product: TypeItemCart) => void
 }
 
 const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {

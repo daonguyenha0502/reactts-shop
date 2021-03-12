@@ -2,13 +2,14 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import type { itemType } from '../App'
+import type { TypeItemCart } from '../stores/cartsSlice'
 
 interface Props {
-    cartItems: itemType[]
+    cartItems: TypeItemCart[]
 }
 
 const LinkItemCart = ({ cartItems }: Props) => {
-    const getTotalItems = (items: itemType[]) =>
+    const getTotalItems = (items: TypeItemCart[]) =>
         items.reduce((ack: number, item) => ack + item.cartAmount, 0)
     return (
         <>

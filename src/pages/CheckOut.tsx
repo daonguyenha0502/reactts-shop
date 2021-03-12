@@ -27,7 +27,7 @@ const configZalo = {
 }
 //
 
-interface Props {}
+interface Props { }
 
 interface BillAttr {
     address: string
@@ -112,11 +112,11 @@ const CheckOut = (props: Props) => {
                 (ack: number, item: TypeItemCart) =>
                     ack +
                     item.cartAmount *
-                        (item.price -
-                            Math.ceil(
-                                ((item.price / 10000) * item.sale) / 100,
-                            ) *
-                                10000),
+                    (item.price -
+                        Math.ceil(
+                            ((item.price / 10000) * item.sale) / 100,
+                        ) *
+                        10000),
                 0,
             )
         const embed_data = {}
@@ -288,6 +288,7 @@ const CheckOut = (props: Props) => {
                 setTypePayment('ZaloPay')
             } else {
                 setBill({ ...bill, type: 'COD', cart: cart })
+                setStateCheckout('PAYMENT')
                 setTypePayment('COD')
                 //console.log('COD')
                 //history.push('/profile')
@@ -328,10 +329,10 @@ const CheckOut = (props: Props) => {
                             This is checkout
                         </h1>
                     ) : (
-                        <h1 className="text-2xl text-gray-500 text-center mb-4">
-                            Cart is empty. Please buy something to checkout!
-                        </h1>
-                    )}
+                            <h1 className="text-2xl text-gray-500 text-center mb-4">
+                                Cart is empty. Please buy something to checkout!
+                            </h1>
+                        )}
 
                     <ListProductOnCheckout
                         carts={carts}
@@ -426,8 +427,8 @@ const CheckOut = (props: Props) => {
                                     )}
                                     {errors.phonenumber?.type ===
                                         'required' && (
-                                        <Error error="Phone number is required" />
-                                    )}
+                                            <Error error="Phone number is required" />
+                                        )}
                                     {errors.phonenumber?.type === 'matches' && (
                                         <Error error="Phone number is invalid" />
                                     )}
@@ -515,14 +516,16 @@ const CheckOut = (props: Props) => {
                                     <input
                                         className="text-white hover:text-black py-2 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400"
                                         type="submit"
+                                        value="Continue"
                                     />
                                 ) : (
-                                    <input
-                                        className="text-white hover:text-black py-2 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400"
-                                        disabled
-                                        type="submit"
-                                    />
-                                )}
+                                        <input
+                                            className="text-white hover:text-black py-2 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400"
+                                            disabled
+                                            type="submit"
+                                            value="Continue"
+                                        />
+                                    )}
                             </div>
                         </div>
                     </form>
@@ -578,13 +581,13 @@ const CheckOut = (props: Props) => {
                                         value="Continue"
                                     />
                                 ) : (
-                                    <input
-                                        className="bg-red-700 px-6 py-2 rounded-md"
-                                        disabled
-                                        type="submit"
-                                        value="Continue"
-                                    />
-                                )}
+                                        <input
+                                            className="bg-red-700 px-6 py-2 rounded-md"
+                                            disabled
+                                            type="submit"
+                                            value="Continue"
+                                        />
+                                    )}
                             </div>
                         </form>
                     </div>
@@ -604,23 +607,23 @@ const CheckOut = (props: Props) => {
                                     Pay
                                 </button>
                             ) : (
-                                <button
-                                    className="bg-red-700 px-6 py-2 rounded-md"
-                                    disabled
-                                >
-                                    Pay
-                                </button>
-                            )}
+                                    <button
+                                        className="bg-red-700 px-6 py-2 rounded-md"
+                                        disabled
+                                    >
+                                        Pay
+                                    </button>
+                                )}
                         </div>
                     </div>
                 </div>
             ) : (
-                <div className="p-4">
-                    <p className="mt-40 text-4xl font-bold text-red-600">
-                        Please login to checkout
+                    <div className="p-4">
+                        <p className="mt-40 text-4xl font-bold text-red-600">
+                            Please login to checkout
                     </p>
-                </div>
-            )}
+                    </div>
+                )}
         </>
     )
 }

@@ -1,25 +1,25 @@
 import React from 'react'
-import type { itemType } from '../App'
+import type { TypeItemCart } from '../stores/cartsSlice'
 import type { RootState } from '../stores/store'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 interface Props {
-    cartItems: itemType[]
+    cartItems: TypeItemCart[]
 }
 
-const getTotalItems = (items: itemType[]) =>
+const getTotalItems = (items: TypeItemCart[]) =>
     items.reduce((ack: number, item) => ack + item.cartAmount, 0)
 
-const getTotalPrice = (items: itemType[]) =>
+const getTotalPrice = (items: TypeItemCart[]) =>
     items.reduce(
         (ack: number, item) =>
             ack +
             item.cartAmount *
-                (item.price -
-                    Math.ceil(((item.price / 10000) * item.sale) / 100) *
-                        10000),
+            (item.price -
+                Math.ceil(((item.price / 10000) * item.sale) / 100) *
+                10000),
         0,
     )
 
@@ -76,25 +76,25 @@ const Checkout = ({ cartItems }: Props) => {
                         </button>
                     </Link>
                 ) : (
-                    <Link to="/login">
+                        <Link to="/login">
+                            <button
+                                onClick={handleClick}
+                                className="bg-blue-600 px-5 py-1 rounded-md hover:bg-red-400 active:bg-red-500 duration-500 focus:outline-none"
+                            >
+                                Check out
+                        </button>
+                        </Link>
+                    )
+            ) : (
+                    <Link to="/">
                         <button
-                            onClick={handleClick}
+                            onClick={handleClickCheckOut}
                             className="bg-blue-600 px-5 py-1 rounded-md hover:bg-red-400 active:bg-red-500 duration-500 focus:outline-none"
                         >
                             Check out
-                        </button>
-                    </Link>
-                )
-            ) : (
-                <Link to="/">
-                    <button
-                        onClick={handleClickCheckOut}
-                        className="bg-blue-600 px-5 py-1 rounded-md hover:bg-red-400 active:bg-red-500 duration-500 focus:outline-none"
-                    >
-                        Check out
                     </button>
-                </Link>
-            )}
+                    </Link>
+                )}
         </div>
     )
 }
