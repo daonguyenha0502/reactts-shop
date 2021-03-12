@@ -81,7 +81,6 @@ const Index = ({ listPictures }: Props) => {
         } else {
             getProduct()
         }
-        return setListProduct([])
     }, [])
     //non scroll loading
     // useEffect(() => {

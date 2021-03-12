@@ -15,7 +15,7 @@ interface ValidationErrors {
 }
 
 interface DeleteResponse {
-    data: string,
+    data: string
     status: string
 }
 
@@ -30,22 +30,28 @@ if (
     }
 }
 
-export const deleteToken = createAsyncThunk('users/deleteToken', async (_, { getState, rejectWithValue }) => {
-    try {
-        let { users } = await getState() as RootState;
-        console.log(users);
-        let temp = await { token: users.refreshToken };
-        const response: DeleteResponse = await logOut(temp)
-        return response.data
-    } catch (err) {
-        let error: AxiosError<ValidationErrors> = err // cast the error for access
-        if (!error.response) {
-            throw err
+export const deleteToken = createAsyncThunk(
+    'users/deleteToken',
+    async (_, { getState, rejectWithValue }) => {
+        try {
+            let { users } = (await getState()) as RootState
+            console.log(users)
+            let temp = await { token: users.refreshToken }
+            const response: DeleteResponse = await logOut(temp)
+            return response.data
+        } catch (err) {
+            let error: AxiosError<ValidationErrors> = err // cast the error for access
+            if (!error.response) {
+                throw err
+            }
+            // We got validation errors, let's return those so we can reference in our component and set form errors
+            return rejectWithValue({
+                status: error.response.status,
+                data: error.response.data,
+            })
         }
-        // We got validation errors, let's return those so we can reference in our component and set form errors
-        return rejectWithValue({ status: error.response.status, data: error.response.data })
-    }
-})
+    },
+)
 
 const user = createSlice({
     name: 'users',
@@ -77,19 +83,20 @@ const user = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(deleteToken.fulfilled, (state, _) => {
-            console.log("fulfilled");
+            console.log('fulfilled')
             state.accessToken = null
             state.refreshToken = null
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
-        }), builder.addCase(deleteToken.rejected, (state, _) => {
-            console.log("rejected");
-            // state.accessToken = null
-            // state.refreshToken = null
-            // localStorage.removeItem('accessToken')
-            // localStorage.removeItem('refreshToken')
-        });
-    }
+        }),
+            builder.addCase(deleteToken.rejected, (state, _) => {
+                console.log('rejected')
+                // state.accessToken = null
+                // state.refreshToken = null
+                // localStorage.removeItem('accessToken')
+                // localStorage.removeItem('refreshToken')
+            })
+    },
 })
 
 const { reducer, actions } = user

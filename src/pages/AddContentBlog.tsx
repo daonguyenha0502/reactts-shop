@@ -37,7 +37,8 @@ const AddContentBlog = () => {
     const onSave = () => {
         if (
             Draft.convertToRaw(editorState.getCurrentContent()).blocks.length >
-            1 && alias
+                1 &&
+            alias
         ) {
             let temp: TypeBlog = {
                 content: JSON.stringify(
@@ -67,15 +68,23 @@ const AddContentBlog = () => {
                         />
                     </div>
                     <div className="mt-14 w-11/12 xl:w-2/3 md:h-3/4 mx-auto border border-gray-700 rounded-sm">
-                        <input className="w-full" type="text" value={alias} onChange={(event: ChangeEvent<HTMLInputElement>) => setAlias(event.target.value)} placeholder="Alias" />
+                        <input
+                            className="w-full"
+                            type="text"
+                            value={alias}
+                            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                                setAlias(event.target.value)
+                            }
+                            placeholder="Alias"
+                        />
                     </div>
                     <button className="px-6 py-2 bg-blue-600" onClick={onSave}>
                         Save
                     </button>
                 </>
             ) : (
-                    <Error />
-                )}
+                <Error />
+            )}
         </>
     )
 }

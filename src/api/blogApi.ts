@@ -6,11 +6,11 @@ const blogApi = {
         const url = `/blog/${alias}`
         return axiosClient.get(url)
     },
-    postOne: (blog: any)=>{
+    postOne: (blog: any) => {
         let temp = JSON.stringify(blog)
         const url = `/blog`
         return axiosClient.post(url, temp)
-    }
+    },
 }
 
 export default blogApi

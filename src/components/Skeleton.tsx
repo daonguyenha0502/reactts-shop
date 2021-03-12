@@ -20,4 +20,4 @@ const Skeleton = (props: Props) => {
     )
 }
 
-export default Skeleton
+export default React.memo(Skeleton)

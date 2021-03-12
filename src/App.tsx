@@ -3,6 +3,7 @@ import './App.css'
 
 import Nav from './components/Nav'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import clsx from 'clsx'
 import Index from './pages/Index'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -20,6 +21,7 @@ import PageTypeProducts from './pages/PageTypeProducts'
 import CheckOut from './pages/CheckOut'
 import Blog from './pages/Blog'
 import AddContentBlog from './pages/AddContentBlog'
+import Profile from './pages/Profile'
 //import TestCheckOut from './pages/TestCheckOut';
 
 export function ScrollToTop(): any {
@@ -32,7 +34,7 @@ export function ScrollToTop(): any {
     return null
 }
 
-interface AppProps { }
+interface AppProps {}
 
 export interface itemType {
     _id: string
@@ -56,7 +58,7 @@ let pictures: string[] = [
     'https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517613/shop/other/sl1_hotjpl.png',
 ]
 
-function App({ }: AppProps) {
+function App({}: AppProps) {
     const [hiddenScroll, setHiddenScroll] = useState<boolean | true>(true)
     function handleUpTop() {
         window.scroll(0, 0)
@@ -111,6 +113,9 @@ function App({ }: AppProps) {
                     <Route exact path="/blog/:idBlog">
                         <Blog />
                     </Route>
+                    <Route exact path="/profile">
+                        <Profile />
+                    </Route>
 
                     <Route
                         exact
@@ -134,15 +139,17 @@ function App({ }: AppProps) {
                     pauseOnHover
                     limit={4}
                 />
-                {!hiddenScroll && (
-                    <div
-                        onClick={() => handleUpTop()}
-                        className="fixed bottom-20 right-12 cursor-pointer"
-                        title="Scroll Back to Top"
-                    >
-                        <FontAwesomeIcon icon={faCaretSquareUp} size="2x" />
-                    </div>
-                )}
+                <div
+                    onClick={() => handleUpTop()}
+                    className={clsx(
+                        hiddenScroll
+                            ? 'fixed bottom-20 right-12 cursor-pointer hidden'
+                            : 'fixed bottom-20 right-12 cursor-pointer',
+                    )}
+                    title="Scroll Back to Top"
+                >
+                    <FontAwesomeIcon icon={faCaretSquareUp} size="2x" />
+                </div>
             </div>
         </Router>
     )

@@ -1,20 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { itemType } from 'src/App'
+//import type { itemType } from '../App'
 
-const initialProducts: itemType[] = []
+export interface TypeItemCart {
+    _id: string
+    name: string
+    price: number
+    sale: number
+    img: string
+    cartAmount: number | 0
+}
+
+const initialProducts: TypeItemCart[] = []
 
 const cart = createSlice({
     name: 'carts',
     initialState: initialProducts,
     reducers: {
-        addToCart: (state, action: PayloadAction<itemType>) => {
+        addToCart: (state, action: PayloadAction<TypeItemCart>) => {
             // 1. Is the item already added in the cart?
             const isItemInCart = state.find(
-                (item: itemType) => item._id === action.payload._id,
+                (item: TypeItemCart) => item._id === action.payload._id,
             )
 
             if (isItemInCart) {
-                return (state as itemType[]).map((item: itemType) =>
+                return (state as TypeItemCart[]).map((item: TypeItemCart) =>
                     item._id === action.payload._id
                         ? { ...item, cartAmount: item.cartAmount + 1 }
                         : item,
@@ -23,7 +32,7 @@ const cart = createSlice({
             // First time the item is added
             return [...state, { ...action.payload, cartAmount: 1 }]
         },
-        reducerCart: (state, action: PayloadAction<itemType>) => {
+        reducerCart: (state, action: PayloadAction<TypeItemCart>) => {
             for (let i = 0; i < state.length; i++) {
                 if (
                     state[i]._id === action.payload._id &&
@@ -54,9 +63,12 @@ const cart = createSlice({
                 }
             }
         },
+        freeCart: (state) => {
+            state.length = 0
+        },
     },
 })
 
 const { reducer, actions } = cart
-export const { addToCart, reducerCart, deleteFromCart } = actions
+export const { addToCart, reducerCart, deleteFromCart, freeCart } = actions
 export default cart

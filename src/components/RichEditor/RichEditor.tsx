@@ -1,15 +1,12 @@
 import React, { useState, useRef, ChangeEvent } from 'react'
-import 'draft-js/dist/Draft.css';
+import 'draft-js/dist/Draft.css'
 import './RichText.css'
 import Draft from 'draft-js'
-import BlockStyleControls from './BlockStyleControls';
-import InlineStyleControls from './InlineStyleControls';
+import BlockStyleControls from './BlockStyleControls'
+import InlineStyleControls from './InlineStyleControls'
 
-
-interface Props {
-
-}
-type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
+interface Props {}
+type SyntheticKeyboardEvent = React.KeyboardEvent<{}>
 
 const RichEditor = (props: Props) => {
     const styleMap = {
@@ -19,72 +16,79 @@ const RichEditor = (props: Props) => {
             fontSize: 16,
             padding: 2,
         },
-    };
+    }
 
     function getBlockStyle(block: Draft.ContentBlock) {
         //with tailwindcss
         switch (block.getType()) {
-            case 'blockquote': return 'RichEditor-blockquote';
-            case 'header-one': return 'text-6xl font-bold';
-            case 'header-two': return 'text-5xl font-bold';
-            case 'header-three': return 'text-4xl font-bold';
-            case 'header-four': return 'text-3xl font-bold';
-            case 'header-five': return 'text-2xl font-bold';
-            case 'header-six': return 'text-xl font-bold';
-            default: return "";
+            case 'blockquote':
+                return 'RichEditor-blockquote'
+            case 'header-one':
+                return 'text-6xl font-bold'
+            case 'header-two':
+                return 'text-5xl font-bold'
+            case 'header-three':
+                return 'text-4xl font-bold'
+            case 'header-four':
+                return 'text-3xl font-bold'
+            case 'header-five':
+                return 'text-2xl font-bold'
+            case 'header-six':
+                return 'text-xl font-bold'
+            default:
+                return ''
         }
     }
 
-    const [editorState, setEditorState] = useState(() => Draft.EditorState.createEmpty())
+    const [editorState, setEditorState] = useState(() =>
+        Draft.EditorState.createEmpty(),
+    )
     const editor = useRef(null)
     const handleChange = (editorState: any) => setEditorState(editorState)
-    const _handleKeyCommand = (command: Draft.DraftEditorCommand, editorState: Draft.EditorState): Draft.DraftHandleValue => {
-        const newState = Draft.RichUtils.handleKeyCommand(editorState, command);
+    const _handleKeyCommand = (
+        command: Draft.DraftEditorCommand,
+        editorState: Draft.EditorState,
+    ): Draft.DraftHandleValue => {
+        const newState = Draft.RichUtils.handleKeyCommand(editorState, command)
         if (newState) {
             handleChange(newState)
-            return 'handled';
+            return 'handled'
         }
-        return 'not-handled';
+        return 'not-handled'
     }
 
-    const _mapKeyToEditorCommand = (e: SyntheticKeyboardEvent): string | null => {
+    const _mapKeyToEditorCommand = (
+        e: SyntheticKeyboardEvent,
+    ): string | null => {
         if (e.keyCode === 9 /* TAB */) {
             const newEditorState = Draft.RichUtils.onTab(
                 e,
                 editorState,
-                4, /* maxDepth */
-            );
+                4 /* maxDepth */,
+            )
             if (newEditorState !== editorState) {
-                handleChange(newEditorState);
+                handleChange(newEditorState)
             }
-            return '';
+            return ''
         }
-        return Draft.getDefaultKeyBinding(e);
+        return Draft.getDefaultKeyBinding(e)
     }
 
     const _toggleBlockType = (blockType: any) => {
         console.log(blockType + 'a')
-        handleChange(
-            Draft.RichUtils.toggleBlockType(
-                editorState,
-                blockType
-            )
-        );
+        handleChange(Draft.RichUtils.toggleBlockType(editorState, blockType))
     }
 
     const _toggleInlineStyle = (inlineStyle: any) => {
         handleChange(
-            Draft.RichUtils.toggleInlineStyle(
-                editorState,
-                inlineStyle
-            )
-        );
+            Draft.RichUtils.toggleInlineStyle(editorState, inlineStyle),
+        )
     }
-    let className = 'RichEditor-editor';
-    var contentState = editorState.getCurrentContent();
+    let className = 'RichEditor-editor'
+    var contentState = editorState.getCurrentContent()
     if (!contentState.hasText()) {
         if (contentState.getBlockMap().first().getType() !== 'unstyled') {
-            className += ' RichEditor-hidePlaceholder';
+            className += ' RichEditor-hidePlaceholder'
         }
     }
     return (
@@ -111,13 +115,7 @@ const RichEditor = (props: Props) => {
                 />
             </div>
         </div>
-    );
+    )
 }
 
 export default RichEditor
-
-
-
-
-
-

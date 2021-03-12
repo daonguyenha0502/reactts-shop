@@ -6,8 +6,10 @@ import { yupResolver } from '@hookform/resolvers/dist/yup'
 import * as yup from 'yup'
 
 import locationsApi from '../api/locationsApi'
+import checkOutApi from '../api/checkOutApi'
+
 import { InputField, Error } from '../components/InputField'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '../stores/store'
 import ListProductOnCheckout from '../components/ListProductOnCheckout'
 
@@ -15,8 +17,7 @@ import ListProductOnCheckout from '../components/ListProductOnCheckout'
 import CryptoJS from 'crypto-js'
 import moment from 'moment'
 import axios from 'axios'
-import type { itemType } from '../App'
-import cart from '../stores/cartsSlice'
+import { TypeItemCart, freeCart } from '../stores/cartsSlice'
 import { useHistory } from 'react-router-dom'
 const configZalo = {
     app_id: '2553',
@@ -26,7 +27,25 @@ const configZalo = {
 }
 //
 
-interface Props { }
+interface Props {}
+
+interface BillAttr {
+    address: string
+    cart: string
+    code: string
+    name: string
+    email: string
+    phone: string
+    type: 'COD' | 'ZaloPay' | ''
+}
+
+interface TypeOfFrom1 {
+    email: string
+    firstname: string
+    lastname: string
+    phonenumber: string
+    street: string
+}
 
 const InformationSchema = yup.object().shape({
     email: yup.string().email().required().min(12).max(50),
@@ -43,7 +62,11 @@ type LocationType = {
     value: string
     label: string
 }
-export type TypeCheckout = 'VIEW_CART' | 'ADD_ADDRESS' | 'ADD_PAYMENT'
+export type TypeCheckout =
+    | 'VIEW_CART'
+    | 'ADD_ADDRESS'
+    | 'ADD_PAYMENT'
+    | 'PAYMENT'
 
 const customStyles = {
     input: (provided: any, state: any) => ({
@@ -83,17 +106,17 @@ const customStyles = {
 }
 
 const CheckOut = (props: Props) => {
-    const ZaloPay = async (carts: itemType[]) => {
-        const getTotalPrice = (carts: itemType[]) =>
+    const ZaloPay = async (carts: TypeItemCart[]) => {
+        const getTotalPrice = (carts: TypeItemCart[]) =>
             carts.reduce(
-                (ack: number, item: itemType) =>
+                (ack: number, item: TypeItemCart) =>
                     ack +
                     item.cartAmount *
-                    (item.price -
-                        Math.ceil(
-                            ((item.price / 10000) * item.sale) / 100,
-                        ) *
-                        10000),
+                        (item.price -
+                            Math.ceil(
+                                ((item.price / 10000) * item.sale) / 100,
+                            ) *
+                                10000),
                 0,
             )
         const embed_data = {}
@@ -150,6 +173,11 @@ const CheckOut = (props: Props) => {
     )
     const [listWard, setListWard] = useState<LocationType[] | []>([])
     const [currentWard, setCurrentWard] = useState<LocationType | null>(null)
+
+    const [bill, setBill] = useState<BillAttr | ''>('')
+    const [typePayment, setTypePayment] = useState<'ZaloPay' | 'COD'>('COD')
+
+    const dispatch = useDispatch()
 
     const getCities = async () => {
         const res: any = await locationsApi.getListCity()
@@ -209,10 +237,31 @@ const CheckOut = (props: Props) => {
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(InformationSchema),
     })
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: TypeOfFrom1) => {
         if (currentCity && currentDistrict && currentWard) {
             setErrorsLocation(false)
-            //console.log({ ...data, city: currentCity.value, district: currentDistrict.value, ward: currentWard.value });
+            //console.log({ name: data.firstname + " " + data.lastname, email: data.email, phone: data.phonenumber, address: data.street + "," + currentWard.label + "," + currentDistrict.label + "," + currentCity.label, code: currentCity.value + '-' + currentDistrict.value + '-' + currentWard.value, type: '' });
+            setBill({
+                name: data.firstname + ' ' + data.lastname,
+                email: data.email,
+                phone: data.phonenumber,
+                address:
+                    data.street +
+                    ',' +
+                    currentWard.label +
+                    ',' +
+                    currentDistrict.label +
+                    ',' +
+                    currentCity.label,
+                code:
+                    currentCity.value +
+                    '-' +
+                    currentDistrict.value +
+                    '-' +
+                    currentWard.value,
+                type: '',
+                cart: '',
+            })
             setStateCheckout('ADD_PAYMENT')
         } else {
             setErrorsLocation(true)
@@ -229,27 +278,60 @@ const CheckOut = (props: Props) => {
         mode: 'onBlur',
     })
     const history = useHistory()
-    const onSubmit2 = (data: any) => {
+    const onSubmit2 = async (data: any) => {
         //console.log(data);
-        if (data.Payment === 'ZaloPay') {
-            ZaloPay(carts)
-            history.push('/profile')
+        if (bill !== '') {
+            let cart = await JSON.stringify(carts)
+            if (data.Payment === 'ZaloPay') {
+                setBill({ ...bill, type: 'ZaloPay', cart: cart })
+                setStateCheckout('PAYMENT')
+                setTypePayment('ZaloPay')
+            } else {
+                setBill({ ...bill, type: 'COD', cart: cart })
+                setTypePayment('COD')
+                //console.log('COD')
+                //history.push('/profile')
+            }
         } else {
-            console.log('COD')
-            history.push('/profile')
+            console.log('lose')
         }
     }
     if (errors2) {
-        console.log(errors2)
+        //console.log(errors2)
+    }
+
+    async function handleClick() {
+        if (typePayment === 'ZaloPay') {
+            const response: any = await checkOutApi.saveBill(bill)
+            //console.log(response)
+            if (response.message) {
+                await dispatch(freeCart())
+                ZaloPay(carts)
+                history.push('/profile')
+            }
+        } else {
+            const response: any = await checkOutApi.saveBill(bill)
+            //console.log(response)
+            if (response.message) {
+                await dispatch(freeCart())
+                history.push('/profile')
+            }
+        }
     }
 
     return (
         <>
             {user.accessToken ? (
                 <div className="w-5/6 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 2xl:w-3/4 text-left py-20 mx-auto">
-                    <h1 className="text-2xl text-red-700 text-center mb-4">
-                        This is checkout
-                    </h1>
+                    {carts.length > 0 ? (
+                        <h1 className="text-2xl text-red-700 text-center mb-4">
+                            This is checkout
+                        </h1>
+                    ) : (
+                        <h1 className="text-2xl text-gray-500 text-center mb-4">
+                            Cart is empty. Please buy something to checkout!
+                        </h1>
+                    )}
 
                     <ListProductOnCheckout
                         carts={carts}
@@ -258,7 +340,8 @@ const CheckOut = (props: Props) => {
                     <div className="text-center mb-4">
                         <button
                             className={clsx(
-                                stateCheckout === 'VIEW_CART'
+                                stateCheckout === 'VIEW_CART' &&
+                                    carts.length > 0
                                     ? 'text-white hover:text-black mx-auto py-2 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400'
                                     : 'invisible',
                             )}
@@ -343,8 +426,8 @@ const CheckOut = (props: Props) => {
                                     )}
                                     {errors.phonenumber?.type ===
                                         'required' && (
-                                            <Error error="Phone number is required" />
-                                        )}
+                                        <Error error="Phone number is required" />
+                                    )}
                                     {errors.phonenumber?.type === 'matches' && (
                                         <Error error="Phone number is invalid" />
                                     )}
@@ -434,12 +517,12 @@ const CheckOut = (props: Props) => {
                                         type="submit"
                                     />
                                 ) : (
-                                        <input
-                                            className="text-white hover:text-black py-2 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400"
-                                            disabled
-                                            type="submit"
-                                        />
-                                    )}
+                                    <input
+                                        className="text-white hover:text-black py-2 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400"
+                                        disabled
+                                        type="submit"
+                                    />
+                                )}
                             </div>
                         </div>
                     </form>
@@ -492,28 +575,52 @@ const CheckOut = (props: Props) => {
                                     <input
                                         className="bg-red-700 px-6 py-2 rounded-md"
                                         type="submit"
-                                        value="Pay"
+                                        value="Continue"
                                     />
                                 ) : (
-                                        <input
-                                            className="bg-red-700 px-6 py-2 rounded-md"
-                                            disabled
-                                            onClick={() => ZaloPay(carts)}
-                                            type="submit"
-                                            value="Pay"
-                                        />
-                                    )}
+                                    <input
+                                        className="bg-red-700 px-6 py-2 rounded-md"
+                                        disabled
+                                        type="submit"
+                                        value="Continue"
+                                    />
+                                )}
                             </div>
                         </form>
                     </div>
+                    <div
+                        className={clsx(
+                            stateCheckout !== 'PAYMENT'
+                                ? 'w-full text-left mt-4 mx-auto bg-gray-200 opacity-50 cursor-not-allowed rounded-lg select-none'
+                                : 'w-full text-left mt-4 mx-auto',
+                        )}
+                    >
+                        <div className="text-center py-4">
+                            {stateCheckout === 'PAYMENT' ? (
+                                <button
+                                    className="bg-red-700 px-6 py-2 rounded-md"
+                                    onClick={handleClick}
+                                >
+                                    Pay
+                                </button>
+                            ) : (
+                                <button
+                                    className="bg-red-700 px-6 py-2 rounded-md"
+                                    disabled
+                                >
+                                    Pay
+                                </button>
+                            )}
+                        </div>
+                    </div>
                 </div>
             ) : (
-                    <div className="p-4">
-                        <p className="mt-40 text-4xl font-bold text-red-600">
-                            Please login to checkout
+                <div className="p-4">
+                    <p className="mt-40 text-4xl font-bold text-red-600">
+                        Please login to checkout
                     </p>
-                    </div>
-                )}
+                </div>
+            )}
         </>
     )
 }

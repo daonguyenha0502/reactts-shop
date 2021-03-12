@@ -25,9 +25,9 @@ const getToken = (token: string) => {
         })
         .catch(function (error) {
             console.log(error)
-            let baseURL = import.meta.env.SNOWPACK_PUBLIC_APP_URL;
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
+            let baseURL = import.meta.env.SNOWPACK_PUBLIC_APP_URL
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('refreshToken')
             window.location.replace(`${baseURL}/login`)
         })
 }

@@ -11,12 +11,12 @@ const INLINE_STYLES = [
     { label: 'Italic', style: 'ITALIC' },
     { label: 'Underline', style: 'UNDERLINE' },
     { label: 'Monospace', style: 'CODE' },
-];
+]
 const InlineStyleControls = ({ editorState, onToggle }: Props) => {
-    const currentStyle = editorState.getCurrentInlineStyle();
+    const currentStyle = editorState.getCurrentInlineStyle()
     return (
         <div className="RichEditor-controls">
-            {INLINE_STYLES.map((type) =>
+            {INLINE_STYLES.map((type) => (
                 <StyleButton
                     key={type.label}
                     active={currentStyle.has(type.style)}
@@ -24,10 +24,9 @@ const InlineStyleControls = ({ editorState, onToggle }: Props) => {
                     onToggle={onToggle}
                     style={type.style}
                 />
-            )}
+            ))}
         </div>
     )
 }
 
 export default InlineStyleControls
-

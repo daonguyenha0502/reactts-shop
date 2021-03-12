@@ -17,15 +17,17 @@ const userApi = {
         let temp = JSON.stringify(info)
         return axiosClient.post(url, temp)
     },
-
 }
 async function logOut(token: any) {
-    const baseUrl = import.meta.env.SNOWPACK_PUBLIC_APP_API_URL;
+    const baseUrl = import.meta.env.SNOWPACK_PUBLIC_APP_API_URL
     const url = `${baseUrl}logout`
     let accessToken = localStorage.getItem('accessToken')
-    accessToken = "Bearer " + accessToken
+    accessToken = 'Bearer ' + accessToken
     //delete {data: {token: "asdasd"}}
-    const res: any = await axios.delete(url, { data: token, headers: { Authorization: accessToken } })
+    const res: any = await axios.delete(url, {
+        data: token,
+        headers: { Authorization: accessToken },
+    })
     //console.log(res)
     return res
 }

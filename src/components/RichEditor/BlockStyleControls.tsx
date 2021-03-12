@@ -17,18 +17,18 @@ const BLOCK_TYPES = [
     { label: 'UL', style: 'unordered-list-item' },
     { label: 'OL', style: 'ordered-list-item' },
     { label: 'Code Block', style: 'code-block' },
-];
+]
 
 const BlockStyleControls = ({ editorState, onToggle }: Props) => {
-    const selection = editorState.getSelection();
+    const selection = editorState.getSelection()
     const blockType = editorState
         .getCurrentContent()
         .getBlockForKey(selection.getStartKey())
-        .getType();
+        .getType()
     console.log(blockType)
     return (
         <div className="RichEditor-controls">
-            {BLOCK_TYPES.map((type) =>
+            {BLOCK_TYPES.map((type) => (
                 <StyleButton
                     key={type.label}
                     active={type.style === blockType}
@@ -36,7 +36,7 @@ const BlockStyleControls = ({ editorState, onToggle }: Props) => {
                     onToggle={onToggle}
                     style={type.style}
                 />
-            )}
+            ))}
         </div>
     )
 }

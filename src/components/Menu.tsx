@@ -21,7 +21,7 @@ const Menu = ({ refSearch, search, handleSubmit, setSearch }: Props) => {
         try {
             const resultAction: any = await dispatch(deleteToken())
             if (deleteToken.fulfilled.match(resultAction)) {
-                console.log('Logout');
+                console.log('Logout')
                 await toast.info(`Logout`, {
                     position: 'bottom-center',
                     autoClose: 4000,
@@ -33,18 +33,15 @@ const Menu = ({ refSearch, search, handleSubmit, setSearch }: Props) => {
                 })
             } else {
                 if (resultAction.payload) {
-                    console.log('error2');
+                    console.log('error2')
                 } else {
-                    console.log('error1');
+                    console.log('error1')
                 }
             }
-
         } catch (error) {
-            console.log('Failed to login ', error.message);
+            console.log('Failed to login ', error.message)
         }
-
     }
-
 
     return (
         <div className="w-4/5 lg:hidden flex-row h-auto bg-gray-500 rounded-b-lg absolute top-12">
@@ -99,31 +96,31 @@ const Menu = ({ refSearch, search, handleSubmit, setSearch }: Props) => {
                         </li>
                     </>
                 ) : (
-                        <>
-                            <li className="px-10 bg-blue-500 rounded-sm mb-2 text-black block sm:block md:block lg:hidden">
-                                <Link className="cursor-pointer" to="/profile">
-                                    <span
-                                        className={
-                                            pathName.pathname === '/profile'
-                                                ? 'text-red-700'
-                                                : ''
-                                        }
-                                    >
-                                        Profile
-                                </span>
-                                </Link>
-                            </li>
-                            <li className="px-10 bg-blue-500 rounded-sm mb-2  text-black block sm:block md:block lg:hidden">
-                                <Link
-                                    className="cursor-pointer"
-                                    onClick={() => handleLogOut()}
-                                    to="#"
+                    <>
+                        <li className="px-10 bg-blue-500 rounded-sm mb-2 text-black block sm:block md:block lg:hidden">
+                            <Link className="cursor-pointer" to="/profile">
+                                <span
+                                    className={
+                                        pathName.pathname === '/profile'
+                                            ? 'text-red-700'
+                                            : ''
+                                    }
                                 >
-                                    Logout{' '}
-                                </Link>
-                            </li>
-                        </>
-                    )}
+                                    Profile
+                                </span>
+                            </Link>
+                        </li>
+                        <li className="px-10 bg-blue-500 rounded-sm mb-2  text-black block sm:block md:block lg:hidden">
+                            <Link
+                                className="cursor-pointer"
+                                onClick={() => handleLogOut()}
+                                to="#"
+                            >
+                                Logout{' '}
+                            </Link>
+                        </li>
+                    </>
+                )}
             </ul>
         </div>
     )

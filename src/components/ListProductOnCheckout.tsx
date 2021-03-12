@@ -1,10 +1,10 @@
 import React from 'react'
-import type { itemType } from '../App'
+import type { TypeItemCart } from '../stores/cartsSlice'
 import type { TypeCheckout } from '../pages/CheckOut'
 import clsx from 'clsx'
 
 interface Props {
-    carts: itemType[]
+    carts: TypeItemCart[]
     stateCheckout: TypeCheckout
 }
 

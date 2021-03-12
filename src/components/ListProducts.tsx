@@ -68,4 +68,4 @@ const ListProducts = ({ listProduct, isLoading }: Props) => {
     )
 }
 
-export default ListProducts
+export default React.memo(ListProducts)

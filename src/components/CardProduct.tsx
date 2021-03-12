@@ -92,4 +92,4 @@ const CardProduct = ({ product, onAdd }: Props) => {
     )
 }
 
-export default CardProduct
+export default React.memo(CardProduct)

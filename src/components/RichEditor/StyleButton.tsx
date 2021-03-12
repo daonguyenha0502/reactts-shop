@@ -1,17 +1,20 @@
 import React from 'react'
 
 interface Props {
-    onToggle: any, label: any, active: any, style: any
+    onToggle: any
+    label: any
+    active: any
+    style: any
 }
 
 const StyleButton = ({ onToggle, label, active, style }: Props) => {
     const handleToggle = (e: any) => {
-        e.preventDefault();
-        onToggle(style);
+        e.preventDefault()
+        onToggle(style)
     }
-    let className = 'RichEditor-styleButton';
+    let className = 'RichEditor-styleButton'
     if (active) {
-        className += ' RichEditor-activeButton';
+        className += ' RichEditor-activeButton'
     }
     return (
         <span className={className} onMouseDown={handleToggle}>
@@ -19,6 +22,5 @@ const StyleButton = ({ onToggle, label, active, style }: Props) => {
         </span>
     )
 }
-
 
 export default StyleButton
