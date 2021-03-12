@@ -31,11 +31,23 @@ const Nav = ({ }: Props) => {
     }
 
     const handleLogOut = async () => {
-        try {
-            const resultAction: any = await dispatch(deleteToken())
-            if (deleteToken.fulfilled.match(resultAction)) {
-                console.log('Logout');
-                await toast.info(`Logout`, {
+
+        const resultAction: any = await dispatch(deleteToken())
+        if (deleteToken.fulfilled.match(resultAction)) {
+            //console.log('Logout');
+            await toast.info(`Logout`, {
+                position: 'bottom-center',
+                autoClose: 4000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
+        } else {
+            if (resultAction.payload) {
+                console.log(resultAction.payload);
+                await toast.warning(`${resultAction.payload.status}: ${resultAction.payload.data}`, {
                     position: 'bottom-center',
                     autoClose: 4000,
                     hideProgressBar: true,
@@ -45,17 +57,18 @@ const Nav = ({ }: Props) => {
                     progress: undefined,
                 })
             } else {
-                if (resultAction.payload) {
-                    console.log('error2');
-                } else {
-                    console.log('error1');
-                }
+                console.log('error');
+                await toast.error(`500`, {
+                    position: 'bottom-center',
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
             }
-
-        } catch (error) {
-            console.log('Failed to login ', error.message);
         }
-
     }
 
     const onSubmit = (e: any) => {

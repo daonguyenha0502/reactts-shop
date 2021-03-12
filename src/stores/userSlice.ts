@@ -2,11 +2,23 @@ import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 //import jwt_decode from 'jwt-decode'
 import { logOut } from '../api/userApi'
 import type { RootState } from './store'
+import type { AxiosError } from 'axios'
 
 export interface TypeUser {
     accessToken: string | null
     refreshToken: string | null
 }
+
+interface ValidationErrors {
+    errorMessage: string
+    field_errors: Record<string, string>
+}
+
+interface DeleteResponse {
+    data: string,
+    status: string
+}
+
 let initialUser: TypeUser = { accessToken: null, refreshToken: null }
 if (
     localStorage.getItem('accessToken') &&
@@ -18,17 +30,22 @@ if (
     }
 }
 
-export const deleteToken = createAsyncThunk("users/deleteToken", async (_, { getState, rejectWithValue }) => {
-    let { users } = getState() as RootState;
-    console.log(users);
-    let temp = { token: users.refreshToken };
-    const res = logOut(temp);
-    console.log(res);
-    if (res === undefined) {
-        console.log("d");
-        return rejectWithValue('error');
+export const deleteToken = createAsyncThunk('users/deleteToken', async (_, { getState, rejectWithValue }) => {
+    try {
+        let { users } = await getState() as RootState;
+        console.log(users);
+        let temp = await { token: users.refreshToken };
+        const response: DeleteResponse = await logOut(temp)
+        return response.data
+    } catch (err) {
+        let error: AxiosError<ValidationErrors> = err // cast the error for access
+        if (!error.response) {
+            throw err
+        }
+        // We got validation errors, let's return those so we can reference in our component and set form errors
+        return rejectWithValue({ status: error.response.status, data: error.response.data })
     }
-});
+})
 
 const user = createSlice({
     name: 'users',
@@ -60,9 +77,17 @@ const user = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(deleteToken.fulfilled, (state, _) => {
-            console.log("a");
+            console.log("fulfilled");
+            state.accessToken = null
+            state.refreshToken = null
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('refreshToken')
         }), builder.addCase(deleteToken.rejected, (state, _) => {
-            console.log("error");
+            console.log("rejected");
+            // state.accessToken = null
+            // state.refreshToken = null
+            // localStorage.removeItem('accessToken')
+            // localStorage.removeItem('refreshToken')
         });
     }
 })
