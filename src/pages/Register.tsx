@@ -43,7 +43,7 @@ const Register = (props: Props) => {
         resolver: yupResolver(registerSchema),
     })
     const onSubmit = async (data: TypeRegister) => {
-        console.log(data)
+        //console.log(data)
         const response: any = await userApi.register(data)
         if (response === 'Registered') {
             history.push('/login')

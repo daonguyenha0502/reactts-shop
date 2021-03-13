@@ -23,13 +23,13 @@ const ForgotPassword = (props: Props) => {
     const [errorForgotPassword, setErrorForgotPassword] = useState<string | null>(null)
     const history = useHistory()
 
-    async function Login(email: TypeForgotPassword) {
+    async function Forgot(email: TypeForgotPassword) {
         const response: any = await userApi.forgotPassword(email)
-        if (response.accessToken && response.refreshToken) {
-            //console.log(response)
+        if (response) {
+            console.log(response)
             //console.log('save token')
-            history.push('/')
-            toast.info(`You are logged in`, {
+            //history.push('/')
+            toast.info(`${response.message}`, {
                 position: 'bottom-center',
                 autoClose: 4000,
                 hideProgressBar: true,
@@ -49,7 +49,7 @@ const ForgotPassword = (props: Props) => {
     })
     const onSubmit = (data: any) => {
         //console.log(data);
-        Login(data)
+        Forgot(data)
     }
     if (errors) {
         // console.log(errors.password);
