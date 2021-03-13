@@ -2,7 +2,7 @@ import axiosClient from './axiosClient'
 
 const blogApi = {
     getOne: (alias: any) => {
-        console.log(alias)
+        //console.log(alias)
         const url = `/blog/${alias}`
         return axiosClient.get(url)
     },

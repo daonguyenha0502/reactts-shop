@@ -3,37 +3,41 @@ import { useParams } from 'react-router-dom'
 import blogApi from '../api/blogApi'
 
 import Draft from 'draft-js'
-import { wait } from '@testing-library/react'
+//import reactDraftWysiwyg from 'react-draft-wysiwyg'
 
 const Blog = () => {
     const { idBlog }: any = useParams()
-    const [content, setContent] = useState<string | ''>('')
-    const [editorState, setEditorState] = useState(() =>
+    const [editorState, setEditorState] = useState(
         Draft.EditorState.createEmpty(),
     )
-    const handleChange = (editorState: any) => setEditorState(editorState)
+    const onEditorStateChange = (editorState: any) => {
+        setEditorState(editorState)
+    }
+
     useEffect(() => {
         const getBlog = async () => {
             const res: any = await blogApi.getOne(idBlog)
-            console.log(res.content)
-            let temp: any = { "entityMap": {}, "blocks": [{ "key": "637gr", "text": "Initialized from content state.", "type": "unstyled", "depth": 0, "inlineStyleRanges": [], "entityRanges": [], "data": {} }] };
-            temp = await Draft.convertFromRaw(temp)
-            console.log(temp)
-            await setContent(temp.map)
+            let a = await res.content
+            if (a !== undefined) {
+                try {
+                    let b: any = await Draft.convertFromRaw(JSON.parse(a))
+                    setEditorState(Draft.EditorState.createWithContent(b))
+                } catch (error) {
+                    console.log(error)
+                }
+            }
         }
         getBlog()
     }, [idBlog])
-    console.log(idBlog)
-
     return (
-        <div className="mt-14 w-11/12 xl:w-2/3 md:h-3/4 mx-auto border border-gray-700 rounded-sm">
-            {content}
+        <div className="mt-14 w-11/12 xl:w-2/3 md:h-3/4 mx-auto rounded-sm">
             <Draft.Editor
                 readOnly
                 editorState={editorState}
-                onChange={(editorState: any) => setEditorState(editorState)}
+                onChange={onEditorStateChange}
             />
         </div>
+
     )
 }
 

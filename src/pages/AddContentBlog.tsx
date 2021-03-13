@@ -37,9 +37,10 @@ const AddContentBlog = () => {
     const onSave = () => {
         if (
             Draft.convertToRaw(editorState.getCurrentContent()).blocks.length >
-                1 &&
+            1 &&
             alias
         ) {
+            console.log(editorState.getCurrentContent())
             let temp: TypeBlog = {
                 content: JSON.stringify(
                     Draft.convertToRaw(editorState.getCurrentContent()),
@@ -83,8 +84,8 @@ const AddContentBlog = () => {
                     </button>
                 </>
             ) : (
-                <Error />
-            )}
+                    <Error />
+                )}
         </>
     )
 }
