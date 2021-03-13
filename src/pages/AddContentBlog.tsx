@@ -14,12 +14,14 @@ import type { TypeUser } from '../stores/userSlice'
 export interface TypeBlog {
     alias: string
     content: string
+    title: string
 }
 
 const AddContentBlog = () => {
     const user = useSelector((state: RootState) => state.users)
     const [role, setRole] = useState<string | 'user'>('user')
     const [alias, setAlias] = useState<string | ''>('')
+    const [title, setTitle] = useState<string | ''>('')
     useEffect(() => {
         async function getTK(user: TypeUser) {
             let tk = await getRoleInToken(user.accessToken)
@@ -38,7 +40,7 @@ const AddContentBlog = () => {
         if (
             Draft.convertToRaw(editorState.getCurrentContent()).blocks.length >
             1 &&
-            alias
+            alias && title
         ) {
             console.log(editorState.getCurrentContent())
             let temp: TypeBlog = {
@@ -46,6 +48,7 @@ const AddContentBlog = () => {
                     Draft.convertToRaw(editorState.getCurrentContent()),
                 ),
                 alias: alias,
+                title: title
             }
             console.log(temp)
             blogApi
@@ -68,7 +71,7 @@ const AddContentBlog = () => {
                             onEditorStateChange={onEditorStateChange}
                         />
                     </div>
-                    <div className="mt-14 w-11/12 xl:w-2/3 md:h-3/4 mx-auto border border-gray-700 rounded-sm">
+                    <div className="mt-4 w-11/12 xl:w-2/3 md:h-3/4 mx-auto border border-gray-700 rounded-sm">
                         <input
                             className="w-full"
                             type="text"
@@ -79,7 +82,18 @@ const AddContentBlog = () => {
                             placeholder="Alias"
                         />
                     </div>
-                    <button className="px-6 py-2 bg-blue-600" onClick={onSave}>
+                    <div className="mt-2 w-11/12 xl:w-2/3 md:h-3/4 mx-auto border border-gray-700 rounded-sm">
+                        <input
+                            className="w-full"
+                            type="text"
+                            value={alias}
+                            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                                setTitle(event.target.value)
+                            }
+                            placeholder="Title"
+                        />
+                    </div>
+                    <button className="px-6 py-2 bg-blue-600 mt-4 rounded-md" onClick={onSave}>
                         Save
                     </button>
                 </>

@@ -9,7 +9,7 @@ import { InputField, Error } from '../components/InputField'
 import userApi from '../api/userApi'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
-import type { RootState } from 'src/stores/store'
+import type { RootState } from '../stores/store'
 
 export interface TypeRegister {
     email: string
@@ -33,7 +33,7 @@ const registerSchema = yup.object().shape({
         .required(),
 })
 
-interface Props {}
+interface Props { }
 
 const Register = (props: Props) => {
     const history = useHistory()
@@ -152,11 +152,11 @@ const Register = (props: Props) => {
                     </form>
                 </>
             ) : (
-                <>
-                    {' '}
-                    <h1 className="w-80">You are logged in!</h1>{' '}
-                </>
-            )}
+                    <>
+                        {' '}
+                        <h1 className="w-80">You are logged in!</h1>{' '}
+                    </>
+                )}
         </div>
     )
 }

@@ -22,6 +22,9 @@ import CheckOut from './pages/CheckOut'
 import Blog from './pages/Blog'
 import AddContentBlog from './pages/AddContentBlog'
 import Profile from './pages/Profile'
+import ChangePassword from './pages/ChangePassword'
+import ForgotPassword from './pages/ForgotPassword'
+import RestorePassword from './pages/RestorePassword'
 //import TestCheckOut from './pages/TestCheckOut';
 
 export function ScrollToTop(): any {
@@ -86,6 +89,15 @@ function App({ }: AppProps) {
                     </Route>
                     <Route exact path="/register">
                         <Register />
+                    </Route>
+                    <Route exact path="/changePassword">
+                        <ChangePassword />
+                    </Route>
+                    <Route exact path="/forgotPassword">
+                        <ForgotPassword />
+                    </Route>
+                    <Route exact path="/restorePassword">
+                        <RestorePassword />
                     </Route>
                     <Route exact path="/cart">
                         <Carts />

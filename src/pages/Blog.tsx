@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import blogApi from '../api/blogApi'
 
 import Draft from 'draft-js'
-//import reactDraftWysiwyg from 'react-draft-wysiwyg'
+import reactDraftWysiwyg from 'react-draft-wysiwyg'
 
 const Blog = () => {
     const { idBlog }: any = useParams()
@@ -31,10 +31,18 @@ const Blog = () => {
     }, [idBlog])
     return (
         <div className="mt-14 w-11/12 xl:w-2/3 md:h-3/4 mx-auto rounded-sm">
-            <Draft.Editor
+            {/* <Draft.Editor
                 readOnly
                 editorState={editorState}
                 onChange={onEditorStateChange}
+            /> */}
+            <reactDraftWysiwyg.Editor
+                readOnly
+                toolbarHidden
+                editorState={editorState}
+                // wrapperClassName="demo-wrapper"
+                // editorClassName="demo-editor"
+                onEditorStateChange={onEditorStateChange}
             />
         </div>
 

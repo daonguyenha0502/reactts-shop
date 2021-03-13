@@ -7,15 +7,14 @@ interface Props { }
 
 export interface TypeBill {
     date: string
-    id: string
-    nameProduct: string
-    amount: number
-    price: number
-    fullName: string
+    _id: string
+    cart: string
+    name: string
     phone: string
     address: string
-    status: string
+    statePayment: string
     typePayment: string
+    email: string
 
 }
 
@@ -23,8 +22,9 @@ const Profile = (props: Props) => {
     const [listBills, setListBills] = useState<TypeBill[] | []>([])
     useEffect(() => {
         const getBills = async () => {
-            const response = await checkOutApi.getAllBills()
-            if (response.status === 200) {
+            const response: any = await checkOutApi.getAllBills()
+            console.log(response)
+            if (response.data) {
                 setListBills(response.data)
             } else {
                 console.log('error')
@@ -41,7 +41,7 @@ const Profile = (props: Props) => {
             <hr className="text-xs" />
             <div className="py-4 w-11/12 md:w-4/5 xl:w-3/4 mx-auto">
                 {listBills.length > 0 ? (listBills as TypeBill[]).map((bill: TypeBill) =>
-                    <ItemListBill key={bill.id} bill={bill} />
+                    <ItemListBill key={bill._id} bill={bill} />
                 ) : <><h1 className="text-lg text-red-600">You don't buy anything?</h1></>}
             </div>
         </div>

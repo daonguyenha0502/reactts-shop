@@ -17,6 +17,21 @@ const userApi = {
         let temp = JSON.stringify(info)
         return axiosClient.post(url, temp)
     },
+    changePassword: (password: any) => {
+        const url = '/changePassword'
+        let temp = JSON.stringify(password)
+        return axiosClient.post(url, temp)
+    },
+    forgotPassword: (email: any) => {
+        const url = '/resetPassword'
+        let temp = JSON.stringify(email)
+        return axiosClient.post(url, temp)
+    },
+    restorePassword: (data: any) => {
+        const url = '/restorePassword'
+        let temp = JSON.stringify(data)
+        return axiosClient.post(url, temp)
+    }
 }
 async function logOut(token: any) {
     const baseUrl = import.meta.env.SNOWPACK_PUBLIC_APP_API_URL

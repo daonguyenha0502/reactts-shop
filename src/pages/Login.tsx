@@ -13,7 +13,7 @@ import { saveToken } from '../stores/userSlice'
 import { toast } from 'react-toastify'
 import type { RootState } from 'src/stores/store'
 
-interface Props {}
+interface Props { }
 export interface TypeLogin {
     email: string
     password: string
@@ -107,7 +107,7 @@ const Login = (props: Props) => {
                             labelContent="Password"
                             register={register}
                         />
-                        {errors.email?.type === 'password' && (
+                        {errors.password?.type === 'password' && (
                             <Error error={errors.email.password} />
                         )}
                         {errors.password?.type === 'required' && (
@@ -134,14 +134,16 @@ const Login = (props: Props) => {
                                 <Link to="/register">Register</Link>
                             </button>
                         </div>
+                        <Link to="/forgotPassword"><p className="text-red-900 text-base text-center">You forgot password?</p></Link>
+
                     </form>
                 </>
             ) : (
-                <>
-                    {' '}
-                    <h1 className="w-80">You are logged in!</h1>{' '}
-                </>
-            )}
+                    <>
+                        {' '}
+                        <h1 className="w-80">You are logged in!</h1>{' '}
+                    </>
+                )}
         </div>
     )
 }
