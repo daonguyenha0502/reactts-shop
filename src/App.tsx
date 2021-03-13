@@ -34,7 +34,7 @@ export function ScrollToTop(): any {
     return null
 }
 
-interface AppProps {}
+interface AppProps { }
 
 export interface itemType {
     _id: string
@@ -52,13 +52,8 @@ export interface itemType {
     cartAmount: number | 0
 }
 
-let pictures: string[] = [
-    'https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517602/shop/other/sl3_j9d1sa.png',
-    'https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517607/shop/other/sl2_w0zrzi.png',
-    'https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517613/shop/other/sl1_hotjpl.png',
-]
 
-function App({}: AppProps) {
+function App({ }: AppProps) {
     const [hiddenScroll, setHiddenScroll] = useState<boolean | true>(true)
     function handleUpTop() {
         window.scroll(0, 0)
@@ -84,7 +79,7 @@ function App({}: AppProps) {
                 <Nav />
                 <Switch>
                     <Route exact path="/">
-                        <Index listPictures={pictures} />
+                        <Index />
                     </Route>
                     <Route exact path="/login">
                         <Login />

@@ -10,10 +10,17 @@ import CustomSlider from '../components/Carousel'
 import Category from '../components/Category'
 import ListProducts from '../components/ListProducts'
 import Skeleton from '../components/Skeleton'
+import carouselApi from '../api/carouselApi'
 
-interface Props {
-    listPictures: string[]
+export interface Props {
+
 }
+
+interface TypeSlide {
+    urlBlog: string
+    urlImg: string
+}
+
 let settings = {
     dots: false,
     arrows: true,
@@ -36,13 +43,19 @@ const Temp = () => {
     )
 }
 
-const Index = ({ listPictures }: Props) => {
+const Index = (props: Props) => {
     ScrollToTop()
     const [listProduct, setListProduct] = useState<itemType[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     const [hasMore, setHasMore] = useState<boolean>(true)
     const [page, setPage] = useState<number | 1>(1)
+    const [listSlides, setListSlides] = useState<TypeSlide[] | []>([])
+    let pictures: string[] = [
+        'https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517602/shop/other/sl3_j9d1sa.png',
+        'https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517607/shop/other/sl2_w0zrzi.png',
+        'https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517613/shop/other/sl1_hotjpl.png',
+    ]
 
     const getProduct = async () => {
         try {
@@ -71,6 +84,26 @@ const Index = ({ listPictures }: Props) => {
             console.log('Failed to fetch product list: ', error)
         }
     }
+
+    // const getSlides = async () => {
+    //     const response = await carouselApi.getAll()
+    //     if (response.status === 200) {
+    //         setListSlides(response.data)
+    //     } else {
+    //         console.log('error')
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     if (sessionStorage.getItem('listSlides')) {
+    //         setListSlides(
+    //             JSON.parse(sessionStorage.getItem('listSlides') as string),
+    //         )
+    //     } else {
+    //         getSlides()
+    //     }
+    // })
+
     useEffect(() => {
         if (sessionStorage.getItem('listProducts')) {
             setHasMore(false)
@@ -112,7 +145,7 @@ const Index = ({ listPictures }: Props) => {
                 <title>Home</title>
                 <link rel="canonical" href="cpt-ha.web.app" />
             </Helmet>
-            <CustomSlider settings={settings} listPictures={listPictures} />
+            <CustomSlider settings={settings} listPictures={pictures} />
             <Category />
             <InfiniteScroll
                 dataLength={listProduct.length}

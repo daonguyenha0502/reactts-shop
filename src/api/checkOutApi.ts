@@ -7,7 +7,10 @@ const checkOutApi = {
         let temp = JSON.stringify(bill)
         return axiosClient.post(url, temp)
     },
-    getAllBills: () => {},
+    getAllBills: () => {
+        const url = `bills`
+        return axiosClient.get(url)
+    },
 }
 
 export default checkOutApi
