@@ -35,37 +35,38 @@ interface Props { }
 const RestorePassword = (props: Props) => {
     const history = useHistory()
     const { search } = useLocation()
-    console.log(search)
+    //console.log(search)
     const [errorRestorePassword, setErrorRestorePassword] = useState<string | null>(null)
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(restorePasswordSchema),
     })
     const onSubmit = async (data: TypeRestorePassword) => {
-        console.log(data)
-        const response: any = await userApi.restorePassword(data)
-        if (response === 'Changed password') {
-            history.push('/login')
-            toast.info(`Changed password!`, {
-                position: 'bottom-center',
-                autoClose: 4000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-        } else {
+        if (data && search) {
+            //console.log(data)
+            const response: any = await userApi.restorePassword(data, search)
             //console.log(response)
-            setErrorRestorePassword(response)
+            if (response.mess === 'Password changed!') {
+                history.push('/login')
+                toast.info(`Changed password!`, {
+                    position: 'bottom-center',
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            } else {
+                //console.log(response)
+                setErrorRestorePassword(response.mess)
+            }
+        }
+        if (errors) {
+            // console.log(errors.password);
+            //console.log(errors.email);
+            //console.log(errors.re_password);
         }
     }
-    if (errors) {
-        // console.log(errors.password);
-        //console.log(errors.email);
-        //console.log(errors.re_password);
-    }
-
-
 
     return (
         <div className="w-min h-auto text-left mt-28 sm:mt-32 mx-auto">

@@ -27,8 +27,10 @@ const userApi = {
         let temp = JSON.stringify(email)
         return axiosClient.post(url, temp)
     },
-    restorePassword: (data: any) => {
-        const url = '/restorePassword'
+    restorePassword: (data: any, search: any) => {
+        let tk = search.slice(7, search.length)
+        console.log(tk)
+        const url = `/restorePassword?token=${tk}`
         let temp = JSON.stringify(data)
         return axiosClient.post(url, temp)
     }

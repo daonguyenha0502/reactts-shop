@@ -26,7 +26,7 @@ const ForgotPassword = (props: Props) => {
     async function Forgot(email: TypeForgotPassword) {
         const response: any = await userApi.forgotPassword(email)
         if (response) {
-            console.log(response)
+            //console.log(response)
             //console.log('save token')
             //history.push('/')
             toast.info(`${response.message}`, {
@@ -40,7 +40,7 @@ const ForgotPassword = (props: Props) => {
             })
         } else {
             //console.log(response)
-            setErrorForgotPassword(response)
+            setErrorForgotPassword(response.message)
         }
         //console.log()
     }
