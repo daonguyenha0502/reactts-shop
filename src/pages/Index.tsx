@@ -142,7 +142,7 @@ const Index = (props: Props) => {
         <div>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>Home</title>
+                <title>Buy or sell anything gears!</title>
                 <link rel="canonical" href="cpt-ha.web.app" />
             </Helmet>
             <CustomSlider settings={settings} listPictures={pictures} />

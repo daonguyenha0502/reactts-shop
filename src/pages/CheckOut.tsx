@@ -19,6 +19,7 @@ import moment from 'moment'
 import axios from 'axios'
 import { TypeItemCart, freeCart } from '../stores/cartsSlice'
 import { useHistory } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 const configZalo = {
     app_id: '2553',
     key1: 'PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL',
@@ -322,6 +323,11 @@ const CheckOut = (props: Props) => {
 
     return (
         <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Checkout</title>
+                <link rel="canonical" href="cpt-ha.web.app" />
+            </Helmet>
             {user.accessToken ? (
                 <div className="w-5/6 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 2xl:w-3/4 text-left py-20 mx-auto">
                     {carts.length > 0 ? (

@@ -10,6 +10,7 @@ import { getRoleInToken } from '../utility/decodeJwt'
 
 import blogApi from '../api/blogApi'
 import type { TypeUser } from '../stores/userSlice'
+import { Helmet } from 'react-helmet-async'
 
 export interface TypeBlog {
     alias: string
@@ -63,6 +64,11 @@ const AddContentBlog = () => {
         <>
             {role === 'admin' ? (
                 <>
+                    <Helmet>
+                        <meta charSet="utf-8" />
+                        <title>Add new blog</title>
+                        <link rel="canonical" href="cpt-ha.web.app" />
+                    </Helmet>
                     <div className="mt-14 w-11/12 xl:w-2/3 md:h-3/4 mx-auto border border-gray-700 rounded-sm">
                         <reactDraftWysiwyg.Editor
                             editorState={editorState}
