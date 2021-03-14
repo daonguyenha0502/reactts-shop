@@ -16,8 +16,8 @@ export interface Props {
 
 }
 
-interface TypeSlide {
-    urlBlog: string
+export interface TypeSlide {
+    urlBlog?: string
     urlImg: string
 }
 
@@ -43,19 +43,16 @@ const Temp = () => {
     )
 }
 
+
 const Index = (props: Props) => {
     ScrollToTop()
     const [listProduct, setListProduct] = useState<itemType[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [isLoadingCarousel, setIsLoadingCarousel] = useState<boolean>(true)
 
     const [hasMore, setHasMore] = useState<boolean>(true)
     const [page, setPage] = useState<number | 1>(1)
     const [listSlides, setListSlides] = useState<TypeSlide[] | []>([])
-    let pictures: string[] = [
-        'https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517602/shop/other/sl3_j9d1sa.png',
-        'https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517607/shop/other/sl2_w0zrzi.png',
-        'https://res.cloudinary.com/daoha0502/image/upload/q_auto/v1588517613/shop/other/sl1_hotjpl.png',
-    ]
 
     const getProduct = async () => {
         try {
@@ -85,24 +82,29 @@ const Index = (props: Props) => {
         }
     }
 
-    // const getSlides = async () => {
-    //     const response = await carouselApi.getAll()
-    //     if (response.status === 200) {
-    //         setListSlides(response.data)
-    //     } else {
-    //         console.log('error')
-    //     }
-    // }
+    const getSlides = async () => {
+        setIsLoadingCarousel(true)
+        const response: any = await carouselApi.getAll()
+        console.log(response.listSlide)
+        if (response.listSlide.length != 0) {
+            setListSlides(response.listSlide)
+            setIsLoadingCarousel(false)
+            sessionStorage.setItem('listSlides', JSON.stringify(response.listSlide))
+        } else {
+            console.log('error')
+        }
+    }
 
-    // useEffect(() => {
-    //     if (sessionStorage.getItem('listSlides')) {
-    //         setListSlides(
-    //             JSON.parse(sessionStorage.getItem('listSlides') as string),
-    //         )
-    //     } else {
-    //         getSlides()
-    //     }
-    // })
+    useEffect(() => {
+        if (sessionStorage.getItem('listSlides')) {
+            setIsLoadingCarousel(false)
+            setListSlides(
+                JSON.parse(sessionStorage.getItem('listSlides') as string),
+            )
+        } else {
+            getSlides()
+        }
+    }, [])
 
     useEffect(() => {
         if (sessionStorage.getItem('listProducts')) {
@@ -145,7 +147,13 @@ const Index = (props: Props) => {
                 <title>Buy or sell anything gears!</title>
                 <link rel="canonical" href="cpt-ha.web.app" />
             </Helmet>
-            <CustomSlider settings={settings} listPictures={pictures} />
+
+            {isLoadingCarousel ? (<div className="w-4/5  mx-auto mt-12 z-40">
+                <div className="bg-gray-600 w-full xl:h-104 lg:h-80 md:h-40 sm:h-36"></div>
+            </div>) :
+                (<CustomSlider settings={settings} listPictures={listSlides} />)
+            }
+
             <Category />
             <InfiniteScroll
                 dataLength={listProduct.length}

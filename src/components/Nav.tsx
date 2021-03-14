@@ -14,9 +14,9 @@ import { deleteToken } from '../stores/userSlice'
 import type { RootState } from '../stores/store'
 import { toast } from 'react-toastify'
 
-interface Props {}
+interface Props { }
 
-const Nav = ({}: Props) => {
+const Nav = ({ }: Props) => {
     const [search, setSearch] = useState('')
     const [isOpenMenu, setIsOpenMenu] = useState<boolean | false>(false)
     const carts = useSelector((state: RootState) => state.carts)
@@ -140,39 +140,39 @@ const Nav = ({}: Props) => {
                             </li>
                         </>
                     ) : (
-                        <>
-                            <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
-                                <Link to="/profile">
-                                    <span
-                                        className={
-                                            pathName.pathname === '/profile'
-                                                ? 'border-gray-200 border-b-2'
-                                                : ''
-                                        }
-                                    >
-                                        Profile
+                            <>
+                                <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
+                                    <Link to="/profile">
+                                        <span
+                                            className={
+                                                pathName.pathname === '/profile'
+                                                    ? 'border-gray-200 border-b-2'
+                                                    : ''
+                                            }
+                                        >
+                                            Profile
                                     </span>
-                                </Link>
-                            </li>
-                            <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
-                                <Link
-                                    className="cursor-pointer"
-                                    to="#"
-                                    onClick={() => handleLogOut()}
-                                >
-                                    <span
-                                        className={
-                                            pathName.pathname === '/logout'
-                                                ? 'border-gray-200 border-b-2'
-                                                : ''
-                                        }
+                                    </Link>
+                                </li>
+                                <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
+                                    <Link
+                                        className="cursor-pointer"
+                                        to="#"
+                                        onClick={() => handleLogOut()}
                                     >
-                                        Logout
+                                        <span
+                                            className={
+                                                pathName.pathname === '/logout'
+                                                    ? 'border-gray-200 border-b-2'
+                                                    : ''
+                                            }
+                                        >
+                                            Logout
                                     </span>
-                                </Link>
-                            </li>
-                        </>
-                    )}
+                                    </Link>
+                                </li>
+                            </>
+                        )}
 
                     <li
                         className="w-36 block sm:block md:block lg:hidden cursor-pointer"

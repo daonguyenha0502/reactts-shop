@@ -30,23 +30,23 @@ const CardProduct = ({ product, onAdd }: Props) => {
                                         Math.ceil(
                                             ((product.price / 10000) *
                                                 product.sale) /
-                                                100,
+                                            100,
                                         ) *
-                                            10000
+                                        10000
                                     ).toLocaleString('en-US')}
                                     <span> đ</span>
                                 </div>
                             </div>
                         ) : (
-                            <div className="flex-col text-sm font-bold">
-                                <div>
-                                    <span>
-                                        {product.price.toLocaleString('en-US')}
-                                    </span>
-                                    <span> đ</span>
+                                <div className="flex-col text-sm font-bold">
+                                    <div>
+                                        <span>
+                                            {product.price.toLocaleString('en-US')}
+                                        </span>
+                                        <span> đ</span>
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
 
                         {product.sale !== 0 ? (
                             <div
@@ -56,19 +56,19 @@ const CardProduct = ({ product, onAdd }: Props) => {
                                 -{product.sale}%
                             </div>
                         ) : (
-                            <div
-                                className="bg-no-repeat hidden w-12 h-12 text-center pt-2 pr-2"
-                                style={{ backgroundImage: `url(${imgSale})` }}
-                            >
-                                -{product.sale}%
-                            </div>
-                        )}
+                                <div
+                                    className="bg-no-repeat hidden w-12 h-12 text-center pt-2 pr-2"
+                                    style={{ backgroundImage: `url(${imgSale})` }}
+                                >
+                                    -{product.sale}%
+                                </div>
+                            )}
                     </div>
                     <LazyLoad>
                         <img
                             className="h-60 w-11/12 mx-auto pt-2 pb-2 hover:opacity-80 duration-700 "
                             src={product.img}
-                            alt=""
+                            alt={product.name}
                         />
                     </LazyLoad>
 

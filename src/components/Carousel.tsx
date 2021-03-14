@@ -4,10 +4,12 @@ import Slider from 'react-slick'
 //import './Carousel.css'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import type { TypeSlide } from 'src/pages/Index'
+import { Link } from 'react-router-dom'
 
 interface CustomSlider {
     settings: object
-    listPictures: string[]
+    listPictures: TypeSlide[] | string[]
 }
 
 export default function CustomSlider({ settings, listPictures }: CustomSlider) {
@@ -18,13 +20,23 @@ export default function CustomSlider({ settings, listPictures }: CustomSlider) {
                 prevArrow={<PrevArrow />}
                 nextArrow={<NextArrow />}
             >
-                {listPictures.map((picture) => {
-                    return (
-                        <div key={picture}>
-                            <img src={picture} alt="" />
-                        </div>
-                    )
-                })}
+                {typeof listPictures[0] === 'object' ?
+                    (listPictures as TypeSlide[]).map((picture: TypeSlide) => {
+                        return (
+                            <Link to={`blog/${picture.urlBlog}`}>
+                                <div key={picture.urlImg}>
+                                    <img src={picture.urlImg} alt="title ..." />
+                                </div>
+                            </Link>
+                        )
+                    }) : (listPictures as string[]).map((picture: string) => {
+                        return (
+                            <div key={picture}>
+                                <img src={picture} alt="" />
+                            </div>
+                        )
+                    })
+                }
             </Slider>
         </div>
     )
