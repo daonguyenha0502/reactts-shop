@@ -37,10 +37,9 @@ const Login = (props: Props) => {
     async function Login(infLogin: TypeLogin) {
         const response: any = await userApi.login(infLogin)
         if (response.accessToken && response.refreshToken) {
-            //console.log(response)
             const action = saveToken(response)
             dispatch(action)
-            //console.log('save token')
+
             history.push('/')
             toast.info(`You are logged in`, {
                 position: 'bottom-center',
@@ -52,21 +51,14 @@ const Login = (props: Props) => {
                 progress: undefined,
             })
         } else {
-            //console.log(response)
             setErrorLogin(response)
         }
-        //console.log()
     }
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(loginSchema),
     })
     const onSubmit = (data: any) => {
-        //console.log(data);
         Login(data)
-    }
-    if (errors) {
-        // console.log(errors.password);
-        //console.log(errors.email);
     }
 
     return (
@@ -140,7 +132,6 @@ const Login = (props: Props) => {
                 </>
             ) : (
                     <>
-                        {' '}
                         <h1 className="w-80">You are logged in!</h1>{' '}
                     </>
                 )}

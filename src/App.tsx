@@ -132,7 +132,6 @@ function App({ }: AppProps) {
                         )}
                     />
                 </Switch>
-                {/* <Toast stateToast={state} onClose={handleCloseToast} /> */}
                 <ToastContainer
                     style={{ width: '20rem' }}
                     position="bottom-center"

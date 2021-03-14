@@ -24,7 +24,7 @@ const getToken = (token: string) => {
             }
         })
         .catch(function (error) {
-            console.log(error)
+            //console.log(error)
             let baseURL = import.meta.env.SNOWPACK_PUBLIC_APP_URL
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
@@ -69,5 +69,4 @@ axiosClient.interceptors.response.use(
     },
 )
 
-export { myInterceptor }
 export default axiosClient

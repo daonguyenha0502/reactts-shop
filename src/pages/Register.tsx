@@ -43,7 +43,6 @@ const Register = (props: Props) => {
         resolver: yupResolver(registerSchema),
     })
     const onSubmit = async (data: TypeRegister) => {
-        //console.log(data)
         const response: any = await userApi.register(data)
         if (response === 'Registered') {
             history.push('/login')
@@ -57,16 +56,9 @@ const Register = (props: Props) => {
                 progress: undefined,
             })
         } else {
-            //console.log(response)
             setErrorRegister(response)
         }
     }
-    if (errors) {
-        // console.log(errors.password);
-        //console.log(errors.email);
-        //console.log(errors.re_password);
-    }
-
     return (
         <div className="w-min h-auto text-left mt-28 sm:mt-32 mx-auto">
             {!users.accessToken && !users.refreshToken ? (

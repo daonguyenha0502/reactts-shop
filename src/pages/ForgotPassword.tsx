@@ -21,14 +21,10 @@ const forgotPasswordSchema = yup.object().shape({
 
 const ForgotPassword = (props: Props) => {
     const [errorForgotPassword, setErrorForgotPassword] = useState<string | null>(null)
-    const history = useHistory()
 
     async function Forgot(email: TypeForgotPassword) {
         const response: any = await userApi.forgotPassword(email)
         if (response) {
-            //console.log(response)
-            //console.log('save token')
-            //history.push('/')
             toast.info(`${response.message}`, {
                 position: 'bottom-center',
                 autoClose: 4000,
@@ -39,21 +35,14 @@ const ForgotPassword = (props: Props) => {
                 progress: undefined,
             })
         } else {
-            //console.log(response)
             setErrorForgotPassword(response.message)
         }
-        //console.log()
     }
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(forgotPasswordSchema),
     })
     const onSubmit = (data: any) => {
-        //console.log(data);
         Forgot(data)
-    }
-    if (errors) {
-        // console.log(errors.password);
-        //console.log(errors.email);
     }
 
     return (

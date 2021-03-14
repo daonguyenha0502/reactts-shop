@@ -2,14 +2,13 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/dist/yup'
 import * as yup from 'yup'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 
 import { InputField, Error } from '../components/InputField'
 import userApi from '../api/userApi'
 import { toast } from 'react-toastify'
-import { useSelector } from 'react-redux'
-import type { RootState } from '../stores/store'
+
 
 export interface TypeChangePassword {
     //email: string
@@ -43,13 +42,12 @@ interface Props { }
 
 const ChangePassword = (props: Props) => {
     const history = useHistory()
-    const users = useSelector((state: RootState) => state.users)
     const [errorChangePassword, setErrorChangePassword] = useState<string | null>(null)
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(changePasswordSchema),
     })
     const onSubmit = async (data: TypeChangePassword) => {
-        console.log(data)
+
         const response: any = await userApi.changePassword(data)
         if (response === 'Changed password') {
             history.push('/login')
@@ -63,14 +61,8 @@ const ChangePassword = (props: Props) => {
                 progress: undefined,
             })
         } else {
-            //console.log(response)
             setErrorChangePassword(response)
         }
-    }
-    if (errors) {
-        // console.log(errors.password);
-        //console.log(errors.email);
-        //console.log(errors.re_password);
     }
 
     return (

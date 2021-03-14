@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/dist/yup'
 import * as yup from 'yup'
-import { Link, useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 
 import { InputField, Error } from '../components/InputField'
@@ -35,16 +35,13 @@ interface Props { }
 const RestorePassword = (props: Props) => {
     const history = useHistory()
     const { search } = useLocation()
-    //console.log(search)
     const [errorRestorePassword, setErrorRestorePassword] = useState<string | null>(null)
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(restorePasswordSchema),
     })
     const onSubmit = async (data: TypeRestorePassword) => {
         if (data && search) {
-            //console.log(data)
             const response: any = await userApi.restorePassword(data, search)
-            //console.log(response)
             if (response.mess === 'Password changed!') {
                 history.push('/login')
                 toast.info(`Changed password!`, {
@@ -57,14 +54,8 @@ const RestorePassword = (props: Props) => {
                     progress: undefined,
                 })
             } else {
-                //console.log(response)
                 setErrorRestorePassword(response.mess)
             }
-        }
-        if (errors) {
-            // console.log(errors.password);
-            //console.log(errors.email);
-            //console.log(errors.re_password);
         }
     }
 
