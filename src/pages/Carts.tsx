@@ -64,9 +64,8 @@ const Cart = (props: Props) => {
     return (
         <>
             <Helmet>
-                <meta charSet="utf-8" />
                 <title>My cart</title>
-                <link rel="canonical" href="cpt-ha.web.app" />
+                <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
 
             <h1 className="text-2xl mt-16 font-bold text-center">My Cart</h1>

@@ -67,11 +67,9 @@ const ChangePassword = (props: Props) => {
 
     return (
         <div className="w-min h-auto text-left mt-28 sm:mt-32 mx-auto">
-
             <Helmet>
-                <meta charSet="utf-8" />
                 <title>Change password</title>
-                <link rel="canonical" href="cpt-ha.web.app" />
+                <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
 
             <h1 className="font-bold text-2xl text-center mb-6">

@@ -64,9 +64,8 @@ const Register = (props: Props) => {
             {!users.accessToken && !users.refreshToken ? (
                 <>
                     <Helmet>
-                        <meta charSet="utf-8" />
                         <title>Register</title>
-                        <link rel="canonical" href="cpt-ha.web.app" />
+                        <link rel="canonical" href="https://cpt-ha.web.app" />
                     </Helmet>
 
                     <h1 className="font-bold text-2xl text-center mb-6">

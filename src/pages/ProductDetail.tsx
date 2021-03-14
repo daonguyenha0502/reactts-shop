@@ -12,7 +12,7 @@ import { addToCart } from '../stores/cartsSlice'
 import './CustomImage.css'
 import SkeletonDetailProduct from '../components/SkeletonDetailProduct'
 
-interface Props {}
+interface Props { }
 
 interface Product {
     guarantee: string
@@ -100,9 +100,8 @@ export default function ProductDetail() {
         return (
             <>
                 <Helmet>
-                    <meta charSet="utf-8" />
                     <title>{productDetail.idProduct.name}</title>
-                    <link rel="canonical" href="cpt-ha.web.app" />
+                    <link rel="canonical" href="https://cpt-ha.web.app" />
                 </Helmet>
 
                 <div className="h-auto my-6 mx-auto max-w-5xl">
@@ -124,21 +123,21 @@ export default function ProductDetail() {
                             </div>
                             <div className="mt-14 md:mt-0 w-full h-auto text-left mb-4 pl-4">
                                 <p className="my-4  text-lg leading-relaxed">
-                                    Company:{' '}
+                                    Company:
                                     <span className="text-gray-600">
                                         {productDetail.idProduct.company}
                                     </span>
                                 </p>
 
                                 <p className="my-4 text-lg leading-relaxed">
-                                    Price:{' '}
+                                    Price:
                                     <span className="text-gray-600 line-through">
                                         {productDetail.idProduct.price.toLocaleString(
                                             'en-US',
                                         )}
                                         đ
-                                    </span>{' '}
-                                    -{' '}
+                                    </span>
+                                    -
                                     <span className="text-red-500">
                                         {(
                                             productDetail.idProduct.price -
@@ -148,28 +147,28 @@ export default function ProductDetail() {
                                                     10000) *
                                                     productDetail.idProduct
                                                         .sale) /
-                                                    100,
+                                                100,
                                             ) *
-                                                10000
+                                            10000
                                         ).toLocaleString('en-US')}
                                         đ
                                     </span>
                                 </p>
                                 <p className="my-4 text-red-500 text-lg leading-relaxed">
-                                    Sale:{' '}
+                                    Sale:
                                     <span className="text-gray-600 ">
                                         {productDetail.idProduct.sale}%
                                     </span>
                                 </p>
                                 <p className="my-4 text-lg leading-relaxed">
-                                    Amount:{' '}
+                                    Amount:
                                     <span className="text-gray-600">
                                         {productDetail.idProduct.amount -
                                             productDetail.idProduct.sold}
                                     </span>
                                 </p>
                                 <p>
-                                    Information:{' '}
+                                    Information:
                                     <span className="text-gray-600">
                                         {productDetail.info}
                                     </span>
@@ -214,7 +213,7 @@ export default function ProductDetail() {
                 </h1>
             </div>
         ) : (
-            <SkeletonDetailProduct />
-        )
+                <SkeletonDetailProduct />
+            )
     }
 }

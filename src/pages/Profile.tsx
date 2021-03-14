@@ -36,9 +36,8 @@ const Profile = (props: Props) => {
     return (
         <>
             <Helmet>
-                <meta charSet="utf-8" />
                 <title>Profile</title>
-                <link rel="canonical" href="cpt-ha.web.app" />
+                <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
             <div className="my-12 px-4">
 

@@ -6,7 +6,7 @@ import type { itemType } from '../App'
 import productApi from '../api/productApi'
 import { useLocation } from 'react-router-dom'
 
-interface Props {}
+interface Props { }
 
 const PageSearch = (props: Props) => {
     ScrollToTop()
@@ -38,9 +38,8 @@ const PageSearch = (props: Props) => {
     return (
         <div className="mt-16">
             <Helmet>
-                <meta charSet="utf-8" />
                 <title>Search</title>
-                <link rel="canonical" href="cpt-ha.web.app" />
+                <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
             <h1 className="text-3xl">
                 Result for{' '}
@@ -51,25 +50,25 @@ const PageSearch = (props: Props) => {
             {isLoading ? (
                 <ListProducts listProduct={listProduct} isLoading={isLoading} />
             ) : (
-                <>
-                    {listProduct.length === 0 ? (
-                        <h1 className="text-3xl mt-40">
-                            Not found product{' '}
-                            <span className="text-red-600">
-                                {location.search.slice(
-                                    3,
-                                    location.search.length,
-                                )}
-                            </span>
-                        </h1>
-                    ) : (
-                        <ListProducts
-                            listProduct={listProduct}
-                            isLoading={isLoading}
-                        />
-                    )}
-                </>
-            )}
+                    <>
+                        {listProduct.length === 0 ? (
+                            <h1 className="text-3xl mt-40">
+                                Not found product{' '}
+                                <span className="text-red-600">
+                                    {location.search.slice(
+                                        3,
+                                        location.search.length,
+                                    )}
+                                </span>
+                            </h1>
+                        ) : (
+                                <ListProducts
+                                    listProduct={listProduct}
+                                    isLoading={isLoading}
+                                />
+                            )}
+                    </>
+                )}
         </div>
     )
 }

@@ -8,12 +8,12 @@ import {
     faTiktok,
 } from '@fortawesome/free-brands-svg-icons'
 
-interface Props {}
+interface Props { }
 
 const Socials = (props: Props) => {
     return (
         <>
-            <ul className="flex-col text-left w-72 mx-auto pt-10 pl-8 sm:pl-24">
+            <ul className="flex-col text-left w-72 mx-auto pt-10 pl-8 sm:pl-24 text-white">
                 <li>
                     <FontAwesomeIcon icon={faFacebook} size="2x" /> Facebook
                 </li>

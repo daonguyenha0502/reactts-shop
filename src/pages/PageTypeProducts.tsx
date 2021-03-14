@@ -7,7 +7,7 @@ import productApi from '../api/productApi'
 import { useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
-interface Props {}
+interface Props { }
 
 const PageTypeProducts = (props: Props) => {
     ScrollToTop()
@@ -103,13 +103,12 @@ const PageTypeProducts = (props: Props) => {
     return (
         <div className="mt-16 py-4">
             <Helmet>
-                <meta charSet="utf-8" />
                 <title>
                     {location.search
                         .slice(6, location.search.length)
                         .toUpperCase()}
                 </title>
-                <link rel="canonical" href="cpt-ha.web.app" />
+                <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
             <h1 className="text-3xl mb-4">
                 All products of{' '}
@@ -123,96 +122,96 @@ const PageTypeProducts = (props: Props) => {
                     haha{' '}
                 </div>
             ) : (
-                <div className="xl:h-14 h-24 flex-col xl:flex-row xl:p-2 p-4 w-5/6 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 2xl:w-3/4 mx-auto bg-gray-500 sticky top-12 z-30 flex rounded-md">
-                    <form className="hidden sm:flex xl:justify-start justify-center items-center w-full xl:w-1/2 mb-1">
-                        <div className="flex relative">
-                            {valueOfRange !== 0 ? (
-                                <p className="absolute -top-4 right-28">
-                                    {valueOfRange}
-                                </p>
-                            ) : (
-                                <p className="absolute -top-4 right-28">
-                                    {minRange}
-                                </p>
-                            )}
-                            <p className="w-20">{minRange}</p>
-                            <input
-                                className=" mx-2 w-40 h-auto"
-                                type="range"
-                                placeholder="price"
-                                onChange={handleChange}
-                                defaultValue={minRange}
-                                step={100000}
-                                max={maxRange}
-                                min={minRange}
-                                name="price"
-                                ref={register}
-                            />
-                            <p>{maxRange}</p>
-                        </div>
+                    <div className="xl:h-14 h-24 flex-col xl:flex-row xl:p-2 p-4 w-5/6 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 2xl:w-3/4 mx-auto bg-gray-500 sticky top-12 z-30 flex rounded-md">
+                        <form className="hidden sm:flex xl:justify-start justify-center items-center w-full xl:w-1/2 mb-1">
+                            <div className="flex relative">
+                                {valueOfRange !== 0 ? (
+                                    <p className="absolute -top-4 right-28">
+                                        {valueOfRange}
+                                    </p>
+                                ) : (
+                                        <p className="absolute -top-4 right-28">
+                                            {minRange}
+                                        </p>
+                                    )}
+                                <p className="w-20">{minRange}</p>
+                                <input
+                                    className=" mx-2 w-40 h-auto"
+                                    type="range"
+                                    placeholder="price"
+                                    onChange={handleChange}
+                                    defaultValue={minRange}
+                                    step={100000}
+                                    max={maxRange}
+                                    min={minRange}
+                                    name="price"
+                                    ref={register}
+                                />
+                                <p>{maxRange}</p>
+                            </div>
 
-                        <button
-                            className="w-14 h-8 rounded-sm bg-blue-400 ml-3"
-                            onClick={handleSubmit(filterByPrice)}
-                        >
-                            Solve
+                            <button
+                                className="w-14 h-8 rounded-sm bg-blue-400 ml-3"
+                                onClick={handleSubmit(filterByPrice)}
+                            >
+                                Solve
                         </button>
-                    </form>
+                        </form>
 
-                    <form className="flex justify-center items-center w-full xl:w-1/2">
-                        <div className="flex justify-evenly w-full">
-                            {(listCompany as []).map((name: string) => (
-                                <div key={name}>
-                                    <label htmlFor={name}>{name} </label>
-                                    <input
-                                        name="company"
-                                        id={name}
-                                        type="radio"
-                                        value={name}
-                                        ref={register}
-                                    />
-                                </div>
-                            ))}
+                        <form className="flex justify-center items-center w-full xl:w-1/2">
+                            <div className="flex justify-evenly w-full">
+                                {(listCompany as []).map((name: string) => (
+                                    <div key={name}>
+                                        <label htmlFor={name}>{name} </label>
+                                        <input
+                                            name="company"
+                                            id={name}
+                                            type="radio"
+                                            value={name}
+                                            ref={register}
+                                        />
+                                    </div>
+                                ))}
 
-                            <button
-                                className="rounded-sm bg-red-400 w-14 h-8"
-                                onClick={handleSubmit(filterByCompany)}
-                            >
-                                Filter
+                                <button
+                                    className="rounded-sm bg-red-400 w-14 h-8"
+                                    onClick={handleSubmit(filterByCompany)}
+                                >
+                                    Filter
                             </button>
-                            <button
-                                className="rounded-sm bg-green-400 w-14 h-8"
-                                onClick={handleReset}
-                            >
-                                Reset
+                                <button
+                                    className="rounded-sm bg-green-400 w-14 h-8"
+                                    onClick={handleReset}
+                                >
+                                    Reset
                             </button>
-                        </div>
-                    </form>
-                </div>
-            )}
+                            </div>
+                        </form>
+                    </div>
+                )}
 
             {isLoading ? (
                 <ListProducts listProduct={listProduct} isLoading={isLoading} />
             ) : (
-                <>
-                    {listProduct.length === 0 ? (
-                        <h1 className="text-3xl mt-40">
-                            Not found product{' '}
-                            <span className="text-red-600">
-                                {location.search.slice(
-                                    6,
-                                    location.search.length,
-                                )}
-                            </span>
-                        </h1>
-                    ) : (
-                        <ListProducts
-                            listProduct={listProduct}
-                            isLoading={isLoading}
-                        />
-                    )}
-                </>
-            )}
+                    <>
+                        {listProduct.length === 0 ? (
+                            <h1 className="text-3xl mt-40">
+                                Not found product{' '}
+                                <span className="text-red-600">
+                                    {location.search.slice(
+                                        6,
+                                        location.search.length,
+                                    )}
+                                </span>
+                            </h1>
+                        ) : (
+                                <ListProducts
+                                    listProduct={listProduct}
+                                    isLoading={isLoading}
+                                />
+                            )}
+                    </>
+                )}
         </div>
     )
 }

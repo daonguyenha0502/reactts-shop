@@ -40,9 +40,8 @@ const Blog = () => {
                 onChange={onEditorStateChange}
             /> */}
             <Helmet>
-                <meta charSet="utf-8" />
                 <title>{title}</title>
-                <link rel="canonical" href="cpt-ha.web.app" />
+                <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
             <reactDraftWysiwyg.Editor
                 readOnly

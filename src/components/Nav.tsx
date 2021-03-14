@@ -199,17 +199,20 @@ const Nav = ({ }: Props) => {
                         onSubmit={onSubmit}
                     >
                         <li className="text-white">
+                            <label className="text-gray-800" htmlFor="search">Search</label>
                             <input
                                 ref={refSearch}
                                 className="w-56 pl-2 focus:outline-none focus:ring rounded text-black text-xl"
                                 type="text"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
+                                id="search"
                             />
+
                         </li>
                         <li className="h-auto text-white">
                             <button
-                                className="bg-green-600 p-1 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700"
+                                className="bg-green-600 text-black p-1 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700"
                                 type="submit"
                             >
                                 Search

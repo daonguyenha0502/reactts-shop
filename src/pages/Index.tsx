@@ -143,13 +143,12 @@ const Index = (props: Props) => {
     return (
         <div>
             <Helmet>
-                <meta charSet="utf-8" />
                 <title>Buy or sell anything gears!</title>
-                <link rel="canonical" href="cpt-ha.web.app" />
+                <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
 
-            {isLoadingCarousel ? (<div className="w-4/5  mx-auto mt-12 z-40">
-                <div className="bg-gray-600 w-full xl:h-104 lg:h-80 md:h-40 sm:h-36"></div>
+            {isLoadingCarousel ? (<div className="w-4/5 animate-pulse  mx-auto mt-12 z-40">
+                <div className="bg-gray-600 w-full h-36 xl:h-104 lg:h-80 md:h-40 sm:h-44"></div>
             </div>) :
                 (<CustomSlider settings={settings} listPictures={listSlides} />)
             }

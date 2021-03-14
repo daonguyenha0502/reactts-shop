@@ -2,12 +2,12 @@ import React from 'react'
 import { faHome, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-interface Props {}
+interface Props { }
 
 const Policy = (props: Props) => {
     return (
         <>
-            <ul className="flex-col text-left w-72 mx-auto pt-10 pl-8">
+            <ul className="flex-col text-left w-72 mx-auto pt-10 pl-8 text-white">
                 <li>
                     <FontAwesomeIcon icon={faHome} /> Hà Nội
                 </li>

@@ -324,9 +324,8 @@ const CheckOut = (props: Props) => {
     return (
         <>
             <Helmet>
-                <meta charSet="utf-8" />
                 <title>Checkout</title>
-                <link rel="canonical" href="cpt-ha.web.app" />
+                <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
             {user.accessToken ? (
                 <div className="w-5/6 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 2xl:w-3/4 text-left py-20 mx-auto">

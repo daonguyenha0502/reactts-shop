@@ -24,7 +24,7 @@ const CardProduct = ({ product, onAdd }: Props) => {
                                     </span>
                                     <span> đ</span>
                                 </div>
-                                <div className="text-red-500">
+                                <div className="text-red-700">
                                     {(
                                         product.price -
                                         Math.ceil(

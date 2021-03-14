@@ -65,9 +65,8 @@ const AddContentBlog = () => {
             {role === 'admin' ? (
                 <>
                     <Helmet>
-                        <meta charSet="utf-8" />
                         <title>Add new blog</title>
-                        <link rel="canonical" href="cpt-ha.web.app" />
+                        <link rel="canonical" href="https://cpt-ha.web.app" />
                     </Helmet>
                     <div className="mt-14 w-11/12 xl:w-2/3 md:h-3/4 mx-auto border border-gray-700 rounded-sm">
                         <reactDraftWysiwyg.Editor
