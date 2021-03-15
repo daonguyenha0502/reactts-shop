@@ -84,7 +84,7 @@ const ChangePassword = (props: Props) => {
                     autocomplete={'password'}
                 />
                 {errors.oldPassword?.type === 'password' && (
-                    <Error error={errors.password.message} />
+                    <Error error={errors.oldPassword.message} />
                 )}
                 {errors.oldPassword?.type === 'required' && (
                     <Error error="Password is required" />

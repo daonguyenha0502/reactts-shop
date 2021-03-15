@@ -8,6 +8,7 @@ interface Props {
     register: any
     autocomplete?: string
     pattern?: string
+    placeholder?: string
 }
 
 const InputField = ({
@@ -17,11 +18,12 @@ const InputField = ({
     register,
     autocomplete,
     pattern,
+    placeholder
 }: Props) => {
     return (
         <>
             <label className="font-bold ml-4" htmlFor={name}>
-                {labelContent}{' '}
+                {labelContent}
             </label>
             <div className="mb-2 w-84">
                 <input
@@ -31,9 +33,10 @@ const InputField = ({
                     type={typeInput}
                     name={name}
                     id={name}
-                    ref={register()}
+                    ref={register}
                     autoComplete={autocomplete}
                     pattern={pattern}
+                    placeholder={placeholder}
                 />
             </div>
         </>

@@ -136,9 +136,9 @@ const Register = (props: Props) => {
                             >
                                 Register
                             </button>
-                            <button type="button" className="bg-green-600 w-24 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-red-600 ml-8">
-                                <Link to="/login">Login</Link>
-                            </button>
+                            <Link to="/login"><button type="button" className="bg-green-600 w-24 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-red-600 ml-8">
+                                Login
+                            </button></Link>
                         </div>
                     </form>
                 </>

@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async'
 
 interface Props { }
 
-const Error = (props: Props) => {
+const Error403 = (props: Props) => {
     return (
         <div className="mt-14">
             <Helmet>
@@ -15,4 +15,4 @@ const Error = (props: Props) => {
     )
 }
 
-export default Error
+export default Error403

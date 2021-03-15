@@ -5,7 +5,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import './OverLayTailwind.css'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../stores/store'
-import Error from './Error'
+import Error403 from './Error403'
 import { getRoleInToken } from '../utility/decodeJwt'
 
 import blogApi from '../api/blogApi'
@@ -103,7 +103,7 @@ const AddContentBlog = () => {
                     </button>
                 </>
             ) : (
-                    <Error />
+                    <Error403 />
                 )}
         </>
     )

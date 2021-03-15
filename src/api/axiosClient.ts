@@ -32,6 +32,27 @@ const getToken = (token: string) => {
         })
 }
 
+export const UploadImg = async (file: File) => {
+    try {
+        const cloudName = await import.meta.env.SNOWPACK_PUBLIC_CLOUD_NAME
+        const preset = await import.meta.env.SNOWPACK_PUBLIC_PRESET_NAME
+        const bodyFormData = new FormData
+        bodyFormData.append('upload_preset', preset)
+        bodyFormData.append('file', file)
+        const response = await axios({
+            method: 'post',
+            url: `https://api.cloudinary.com/v1_1/${cloudName}/upload`,
+            data: bodyFormData,
+        })
+        return { url: response.data.url }
+    } catch (error) {
+        console.log(error)
+        return { error: error }
+    }
+
+
+}
+
 const myInterceptor = axiosClient.interceptors.request.use(async (config) => {
     // Handle token here ...
     const accessToken = await localStorage.getItem('accessToken')
@@ -65,7 +86,9 @@ axiosClient.interceptors.response.use(
     },
     (error) => {
         // Handle errors
-        throw error
+        // console.log('error')
+        // throw error
+        return { error: error }
     },
 )
 

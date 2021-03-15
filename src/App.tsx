@@ -25,6 +25,8 @@ import Profile from './pages/Profile'
 import ChangePassword from './pages/ChangePassword'
 import ForgotPassword from './pages/ForgotPassword'
 import RestorePassword from './pages/RestorePassword'
+import UploadImage from './pages/UploadImage'
+import AddCarousel from './pages/AddCarousel'
 //import TestCheckOut from './pages/TestCheckOut';
 
 export function ScrollToTop(): any {
@@ -117,11 +119,18 @@ function App({ }: AppProps) {
                     <Route exact path="/admin/addBlog">
                         <AddContentBlog />
                     </Route>
+                    <Route exact path="/admin/addCarousel">
+                        <AddCarousel />
+                    </Route>
+
                     <Route exact path="/blog/:idBlog">
                         <Blog />
                     </Route>
                     <Route exact path="/profile">
                         <Profile />
+                    </Route>
+                    <Route exact path="/admin/uploadImage">
+                        <UploadImage />
                     </Route>
 
                     <Route

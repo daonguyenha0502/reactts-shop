@@ -99,7 +99,7 @@ const Login = (props: Props) => {
                             register={register}
                         />
                         {errors.password?.type === 'password' && (
-                            <Error error={errors.email.password} />
+                            <Error error={errors.password.message} />
                         )}
                         {errors.password?.type === 'required' && (
                             <Error error="Password is required" />
@@ -121,9 +121,9 @@ const Login = (props: Props) => {
                             >
                                 Login
                             </button>
-                            <button type="button" className="bg-green-600 w-24 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700 ml-2">
-                                <Link to="/register">Register</Link>
-                            </button>
+                            <Link to="/register"><button type="button" className="bg-green-600 w-24 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700 ml-2">
+                                Register
+                            </button></Link>
                         </div>
                         <Link to="/forgotPassword"><p className="text-red-900 text-base text-center">You forgot password?</p></Link>
 
@@ -133,8 +133,9 @@ const Login = (props: Props) => {
                     <>
                         <h1 className="w-80">You are logged in!</h1>{' '}
                     </>
-                )}
-        </div>
+                )
+            }
+        </div >
     )
 }
 
