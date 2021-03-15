@@ -4,6 +4,7 @@ import Slider from 'react-slick'
 //import './Carousel.css'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+
 import type { TypeSlide } from 'src/pages/Index'
 import { Link } from 'react-router-dom'
 
@@ -23,8 +24,8 @@ export default function CustomSlider({ settings, listPictures }: CustomSlider) {
                 {typeof listPictures[0] === 'object' ?
                     (listPictures as TypeSlide[]).map((picture: TypeSlide) => {
                         return (
-                            <Link to={`blog/${picture.urlBlog}`}>
-                                <div key={picture.urlImg}>
+                            <Link key={picture._id} to={`blog/${picture.urlBlog}`}>
+                                <div >
                                     <img src={picture.urlImg} alt="title ..." />
                                 </div>
                             </Link>

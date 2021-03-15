@@ -83,15 +83,13 @@ const ForgotPassword = (props: Props) => {
                         Submit
                             </button>
                 </div>
-                <p className="text-red-900 text-base text-center">You had account?</p>
-                <div className="mb-3 w-max mx-auto">
-                    <button className="bg-green-600 w-36 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700">
-                        <Link to="/login">Login</Link>
-                    </button>
-                </div>
-
-
             </form>
+            <p className="text-red-900 text-base text-center">You had account?</p>
+            <div className="mb-3 w-max mx-auto">
+                <button type="button" className="bg-green-600 w-36 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700">
+                    <Link to="/login">Login</Link>
+                </button>
+            </div>
 
         </div>
     )

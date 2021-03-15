@@ -17,8 +17,9 @@ export interface Props {
 }
 
 export interface TypeSlide {
-    urlBlog?: string
+    urlBlog: string
     urlImg: string
+    _id: string
 }
 
 let settings = {

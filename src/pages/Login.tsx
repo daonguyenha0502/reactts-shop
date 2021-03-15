@@ -121,7 +121,7 @@ const Login = (props: Props) => {
                             >
                                 Login
                             </button>
-                            <button className="bg-green-600 w-24 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700 ml-2">
+                            <button type="button" className="bg-green-600 w-24 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700 ml-2">
                                 <Link to="/register">Register</Link>
                             </button>
                         </div>
