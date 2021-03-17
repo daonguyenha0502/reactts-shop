@@ -10,6 +10,7 @@ import carouselApi from '../api/carouselApi'
 import type { TypeUser } from '../stores/userSlice'
 import { Helmet } from 'react-helmet-async'
 import { InputField, Error } from '../components/InputField';
+import type { TypeResponse } from '../api/axiosClient';
 
 interface Props {
 
@@ -56,12 +57,16 @@ const AddCarousel = (props: Props) => {
         saveCarousel(data)
     }
     const saveCarousel = async (data: any) => {
-        const response: any = await carouselApi.saveCarousel(data)
-        if (response.error) {
-            console.log(response.error)
-        } else {
-            console.log(response)
+        try {
+            const response: TypeResponse = await carouselApi.saveCarousel(data)
+            if (response) {
+                //console.log(response)
+            }
+        } catch (error) {
+            setErrorAddCarousel(error.error.error)
+            console.log(error)
         }
+
     }
     //console.log(errors);
 

@@ -10,6 +10,7 @@ import userApi from '../api/userApi'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../stores/store'
+import type { TypeResponse } from '../api/axiosClient'
 
 export interface TypeRegister {
     email: string
@@ -43,8 +44,8 @@ const Register = (props: Props) => {
         resolver: yupResolver(registerSchema),
     })
     const onSubmit = async (data: TypeRegister) => {
-        const response: any = await userApi.register(data)
-        if (response === 'Registered') {
+        const response: TypeResponse = await userApi.register(data)
+        if (response.data === 'Registered') {
             history.push('/login')
             toast.info(`Registered, login please!`, {
                 position: 'bottom-center',
@@ -56,7 +57,7 @@ const Register = (props: Props) => {
                 progress: undefined,
             })
         } else {
-            setErrorRegister(response)
+            setErrorRegister(response.data)
         }
     }
     return (

@@ -9,6 +9,7 @@ import userApi from '../api/userApi'
 
 import { InputField, Error } from '../components/InputField'
 import { toast } from 'react-toastify'
+import type { TypeResponse } from '../api/axiosClient'
 
 interface Props { }
 export interface TypeForgotPassword {
@@ -23,9 +24,9 @@ const ForgotPassword = (props: Props) => {
     const [errorForgotPassword, setErrorForgotPassword] = useState<string | null>(null)
 
     async function Forgot(email: TypeForgotPassword) {
-        const response: any = await userApi.forgotPassword(email)
-        if (response) {
-            toast.info(`${response.message}`, {
+        const response: TypeResponse = await userApi.forgotPassword(email)
+        if (response.data) {
+            toast.info(`${response.data.message}`, {
                 position: 'bottom-center',
                 autoClose: 4000,
                 hideProgressBar: true,
@@ -35,7 +36,7 @@ const ForgotPassword = (props: Props) => {
                 progress: undefined,
             })
         } else {
-            setErrorForgotPassword(response.message)
+            setErrorForgotPassword(response.data.message)
         }
     }
     const { register, handleSubmit, errors } = useForm({

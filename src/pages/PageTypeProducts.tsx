@@ -6,6 +6,7 @@ import type { itemType } from '../App'
 import productApi from '../api/productApi'
 import { useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import type { TypeResponse } from '../api/axiosClient'
 
 interface Props { }
 
@@ -28,14 +29,14 @@ const PageTypeProducts = (props: Props) => {
         if (query) {
             const searchProduct = async () => {
                 try {
-                    const response: any = await productApi.searchByType(query)
+                    const response: TypeResponse = await productApi.searchByType(query)
                     //console.log(response)
-                    setListProduct(response)
-                    setList(response)
+                    setListProduct(response.data)
+                    setList(response.data)
                     setMaxRange(
                         Math.max.apply(
                             Math,
-                            response.map(function (i: itemType) {
+                            response.data.map(function (i: itemType) {
                                 return i.price
                             }),
                         ),
@@ -43,16 +44,16 @@ const PageTypeProducts = (props: Props) => {
                     setMinRange(
                         Math.min.apply(
                             Math,
-                            response.map(function (i: itemType) {
+                            response.data.map(function (i: itemType) {
                                 return i.price
                             }),
                         ),
                     )
                     let temp: string[] = []
-                    for (let i = 0; i < response.length; i++) {
+                    for (let i = 0; i < response.data.length; i++) {
                         //console.log(response[i].company)
-                        if (!temp.includes(response[i].company)) {
-                            temp = [...temp, response[i].company]
+                        if (!temp.includes(response.data[i].company)) {
+                            temp = [...temp, response.data[i].company]
                         }
                     }
                     setListCompany(temp)

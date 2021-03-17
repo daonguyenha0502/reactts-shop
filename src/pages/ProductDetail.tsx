@@ -11,6 +11,7 @@ import CustomSlider from '../components/Carousel'
 import { addToCart } from '../stores/cartsSlice'
 import './CustomImage.css'
 import SkeletonDetailProduct from '../components/SkeletonDetailProduct'
+import type { TypeResponse } from '../api/axiosClient'
 
 interface Props { }
 
@@ -45,11 +46,11 @@ export default function ProductDetail() {
     let { id }: any = useParams()
     useEffect(() => {
         const getProductDetail = async (id: string) => {
-            const product: any = await productApi.get(id)
+            const response: TypeResponse = await productApi.get(id)
             //console.log(product)
-            if (!product.error) {
-                setProductDetail(product)
-                setPictures(await product.img.split(','))
+            if (!response.data.error) {
+                setProductDetail(response.data)
+                setPictures(await response.data.img.split(','))
             } else {
                 setProductDetail(null)
                 setPictures([])

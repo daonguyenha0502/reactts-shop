@@ -75,20 +75,21 @@ const myInterceptor = axiosClient.interceptors.request.use(async (config) => {
     return config
 })
 
+export interface TypeResponse {
+    data: any,
+    status: number
+}
+
 axiosClient.interceptors.response.use(
-    (response) => {
+    (response: any) => {
         if (response && response.data) {
             //console.log(response)
-            return response.data
+            return { status: response.status, data: response.data }
         }
-
         return response
     },
-    (error) => {
-        // Handle errors
-        // console.log('error')
-        // throw error
-        return { error: error }
+    (error: any) => {
+        return Promise.reject({ status: error.response.status, error: error.response.data });
     },
 )
 

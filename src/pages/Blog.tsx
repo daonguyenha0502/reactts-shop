@@ -5,6 +5,7 @@ import blogApi from '../api/blogApi'
 import Draft from 'draft-js'
 import reactDraftWysiwyg from 'react-draft-wysiwyg'
 import { Helmet } from 'react-helmet-async'
+import type { TypeResponse } from '../api/axiosClient'
 
 const Blog = () => {
     const { idBlog }: any = useParams()
@@ -18,11 +19,11 @@ const Blog = () => {
 
     useEffect(() => {
         const getBlog = async () => {
-            const res: any = await blogApi.getOne(idBlog)
-            let a = await res.content
+            const res: TypeResponse = await blogApi.getOne(idBlog)
+            let a = await res.data.content
             if (a !== undefined) {
                 try {
-                    setTitle(res.title)
+                    setTitle(res.data.title)
                     let b: any = await Draft.convertFromRaw(JSON.parse(a))
                     setEditorState(Draft.EditorState.createWithContent(b))
                 } catch (error) {

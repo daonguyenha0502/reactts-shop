@@ -11,6 +11,7 @@ import Category from '../components/Category'
 import ListProducts from '../components/ListProducts'
 import Skeleton from '../components/Skeleton'
 import carouselApi from '../api/carouselApi'
+import type { TypeResponse } from '../api/axiosClient'
 
 export interface Props {
 
@@ -57,23 +58,23 @@ const Index = (props: Props) => {
 
     const getProduct = async () => {
         try {
-            const response: any = await productApi.getAll({
+            const response: TypeResponse = await productApi.getAll({
                 limit: 8,
                 page: page,
             })
             //console.log(response)
             if (listProduct.length === 0) {
-                setListProduct(response)
+                setListProduct(response.data)
                 setPage(page + 1)
             } else {
-                setListProduct([...listProduct, ...response])
+                setListProduct([...listProduct, ...response.data])
                 setPage(page + 1)
             }
-            if (response.length >= 0 && response.length < 8) {
+            if (response.data.length >= 0 && response.data.length < 8) {
                 setHasMore(false)
                 await sessionStorage.setItem(
                     'listProducts',
-                    JSON.stringify([...listProduct, ...response]),
+                    JSON.stringify([...listProduct, ...response.data]),
                 )
                 return
             }
@@ -85,12 +86,12 @@ const Index = (props: Props) => {
 
     const getSlides = async () => {
         setIsLoadingCarousel(true)
-        const response: any = await carouselApi.getAll()
-        console.log(response.listSlide)
-        if (response.listSlide.length != 0) {
-            setListSlides(response.listSlide)
+        const response: TypeResponse = await carouselApi.getAll()
+        //console.log(response.listSlide)
+        if (response.data.listSlide.length != 0) {
+            setListSlides(response.data.listSlide)
             setIsLoadingCarousel(false)
-            sessionStorage.setItem('listSlides', JSON.stringify(response.listSlide))
+            sessionStorage.setItem('listSlides', JSON.stringify(response.data.listSlide))
         } else {
             console.log('error')
         }

@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { saveToken } from '../stores/userSlice'
 import { toast } from 'react-toastify'
 import type { RootState } from 'src/stores/store'
+import type { TypeResponse } from '../api/axiosClient'
 
 interface Props { }
 export interface TypeLogin {
@@ -35,9 +36,9 @@ const Login = (props: Props) => {
     const users = useSelector((state: RootState) => state.users)
     const dispatch = useDispatch()
     async function Login(infLogin: TypeLogin) {
-        const response: any = await userApi.login(infLogin)
-        if (response.accessToken && response.refreshToken) {
-            const action = saveToken(response)
+        const response: TypeResponse = await userApi.login(infLogin)
+        if (response.data.accessToken && response.data.refreshToken) {
+            const action = saveToken(response.data)
             dispatch(action)
 
             history.push('/')
@@ -51,7 +52,7 @@ const Login = (props: Props) => {
                 progress: undefined,
             })
         } else {
-            setErrorLogin(response)
+            setErrorLogin(response.data)
         }
     }
     const { register, handleSubmit, errors } = useForm({

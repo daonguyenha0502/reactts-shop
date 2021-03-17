@@ -20,6 +20,7 @@ import axios from 'axios'
 import { TypeItemCart, freeCart } from '../stores/cartsSlice'
 import { useHistory } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
+import type { TypeResponse } from '../api/axiosClient'
 const configZalo = {
     app_id: '2553',
     key1: 'PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL',
@@ -181,8 +182,8 @@ const CheckOut = (props: Props) => {
     const dispatch = useDispatch()
 
     const getCities = async () => {
-        const res: any = await locationsApi.getListCity()
-        const newObj = await res.map((itemLocation: any) => {
+        const res: TypeResponse = await locationsApi.getListCity()
+        const newObj = await res.data.map((itemLocation: any) => {
             return { value: itemLocation.MaTP, label: itemLocation.TenTP }
         })
         //console.log(newObj)
@@ -190,18 +191,18 @@ const CheckOut = (props: Props) => {
     }
 
     const getDistricts = async (idCity: any) => {
-        const res: any = await locationsApi.getListDistrict(idCity)
+        const res: TypeResponse = await locationsApi.getListDistrict(idCity)
         //console.log(res)
-        const newObj = await res.map((itemLocation: any) => {
+        const newObj = await res.data.map((itemLocation: any) => {
             return { value: itemLocation.MaQH, label: itemLocation.TenQH }
         })
         //console.log(newObj)
         setListDistrict(newObj)
     }
     const getWards = async (idCity: any, idDistrict: any) => {
-        const res: any = await locationsApi.getListWard(idCity, idDistrict)
+        const res: TypeResponse = await locationsApi.getListWard(idCity, idDistrict)
         //console.log(res)
-        const newObj = await res.map((itemLocation: any) => {
+        const newObj = await res.data.map((itemLocation: any) => {
             return { value: itemLocation.MaXP, label: itemLocation.TenXa }
         })
         //console.log(newObj)
@@ -304,17 +305,17 @@ const CheckOut = (props: Props) => {
 
     async function handleClick() {
         if (typePayment === 'ZaloPay') {
-            const response: any = await checkOutApi.saveBill(bill)
+            const response: TypeResponse = await checkOutApi.saveBill(bill)
             //console.log(response)
-            if (response.message) {
+            if (response.data.message) {
                 await dispatch(freeCart())
                 ZaloPay(carts)
                 history.push('/profile')
             }
         } else {
-            const response: any = await checkOutApi.saveBill(bill)
+            const response: TypeResponse = await checkOutApi.saveBill(bill)
             //console.log(response)
-            if (response.message) {
+            if (response.data.message) {
                 await dispatch(freeCart())
                 history.push('/profile')
             }

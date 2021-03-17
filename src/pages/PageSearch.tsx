@@ -5,6 +5,7 @@ import { ScrollToTop } from '../App'
 import type { itemType } from '../App'
 import productApi from '../api/productApi'
 import { useLocation } from 'react-router-dom'
+import type { TypeResponse } from '../api/axiosClient'
 
 interface Props { }
 
@@ -21,9 +22,9 @@ const PageSearch = (props: Props) => {
         if (query) {
             const searchProduct = async () => {
                 try {
-                    const response: any = await productApi.searchProduct(query)
+                    const response: TypeResponse = await productApi.searchProduct(query)
                     //console.log(response)
-                    setListProduct(response)
+                    setListProduct(response.data)
                     await setIsLoading(false)
                 } catch (error) {
                     console.log('Failed to fetch product list: ', error)

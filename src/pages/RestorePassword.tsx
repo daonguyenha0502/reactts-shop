@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet-async'
 import { InputField, Error } from '../components/InputField'
 import userApi from '../api/userApi'
 import { toast } from 'react-toastify'
+import type { TypeResponse } from '../api/axiosClient'
 
 
 export interface TypeRestorePassword {
@@ -41,8 +42,8 @@ const RestorePassword = (props: Props) => {
     })
     const onSubmit = async (data: TypeRestorePassword) => {
         if (data && search) {
-            const response: any = await userApi.restorePassword(data, search)
-            if (response.mess === 'Password changed!') {
+            const response: TypeResponse = await userApi.restorePassword(data, search)
+            if (response.data.mess === 'Password changed!') {
                 history.push('/login')
                 toast.info(`Changed password!`, {
                     position: 'bottom-center',
@@ -54,7 +55,7 @@ const RestorePassword = (props: Props) => {
                     progress: undefined,
                 })
             } else {
-                setErrorRestorePassword(response.mess)
+                setErrorRestorePassword(response.data.mess)
             }
         }
     }
