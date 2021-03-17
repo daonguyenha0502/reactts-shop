@@ -158,8 +158,8 @@ function App({ }: AppProps) {
                     onClick={() => handleUpTop()}
                     className={clsx(
                         hiddenScroll
-                            ? 'fixed bottom-20 right-12 cursor-pointer hidden'
-                            : 'animate-bounce fixed bottom-20 right-12 cursor-pointer',
+                            ? 'fixed bottom-20 right-8 sm:right-2 xl:right-12 cursor-pointer hidden'
+                            : 'animate-bounce fixed bottom-20 right-8 sm:right-2 xl:right-12 cursor-pointer',
                     )}
                     title="Scroll Back to Top"
                 >

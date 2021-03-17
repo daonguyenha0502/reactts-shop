@@ -5,7 +5,7 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import type { TypeSlide } from 'src/pages/Index'
+import type { TypeSlide } from '../pages/Index'
 import { Link } from 'react-router-dom'
 
 interface CustomSlider {

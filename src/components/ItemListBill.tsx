@@ -17,11 +17,17 @@ const getTotalPrice = (items: TypeItemCart[]) =>
         0,
     )
 
+function getDetailTime(date: string) {
+    let newDate = new Date(date);
+    let time = 'Ngày ' + newDate.getDate() + ' Tháng ' + (newDate.getMonth() + 1) + ' Năm ' + newDate.getFullYear() + ' - ' + newDate.getHours() + ' Giờ ' + newDate.getMinutes() + ' Phút'
+    return time
+}
+
 const ItemListBill = ({ bill }: Props) => {
     const cart: TypeItemCart[] = JSON.parse(bill.cart)
     return (
         <div className=" border-black border rounded-md mb-2">
-            <div className="flex-row lg:flex justify-between p-2 mb-4"><p className="text-sm lg:text-base">Ngày 7 Tháng 5 Năm 2020 - 11 Giờ 14 Phút</p>
+            <div className="flex-row lg:flex justify-between p-2 mb-4"><p className="text-sm lg:text-base">{getDetailTime(bill.date)}</p>
                 <p className="text-sm lg:text-base">Mã HĐ: {bill._id}</p>
             </div>
             {cart.map((item) =>

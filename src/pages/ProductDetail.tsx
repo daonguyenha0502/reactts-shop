@@ -76,8 +76,7 @@ export default function ProductDetail() {
                     textAlign: 'center',
                 }}
             >
-                {' '}
-                {customDots}{' '}
+                {customDots}
             </ul>
         ),
         customPaging: function (i: number) {
@@ -86,6 +85,7 @@ export default function ProductDetail() {
                     <img
                         className="rounded-md border py-0.5 border-gray-900 w-14 h-16"
                         src={pictures[i]}
+                        alt={pictures[i]}
                     />
                 </a>
             )

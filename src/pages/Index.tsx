@@ -88,10 +88,10 @@ const Index = (props: Props) => {
         setIsLoadingCarousel(true)
         const response: TypeResponse = await carouselApi.getAll()
         //console.log(response.listSlide)
-        if (response.data.listSlide.length != 0) {
-            setListSlides(response.data.listSlide)
+        if (response.data.length != 0) {
+            setListSlides(response.data)
             setIsLoadingCarousel(false)
-            sessionStorage.setItem('listSlides', JSON.stringify(response.data.listSlide))
+            sessionStorage.setItem('listSlides', JSON.stringify(response.data))
         } else {
             console.log('error')
         }
