@@ -11,6 +11,7 @@ import type { TypeUser } from '../stores/userSlice'
 import { Helmet } from 'react-helmet-async'
 import { InputField, Error } from '../components/InputField';
 import type { TypeResponse } from '../api/axiosClient';
+import { toast } from 'react-toastify';
 
 interface Props {
 
@@ -59,12 +60,21 @@ const AddCarousel = (props: Props) => {
     const saveCarousel = async (data: any) => {
         try {
             const response: TypeResponse = await carouselApi.saveCarousel(data)
-            if (response) {
+            if (response.data) {
                 //console.log(response)
+                toast.info(`${response.data.message}`, {
+                    position: 'bottom-center',
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
             }
         } catch (error) {
             setErrorAddCarousel(error.error.error)
-            console.log(error)
+            //console.log(error)
         }
 
     }
@@ -73,7 +83,7 @@ const AddCarousel = (props: Props) => {
 
     return (
         <>
-            {role === 'user' ? (
+            {role === 'admin' ? (
                 <>
                     <Helmet>
                         <title>Add new blog</title>
@@ -87,6 +97,7 @@ const AddCarousel = (props: Props) => {
                                 labelContent="URL Image"
                                 register={register}
                                 placeholder="URL Image"
+                                onBlur={() => setErrorAddCarousel(null)}
                             />
                             {errors.img?.type === 'required' && (
                                 <Error error="URL Image is required" />
@@ -106,6 +117,7 @@ const AddCarousel = (props: Props) => {
                                 labelContent="URL Blog"
                                 register={register}
                                 placeholder="URL Blog"
+                                onBlur={() => setErrorAddCarousel(null)}
                             />
                             {errors.url?.type === 'required' && (
                                 <Error error="URL Blog is required" />
@@ -122,6 +134,7 @@ const AddCarousel = (props: Props) => {
                                 labelContent="Alt"
                                 register={register}
                                 placeholder="Alt"
+                                onBlur={() => setErrorAddCarousel(null)}
                             />
                             {errors.alt?.type === 'required' && (
                                 <Error error="Alt of image is required" />

@@ -24,20 +24,25 @@ const ForgotPassword = (props: Props) => {
     const [errorForgotPassword, setErrorForgotPassword] = useState<string | null>(null)
 
     async function Forgot(email: TypeForgotPassword) {
-        const response: TypeResponse = await userApi.forgotPassword(email)
-        if (response.data) {
-            toast.info(`${response.data.message}`, {
-                position: 'bottom-center',
-                autoClose: 4000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-        } else {
-            setErrorForgotPassword(response.data.message)
+        try {
+            const response: TypeResponse = await userApi.forgotPassword(email)
+            if (response.data) {
+                toast.info(`${response.data.message}`, {
+                    position: 'bottom-center',
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            } else {
+                console.log(response)
+            }
+        } catch (error) {
+            setErrorForgotPassword(error.error.error)
         }
+
     }
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(forgotPasswordSchema),
@@ -62,6 +67,7 @@ const ForgotPassword = (props: Props) => {
                     typeInput="email"
                     labelContent="Email"
                     register={register}
+                    onBlur={() => setErrorForgotPassword(null)}
                 />
                 {errors.email?.type === 'email' && (
                     <Error error={errors.email.message} />

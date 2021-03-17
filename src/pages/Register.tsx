@@ -44,20 +44,24 @@ const Register = (props: Props) => {
         resolver: yupResolver(registerSchema),
     })
     const onSubmit = async (data: TypeRegister) => {
-        const response: TypeResponse = await userApi.register(data)
-        if (response.data === 'Registered') {
-            history.push('/login')
-            toast.info(`Registered, login please!`, {
-                position: 'bottom-center',
-                autoClose: 4000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-        } else {
-            setErrorRegister(response.data)
+        try {
+            const response: TypeResponse = await userApi.register(data)
+            if (response.data) {
+                history.push('/login')
+                toast.info(`Registered, login please!`, {
+                    position: 'bottom-center',
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            } else {
+                console.log(response)
+            }
+        } catch (error) {
+            setErrorRegister(error.error.error)
         }
     }
     return (
@@ -72,13 +76,15 @@ const Register = (props: Props) => {
                     <h1 className="font-bold text-2xl text-center mb-6">
                         Register
                     </h1>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit(onSubmit)} >
                         <InputField
                             name="email"
                             typeInput="email"
                             labelContent="Email"
                             register={register}
                             autocomplete={'username'}
+                            onBlur={() => setErrorRegister(null)}
+
                         />
                         {errors.email?.type === 'email' && (
                             <Error error={errors.email.message} />

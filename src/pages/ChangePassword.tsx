@@ -48,22 +48,26 @@ const ChangePassword = (props: Props) => {
         resolver: yupResolver(changePasswordSchema),
     })
     const onSubmit = async (data: TypeChangePassword) => {
-
-        const response: TypeResponse = await userApi.changePassword(data)
-        if (response.data === 'Changed password') {
-            history.push('/login')
-            toast.info(`Changed password!`, {
-                position: 'bottom-center',
-                autoClose: 4000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-        } else {
-            setErrorChangePassword(response.data)
+        try {
+            const response: TypeResponse = await userApi.changePassword(data)
+            if (response.data === 'Changed password') {
+                history.push('/login')
+                toast.info(`Changed password!`, {
+                    position: 'bottom-center',
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            } else {
+                console.log(response)
+            }
+        } catch (error) {
+            setErrorChangePassword(error.error.error)
         }
+
     }
 
     return (
@@ -83,6 +87,7 @@ const ChangePassword = (props: Props) => {
                     labelContent="Old Password"
                     register={register}
                     autocomplete={'password'}
+                    onBlur={() => setErrorChangePassword(null)}
                 />
                 {errors.oldPassword?.type === 'password' && (
                     <Error error={errors.oldPassword.message} />

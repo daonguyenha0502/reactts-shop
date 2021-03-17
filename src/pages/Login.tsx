@@ -36,24 +36,28 @@ const Login = (props: Props) => {
     const users = useSelector((state: RootState) => state.users)
     const dispatch = useDispatch()
     async function Login(infLogin: TypeLogin) {
-        const response: TypeResponse = await userApi.login(infLogin)
-        if (response.data.accessToken && response.data.refreshToken) {
-            const action = saveToken(response.data)
-            dispatch(action)
-
-            history.push('/')
-            toast.info(`You are logged in`, {
-                position: 'bottom-center',
-                autoClose: 4000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-        } else {
-            setErrorLogin(response.data)
+        try {
+            const response: TypeResponse = await userApi.login(infLogin)
+            if (response.data.accessToken && response.data.refreshToken) {
+                const action = saveToken(response.data)
+                dispatch(action)
+                history.push('/')
+                toast.info(`You are logged in`, {
+                    position: 'bottom-center',
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            } else {
+                setErrorLogin(response.data)
+            }
+        } catch (error) {
+            setErrorLogin(error.error.error)
         }
+
     }
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(loginSchema),
@@ -80,6 +84,7 @@ const Login = (props: Props) => {
                             typeInput="email"
                             labelContent="Email"
                             register={register}
+                            onBlur={() => setErrorLogin(null)}
                         />
                         {errors.email?.type === 'email' && (
                             <Error error={errors.email.message} />
@@ -98,6 +103,7 @@ const Login = (props: Props) => {
                             typeInput="password"
                             labelContent="Password"
                             register={register}
+                            onBlur={() => setErrorLogin(null)}
                         />
                         {errors.password?.type === 'password' && (
                             <Error error={errors.password.message} />

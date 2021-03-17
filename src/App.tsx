@@ -159,7 +159,7 @@ function App({ }: AppProps) {
                     className={clsx(
                         hiddenScroll
                             ? 'fixed bottom-20 right-12 cursor-pointer hidden'
-                            : 'fixed bottom-20 right-12 cursor-pointer',
+                            : 'animate-bounce fixed bottom-20 right-12 cursor-pointer',
                     )}
                     title="Scroll Back to Top"
                 >

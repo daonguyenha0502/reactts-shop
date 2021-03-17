@@ -35,6 +35,7 @@ const userApi = {
         return axiosClient.post(url, temp)
     }
 }
+
 async function logOut(token: any) {
     const baseUrl = import.meta.env.SNOWPACK_PUBLIC_APP_API_URL
     const url = `${baseUrl}logout`

@@ -42,21 +42,26 @@ const RestorePassword = (props: Props) => {
     })
     const onSubmit = async (data: TypeRestorePassword) => {
         if (data && search) {
-            const response: TypeResponse = await userApi.restorePassword(data, search)
-            if (response.data.mess === 'Password changed!') {
-                history.push('/login')
-                toast.info(`Changed password!`, {
-                    position: 'bottom-center',
-                    autoClose: 4000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                })
-            } else {
-                setErrorRestorePassword(response.data.mess)
+            try {
+                const response: TypeResponse = await userApi.restorePassword(data, search)
+                if (response.data) {
+                    history.push('/login')
+                    toast.info(`Changed password!`, {
+                        position: 'bottom-center',
+                        autoClose: 4000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    })
+                } else {
+                    console.log(response)
+                }
+            } catch (error) {
+                setErrorRestorePassword(error.error.error)
             }
+
         }
     }
 

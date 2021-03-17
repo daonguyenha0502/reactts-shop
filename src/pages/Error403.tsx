@@ -10,7 +10,7 @@ const Error403 = (props: Props) => {
                 <title>Error</title>
                 <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
-            <h1 className="text-3xl text-red-500">403</h1>
+            <h1 className="text-3xl text-red-500 pt-14">403</h1>
         </div>
     )
 }

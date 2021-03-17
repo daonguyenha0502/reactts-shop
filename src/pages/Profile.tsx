@@ -5,6 +5,7 @@ import checkOutApi from '../api/checkOutApi'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import type { TypeResponse } from '../api/axiosClient'
+import Loading from '../components/Loading'
 
 interface Props { }
 
@@ -23,14 +24,22 @@ export interface TypeBill {
 
 const Profile = (props: Props) => {
     const [listBills, setListBills] = useState<TypeBill[] | []>([])
+    const [isLoading, setIsLoading] = useState<boolean | true>(true)
     useEffect(() => {
         const getBills = async () => {
-            const response: TypeResponse = await checkOutApi.getAllBills()
-            console.log(response)
-            if (response.data.data) {
-                setListBills(response.data.data)
-            } else {
-                console.log('error')
+            setIsLoading(true)
+            try {
+                const response: TypeResponse = await checkOutApi.getAllBills()
+                if (response.data) {
+                    setListBills(response.data)
+                    setIsLoading(false)
+                } else {
+                    console.log('error')
+                    setIsLoading(false)
+                }
+            } catch (error) {
+                console.log(error)
+                setIsLoading(false)
             }
         }
         getBills()
@@ -49,7 +58,7 @@ const Profile = (props: Props) => {
                 </div>
                 <hr className="text-xs" />
                 <div className="py-4 w-11/12 md:w-4/5 xl:w-3/4 mx-auto">
-                    {listBills.length > 0 ? (listBills as TypeBill[]).map((bill: TypeBill) =>
+                    {isLoading ? <Loading /> : listBills.length > 0 ? (listBills as TypeBill[]).map((bill: TypeBill) =>
                         <ItemListBill key={bill._id} bill={bill} />
                     ) : <><h1 className="text-lg text-red-600">You don't buy anything?</h1></>}
                 </div>

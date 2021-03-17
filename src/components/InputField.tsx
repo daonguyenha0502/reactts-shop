@@ -9,6 +9,7 @@ interface Props {
     autocomplete?: string
     pattern?: string
     placeholder?: string
+    onBlur?: any
 }
 
 const InputField = ({
@@ -18,7 +19,8 @@ const InputField = ({
     register,
     autocomplete,
     pattern,
-    placeholder
+    placeholder,
+    onBlur
 }: Props) => {
     return (
         <>
@@ -37,6 +39,7 @@ const InputField = ({
                     autoComplete={autocomplete}
                     pattern={pattern}
                     placeholder={placeholder}
+                    onBlur={onBlur}
                 />
             </div>
         </>
