@@ -41,3 +41,33 @@ html {
     width: 20rem !important;
 }
 }
+
+@media (min-width: 1537px) {
+  html {
+  font-size: 22px;
+  scroll-behavior: smooth;
+}
+ .Toastify__toast-container {
+    width: 22rem !important;
+}
+}
+
+@media (min-width: 2000px) {
+  html {
+  font-size: 26px;
+  scroll-behavior: smooth;
+}
+ .Toastify__toast-container {
+    width: 26rem !important;
+}
+}
+
+@media (min-width: 2300px) {
+  html {
+  font-size: 28px;
+  scroll-behavior: smooth;
+}
+ .Toastify__toast-container {
+    width: 28rem !important;
+}
+}
