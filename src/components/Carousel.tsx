@@ -52,7 +52,7 @@ function PrevArrow(props: any) {
                 ...style,
                 display: 'block',
                 zIndex: '10',
-                left: '50px',
+                left: '2.5rem',
             }}
             onClick={onClick}
         />
@@ -67,7 +67,7 @@ function NextArrow(props: any) {
             style={{
                 ...style,
                 zIndex: '10',
-                right: '50px',
+                right: '2.5rem',
             }}
             onClick={onClick}
         />

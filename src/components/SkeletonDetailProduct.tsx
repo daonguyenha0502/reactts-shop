@@ -1,7 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 
-interface Props {}
+interface Props { }
 
 const SkeletonDetailProduct = (props: Props) => {
     return (
@@ -21,7 +21,7 @@ const SkeletonDetailProduct = (props: Props) => {
                     </div>
                     {/*body*/}
 
-                    <div className="px-12 py-6 sm:flex-row md:flex">
+                    <div className="px-12 py-6 sm:flex-row md:py-12 md:flex">
                         <div className="h-72 mx-auto w-60 md:h-auto bg-gray-600 mt-4"></div>
                         <div className="w-full h-auto text-left mb-4 md:pl-4 ">
                             <div className="my-4 animate-pulse  text-lg leading-relaxed bg-gray-600">

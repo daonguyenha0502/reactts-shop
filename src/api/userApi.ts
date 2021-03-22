@@ -33,6 +33,11 @@ const userApi = {
         const url = `/restorePassword?token=${tk}`
         let temp = JSON.stringify(data)
         return axiosClient.post(url, temp)
+    },
+    saveComment: (data: any) => {
+        const url = `/comments`
+        let temp = JSON.stringify(data)
+        return axiosClient.post(url, temp)
     }
 }
 

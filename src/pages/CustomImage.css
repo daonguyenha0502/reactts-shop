@@ -1,10 +1,33 @@
 /* Override Slick */
-#root > div > div.h-auto.my-6.mx-auto.max-w-5xl > div > div.px-12.py-6.sm\:flex-row.md\:flex > div.w-80.h-auto.-mt-12 > div > div > div.slick-list > div > div > div > div > img {
-    width: 320px !important;
-    height: 320px !important;
+div.slick-list > div > div > div > div > img {
+    width: 16rem !important;
+    height: 16rem !important;
+    border-radius: 1.5rem;
 }
 
-#root > div > div.h-auto.my-6.mx-auto.max-w-5xl > div > div.px-12.py-6.sm\:flex-row.md\:flex > div.w-80.h-auto.-mt-12 > div > div > div.slick-list > div > div.slick-slide.slick-active.slick-current > div > div > img {
-    width: 320px !important;
-    height: 320px !important;
+div > div > div.slick-list > div > div.slick-slide.slick-active.slick-current > div > div > img {
+    width: 16rem !important;
+    height: 16rem !important;
+    border-radius: 1.5rem;
+}
+
+div.slick-slide.slick-active.slick-current > div > div:focus {
+    outline: none;
+    border-radius: 1.5rem;
+    border: 1px solid blueviolet
+}
+div.slick-slide.slick-active.slick-current > div > div {
+    outline: none;
+    border-radius: 1.5rem;
+    border: 1px solid white
+}
+
+
+ul > li.slick-active > a > img {
+    border-color: red;
+    border-width: 2px;
+    opacity:1;
+}
+ul > li > a > img {
+    opacity: 0.5;
 }

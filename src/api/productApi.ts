@@ -18,6 +18,10 @@ const productApi = {
         const url = `/search/${type}`
         return axiosClient.get(url)
     },
+    getComments: (id: string, params: any) => {
+        const url = `/comments/${id}`
+        return axiosClient.get(url, { params: params })
+    }
 }
 
 export default productApi
