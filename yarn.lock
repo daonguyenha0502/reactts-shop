@@ -1045,10 +1045,10 @@
     execa "^5.0.0"
     npm-run-path "^4.0.1"
 
-"@snowpack/plugin-webpack@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@snowpack/plugin-webpack/-/plugin-webpack-2.3.0.tgz#5f4da0c4afbb8d0151cdd78bdbaf78074925ef08"
-  integrity sha512-x/U29rdYkqPQDHpkAMY+qBhLSOY79KzGPMxfwOv0VlWirYnkMSbRctQ8btZ9tfyUB85Or+wVY2TWj//E8Nf98A==
+"@snowpack/plugin-webpack@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@snowpack/plugin-webpack/-/plugin-webpack-2.3.1.tgz#f32c5a11c0a5628414b7802c685fab2fda7687b9"
+  integrity sha512-CKB9l6GwXUeAbcxLHkoRW9J9CHCILH8tMsFA1Ed+tWybbgJmzM2EieblAyIcnyIJZ7BJHuYuhbGz+6wJbednQg==
   dependencies:
     "@babel/core" "^7.0.0"
     "@babel/preset-env" "^7.12.1"
@@ -2974,12 +2974,7 @@ core-js-pure@^3.0.0:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.9.0.tgz#326cc74e1fef8b7443a6a793ddb0adfcd81f9efb"
   integrity sha512-3pEcmMZC9Cq0D4ZBh3pe2HLtqxpGNJBLXF/kZ2YzK17RbKp94w0HFbdbSx8H8kAlZG5k76hvLrkPm57Uyef+kg==
 
-core-js@^3.5.0:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.9.0.tgz#790b1bb11553a2272b36e2625c7179db345492f8"
-  integrity sha512-PyFBJaLq93FlyYdsndE5VaueA9K5cNB7CGzeCj191YYLhkQM0gdZR2SKihM70oF0wdqKSKClv/tEBOpoRmdOVQ==
-
-core-js@^3.6.4:
+core-js@^3.5.0, core-js@^3.6.4:
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.9.1.tgz#cec8de593db8eb2a85ffb0dbdeb312cb6e5460ae"
   integrity sha512-gSjRvzkxQc1zjM/5paAmL4idJBFzuJoo+jDjF1tStYFMV2ERfD02HhahhCGXUyHxQRG4yFKVSdO6g62eoRMcDg==
