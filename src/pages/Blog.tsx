@@ -32,6 +32,9 @@ const Blog = () => {
                     let b: any = await Draft.convertFromRaw(JSON.parse(a))
                     setEditorState(Draft.EditorState.createWithContent(b))
                     setIsLoading(false)
+                } else {
+                    setErrorBlog("Page not found!")
+                    setIsLoading(false)
                 }
             } catch (error) {
                 setErrorBlog(error.error.error)

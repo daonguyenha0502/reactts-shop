@@ -296,8 +296,8 @@ export default function ProductDetail() {
                         </div>
                         <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
                             <form className="w-full">
-                                <textarea className="w-full px-2 py-1 bg-gray-300 rounded-md" onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)} value={content} name="content" id="content" rows={5}></textarea>
-                                <button onClick={handleSend} className="px-6 py-2 rounded-sm bg-blue-600">Send</button>
+                                <textarea className="w-full focus:outline-none focus:ring-2 px-2 py-1 bg-gray-300 rounded-md" onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)} value={content} name="content" id="content" rows={5}></textarea>
+                                <button onClick={handleSend} className="mt-2 px-6 py-2 rounded-sm bg-blue-600">Send</button>
                             </form>
                         </div>
 
@@ -313,7 +313,7 @@ export default function ProductDetail() {
                             }
                         </ul>
                         <div>
-                            {
+                            {listComments.length === 0 ? null :
                                 isLoadingComments ? (<button className="px-6 py-2 rounded-sm bg-blue-600 focus:outline-none opacity-80" disabled ><FontAwesomeIcon icon={faSpinner} pulse /> LoadMore</button>) : (<button className="px-6 py-2 rounded-sm bg-red-600" onClick={loadMoreComment}>LoadMore</button>)
                             }
                         </div>
