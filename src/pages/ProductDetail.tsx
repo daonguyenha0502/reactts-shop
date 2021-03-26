@@ -15,8 +15,9 @@ import SkeletonDetailProduct from '../components/SkeletonDetailProduct'
 import type { TypeResponse } from '../api/axiosClient'
 import userApi from '../api/userApi'
 import { useSelector } from 'react-redux'
-import type { RootState } from 'src/stores/store'
+import type { RootState } from '../stores/store'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import ListComments from '../components/ListComments'
 
 interface Props { }
 
@@ -26,7 +27,7 @@ interface Product {
     img: string
     info: string
 }
-interface Comment {
+export interface Comment {
     name: string
     content: string
     _id: string
@@ -175,10 +176,19 @@ export default function ProductDetail() {
     const handleSend = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
         if (user.accessToken && user.refreshToken) {
-            if (content) {
+            if (content && content.length <= 220) {
                 saveCmt()
             } else {
-                console.log('text not empty')
+                //console.log('text not empty, or less 120 character!')
+                toast.warning(`Text not empty, or less 120 character!`, {
+                    position: 'bottom-center',
+                    autoClose: 4000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
             }
         } else {
             toast.warning(`You must login to comment!`, {
@@ -219,16 +229,16 @@ export default function ProductDetail() {
                                     listPictures={pictures}
                                 />
                             </div>
-                            <div className="mt-20 md:mt-0 w-full h-auto text-left mb-4 pl-4">
+                            <div className="mt-20 md:mt-0 w-full md:min-h-72 h-auto text-left mb-4 pl-4">
                                 <p className="my-4  text-lg leading-relaxed">
-                                    Company:
+                                    Company:{' '}
                                     <span className="text-gray-600">
                                         {productDetail.idProduct.company}
                                     </span>
                                 </p>
 
                                 <p className="my-4 text-lg leading-relaxed">
-                                    Price:
+                                    Price:{' '}
                                     <span className="text-gray-600 line-through">
                                         {productDetail.idProduct.price.toLocaleString(
                                             'en-US',
@@ -252,21 +262,22 @@ export default function ProductDetail() {
                                         đ
                                     </span>
                                 </p>
-                                <p className="my-4 text-red-500 text-lg leading-relaxed">
-                                    Sale:
+                                {productDetail.idProduct.sale !== 0 ? (<p className="my-4 text-red-500 text-lg leading-relaxed">
+                                    Sale:{' '}
                                     <span className="text-gray-600 ">
                                         {productDetail.idProduct.sale}%
                                     </span>
-                                </p>
+                                </p>) : null}
+
                                 <p className="my-4 text-lg leading-relaxed">
-                                    Amount:
+                                    Amount:{' '}
                                     <span className="text-gray-600">
                                         {productDetail.idProduct.amount -
                                             productDetail.idProduct.sold}
                                     </span>
                                 </p>
                                 <p>
-                                    Information:
+                                    Information:{' '}
                                     <span className="text-gray-600">
                                         {productDetail.info}
                                     </span>
@@ -294,27 +305,19 @@ export default function ProductDetail() {
                             can’t do anything, you won’t do anything. I was
                             taught I could do everything.
                         </div>
-                        <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
+                        <div className="flex items-center p-6 border-t border-solid border-gray-300 rounded-b">
                             <form className="w-full">
-                                <textarea className="w-full focus:outline-none focus:ring-2 px-2 py-1 bg-gray-300 rounded-md" onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)} value={content} name="content" id="content" rows={5}></textarea>
-                                <button onClick={handleSend} className="mt-2 px-6 py-2 rounded-sm bg-blue-600">Send</button>
+                                <textarea className="w-full focus:outline-none focus:ring-2 px-2 py-1 bg-gray-300 rounded-md" maxLength={220} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)} value={content} name="content" id="content" rows={5}></textarea>
+                                <button onClick={handleSend} className=" float-right mt-2 px-6 py-2 rounded-sm bg-blue-600">Send</button>
                             </form>
                         </div>
 
-                        <ul>
-                            {
-                                (listComments as Comment[]).map((comment: Comment) => {
-                                    return (<li key={comment._id}>
-                                        <p>{comment.name}</p>
-                                        <p>{comment.content}</p>
 
-                                    </li>)
-                                })
-                            }
-                        </ul>
+                        <ListComments listComments={listComments} />
+
                         <div>
-                            {listComments.length === 0 ? null :
-                                isLoadingComments ? (<button className="px-6 py-2 rounded-sm bg-blue-600 focus:outline-none opacity-80" disabled ><FontAwesomeIcon icon={faSpinner} pulse /> LoadMore</button>) : (<button className="px-6 py-2 rounded-sm bg-red-600" onClick={loadMoreComment}>LoadMore</button>)
+                            {!isLoad ? null :
+                                isLoadingComments ? (<button className="px-6 py-2 rounded-sm bg-blue-600 focus:outline-none opacity-80" disabled ><FontAwesomeIcon icon={faSpinner} pulse /> Load More</button>) : (<button className="px-6 py-2 rounded-sm bg-red-500" onClick={loadMoreComment}>LoadMore</button>)
                             }
                         </div>
 

@@ -21,6 +21,7 @@ export interface TypeSlide {
     urlBlog: string
     urlImg: string
     _id: string
+    alt: string
 }
 
 let settings = {

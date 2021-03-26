@@ -43,6 +43,7 @@ const AddCarousel = (props: Props) => {
     const user = useSelector((state: RootState) => state.users)
     const [role, setRole] = useState<string | 'user'>('user')
     const [errorAddCarousel, setErrorAddCarousel] = useState<string | null>(null)
+    const [pressButton, setPressButton] = useState<boolean | false>(false)
     useEffect(() => {
         async function getTK(user: TypeUser) {
             let tk = await getRoleInToken(user.accessToken)
@@ -51,13 +52,20 @@ const AddCarousel = (props: Props) => {
         getTK(user)
     }, [])
 
-    const { register, handleSubmit, errors } = useForm({
+    const { register, handleSubmit, errors, reset } = useForm({
         resolver: yupResolver(carouselSchema),
     })
     const onSubmit = async (data: TypeCarousel) => {
-        saveCarousel(data)
+        if (!pressButton) {
+            saveCarousel(data)
+        }
+        else {
+            console.log('wait..')
+        }
+
     }
     const saveCarousel = async (data: any) => {
+        setPressButton(true)
         try {
             const response: TypeResponse = await carouselApi.saveCarousel(data)
             if (response.data) {
@@ -71,6 +79,8 @@ const AddCarousel = (props: Props) => {
                     draggable: true,
                     progress: undefined,
                 })
+                reset({ img: "", url: "", alt: "" })
+                setPressButton(false)
             }
         } catch (error) {
             setErrorAddCarousel(error.error.error)
