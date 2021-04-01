@@ -10,9 +10,9 @@ import { addToCart, reducerCart, deleteFromCart } from '../stores/cartsSlice'
 
 import type { TypeItemCart } from '../stores/cartsSlice'
 
-import Checkout from '../components/Checkout'
-import Footer from '../components/Footer'
-import ItemCart from '../components/ItemCart'
+import Checkout from '../components/Checkout/Checkout'
+import Footer from '../components/Footer/Footer'
+import ItemCart from '../components/Cart/ItemCart'
 
 interface Props { }
 

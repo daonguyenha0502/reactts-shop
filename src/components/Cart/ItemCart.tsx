@@ -1,5 +1,5 @@
 import React from 'react'
-import type { TypeItemCart } from '../stores/cartsSlice'
+import type { TypeItemCart } from '../../stores/cartsSlice'
 
 interface Props {
     item: TypeItemCart

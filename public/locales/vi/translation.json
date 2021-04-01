@@ -1,0 +1,24 @@
+{
+    "_comment": "Nếu thay đổi file này hãy sử dụng npm run i18",
+    "footer": {
+        "lang": "Ngôn ngữ"
+    },
+    "nav": {
+        "cart": "Giỏ hàng",
+        "login": "Đăng nhập",
+        "register": "Tạo tài khoản",
+        "search": "Tìm kiếm",
+        "logout": "Đăng xuất",
+        "profile": "Trang cá nhân"
+    },
+    "login": {
+        "login": "Đăng nhập",
+        "register": "Tạo tài khoản",
+        "forgot": "You forgot password?"
+    },
+    "common": {
+        "title": "Mua bán gears bất kỳ!",
+        "addToCart": "Thêm vào giỏ",
+        "outOfProduct": "Hết sản phẩm"
+    }
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
 
-import Nav from './components/Nav'
+import Nav from './components/Nav/Nav'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import clsx from 'clsx'
 import Index from './pages/Index'
@@ -20,13 +20,13 @@ import { faCaretSquareUp } from '@fortawesome/free-solid-svg-icons'
 import PageTypeProducts from './pages/PageTypeProducts'
 import CheckOut from './pages/CheckOut'
 import Blog from './pages/Blog'
-import AddContentBlog from './pages/AddContentBlog'
+import AddContentBlog from './pages/DashBoard/AddContentBlog'
 import Profile from './pages/Profile'
 import ChangePassword from './pages/ChangePassword'
 import ForgotPassword from './pages/ForgotPassword'
 import RestorePassword from './pages/RestorePassword'
-import UploadImage from './pages/UploadImage'
-import AddCarousel from './pages/AddCarousel'
+import UploadImage from './pages/DashBoard/UploadImage'
+import AddCarousel from './pages/DashBoard/AddCarousel'
 //import TestCheckOut from './pages/TestCheckOut';
 
 export function ScrollToTop(): any {

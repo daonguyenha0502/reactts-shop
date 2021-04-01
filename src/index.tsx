@@ -6,10 +6,12 @@ import { HelmetProvider } from 'react-helmet-async'
 import { PersistGate } from 'redux-persist/integration/react'
 import store from './stores/store'
 import { persistStore } from 'redux-persist'
+import { init_i18n } from './i18n'
 
 import './index.css'
 
 let persistor = persistStore(store)
+init_i18n();
 
 ReactDOM.render(
     <React.StrictMode>

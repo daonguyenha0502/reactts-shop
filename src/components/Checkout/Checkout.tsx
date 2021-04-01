@@ -1,6 +1,6 @@
 import React from 'react'
-import type { TypeItemCart } from '../stores/cartsSlice'
-import type { RootState } from '../stores/store'
+import type { TypeItemCart } from '../../stores/cartsSlice'
+import type { RootState } from '../../stores/store'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'

@@ -1,6 +1,6 @@
 import React from 'react'
 import ItemComment from './ItemComment'
-import type { Comment } from '../pages/ProductDetail'
+import type { Comment } from '../../pages/ProductDetail'
 
 interface Props {
     listComments: Comment[]

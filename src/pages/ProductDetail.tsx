@@ -8,16 +8,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { itemType, ScrollToTop } from '../App'
 import productApi from '../api/productApi'
 
-import CustomSlider from '../components/Carousel'
+import CustomSlider from '../components/Carousel/Carousel'
 import { addToCart } from '../stores/cartsSlice'
 import './CustomImage.css'
-import SkeletonDetailProduct from '../components/SkeletonDetailProduct'
+import SkeletonDetailProduct from '../components/Skeleton/SkeletonDetailProduct'
 import type { TypeResponse } from '../api/axiosClient'
 import userApi from '../api/userApi'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../stores/store'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import ListComments from '../components/ListComments'
+import ListComments from '../components/Product/ListComments'
 
 interface Props { }
 

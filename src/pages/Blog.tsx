@@ -6,7 +6,7 @@ import Draft from 'draft-js'
 import reactDraftWysiwyg from 'react-draft-wysiwyg'
 import { Helmet } from 'react-helmet-async'
 import type { TypeResponse } from '../api/axiosClient'
-import Loading from '../components/Loading'
+import Loading from '../components/Skeleton/Loading'
 
 const Blog = () => {
     const { idBlog }: any = useParams()

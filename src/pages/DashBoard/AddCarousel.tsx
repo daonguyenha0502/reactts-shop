@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form';
-import type { RootState } from '../stores/store'
-import Error403 from './Error403'
-import { getRoleInToken } from '../utility/decodeJwt'
+import type { RootState } from '../../stores/store'
+import Error403 from '../Error403'
+import { getRoleInToken } from '../../utility/decodeJwt'
 import { yupResolver } from '@hookform/resolvers/dist/yup'
 import * as yup from 'yup'
-import carouselApi from '../api/carouselApi'
-import type { TypeUser } from '../stores/userSlice'
+import carouselApi from '../../api/carouselApi'
+import type { TypeUser } from '../../stores/userSlice'
 import { Helmet } from 'react-helmet-async'
-import { InputField, Error } from '../components/InputField';
-import type { TypeResponse } from '../api/axiosClient';
+import { InputField, Error } from '../../components/InputField';
+import type { TypeResponse } from '../../api/axiosClient';
 import { toast } from 'react-toastify';
 
 interface Props {

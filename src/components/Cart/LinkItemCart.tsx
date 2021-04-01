@@ -1,8 +1,8 @@
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import type { itemType } from '../App'
-import type { TypeItemCart } from '../stores/cartsSlice'
+import type { itemType } from '../../App'
+import type { TypeItemCart } from '../../stores/cartsSlice'
 
 interface Props {
     cartItems: TypeItemCart[]

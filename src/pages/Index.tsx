@@ -4,14 +4,17 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 
 import productApi from '../api/productApi'
 
-import Footer from '../components/Footer'
+import Footer from '../components/Footer/Footer'
 import { itemType, ScrollToTop } from '../App'
-import CustomSlider from '../components/Carousel'
-import Category from '../components/Category'
-import ListProducts from '../components/ListProducts'
-import Skeleton from '../components/Skeleton'
+import CustomSlider from '../components/Carousel/Carousel'
+import Category from '../components/Category/Category'
+import ListProducts from '../components/Product/ListProducts'
+import Skeleton from '../components/Skeleton/Skeleton'
 import carouselApi from '../api/carouselApi'
 import type { TypeResponse } from '../api/axiosClient'
+import { useTypeSafeTranslation } from '../utility/useTypeSafeTranslation'
+
+
 
 export interface Props {
 
@@ -56,6 +59,8 @@ const Index = (props: Props) => {
     const [hasMore, setHasMore] = useState<boolean>(true)
     const [page, setPage] = useState<number | 1>(1)
     const [listSlides, setListSlides] = useState<TypeSlide[] | []>([])
+
+    const { t } = useTypeSafeTranslation()
 
     const getProduct = async () => {
         try {
@@ -146,7 +151,7 @@ const Index = (props: Props) => {
     return (
         <div>
             <Helmet>
-                <title>Buy or sell anything gears!</title>
+                <title>{t('common.title')}</title>
                 <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
 
@@ -171,7 +176,7 @@ const Index = (props: Props) => {
                             marginTop: '0.5rem',
                         }}
                     >
-                        <b>Out of Product</b>
+                        <b>{t('common.outOfProduct')}</b>
                     </p>
                 }
             >

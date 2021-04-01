@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
-import ListProducts from '../components/ListProducts'
+import ListProducts from '../components/Product/ListProducts'
 import { ScrollToTop } from '../App'
 import type { itemType } from '../App'
 import productApi from '../api/productApi'

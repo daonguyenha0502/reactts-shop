@@ -5,7 +5,7 @@ import checkOutApi from '../api/checkOutApi'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import type { TypeResponse } from '../api/axiosClient'
-import Loading from '../components/Loading'
+import Loading from '../components/Skeleton/Loading'
 
 interface Props { }
 

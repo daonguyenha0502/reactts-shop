@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { UploadImg } from '../api/axiosClient'
-import Error403 from './Error403'
+import { UploadImg } from '../../api/axiosClient'
+import Error403 from '../Error403'
 import { Helmet } from 'react-helmet-async'
-import type { RootState } from '../stores/store'
+import type { RootState } from '../../stores/store'
 import { useSelector } from 'react-redux'
-import { getRoleInToken } from '../utility/decodeJwt'
-import type { TypeUser } from '../stores/userSlice'
+import { getRoleInToken } from '../../utility/decodeJwt'
+import type { TypeUser } from '../../stores/userSlice'
 
 interface Props {
 

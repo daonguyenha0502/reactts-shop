@@ -1,0 +1,24 @@
+{
+    "_comment": "if you change this file, do: npm run i18",
+    "footer": {
+        "lang": "Language"
+    },
+    "nav": {
+        "cart": "Cart",
+        "login": "Login",
+        "register": "Register",
+        "search": "Search",
+        "logout": "Logout",
+        "profile": "Profile"
+    },
+    "login": {
+        "login": "Login",
+        "register": "Register",
+        "forgot": "You forgot password?"
+    },
+    "common": {
+        "title": "Buy or sell anything gears!",
+        "addToCart": "Add to cart",
+        "outOfProduct": "Out of Product"
+    }
+}

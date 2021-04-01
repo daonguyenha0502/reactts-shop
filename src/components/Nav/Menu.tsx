@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import type { RootState } from '../stores/store'
-import { deleteToken } from '../stores/userSlice'
+import type { RootState } from '../../stores/store'
+import { deleteToken } from '../../stores/userSlice'
 import { toast } from 'react-toastify'
 import { unwrapResult } from '@reduxjs/toolkit'
 
@@ -96,31 +96,31 @@ const Menu = ({ refSearch, search, handleSubmit, setSearch }: Props) => {
                         </li>
                     </>
                 ) : (
-                    <>
-                        <li className="px-10 bg-blue-500 rounded-sm mb-2 text-black block sm:block md:block lg:hidden">
-                            <Link className="cursor-pointer" to="/profile">
-                                <span
-                                    className={
-                                        pathName.pathname === '/profile'
-                                            ? 'text-red-700'
-                                            : ''
-                                    }
-                                >
-                                    Profile
+                        <>
+                            <li className="px-10 bg-blue-500 rounded-sm mb-2 text-black block sm:block md:block lg:hidden">
+                                <Link className="cursor-pointer" to="/profile">
+                                    <span
+                                        className={
+                                            pathName.pathname === '/profile'
+                                                ? 'text-red-700'
+                                                : ''
+                                        }
+                                    >
+                                        Profile
                                 </span>
-                            </Link>
-                        </li>
-                        <li className="px-10 bg-blue-500 rounded-sm mb-2  text-black block sm:block md:block lg:hidden">
-                            <Link
-                                className="cursor-pointer"
-                                onClick={() => handleLogOut()}
-                                to="#"
-                            >
-                                Logout{' '}
-                            </Link>
-                        </li>
-                    </>
-                )}
+                                </Link>
+                            </li>
+                            <li className="px-10 bg-blue-500 rounded-sm mb-2  text-black block sm:block md:block lg:hidden">
+                                <Link
+                                    className="cursor-pointer"
+                                    onClick={() => handleLogOut()}
+                                    to="#"
+                                >
+                                    Logout{' '}
+                                </Link>
+                            </li>
+                        </>
+                    )}
             </ul>
         </div>
     )

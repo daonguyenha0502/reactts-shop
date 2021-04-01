@@ -1,6 +1,6 @@
 import React from 'react'
-import type { TypeItemCart } from '../stores/cartsSlice'
-import type { TypeCheckout } from '../pages/CheckOut'
+import type { TypeItemCart } from '../../stores/cartsSlice'
+import type { TypeCheckout } from '../../pages/CheckOut'
 import clsx from 'clsx'
 
 interface Props {
@@ -13,7 +13,7 @@ const ListProductOnCheckout = ({ carts, stateCheckout }: Props) => {
         <div
             className={clsx(
                 stateCheckout !== 'VIEW_CART' &&
-                    'bg-gray-200 opacity-50 w-full pt-4 rounded-lg select-none',
+                'bg-gray-200 opacity-50 w-full pt-4 rounded-lg select-none',
             )}
         >
             <div className="mx-auto overflow-y-auto h-1/2 xl:h-5/6 max-w-min mb-4">
@@ -41,9 +41,9 @@ const ListProductOnCheckout = ({ carts, stateCheckout }: Props) => {
                                                 Math.ceil(
                                                     ((item.price / 10000) *
                                                         item.sale) /
-                                                        100,
+                                                    100,
                                                 ) *
-                                                    10000)
+                                                10000)
                                         ).toLocaleString()}{' '}
                                         Đồng
                                     </p>

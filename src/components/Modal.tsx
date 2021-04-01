@@ -1,6 +1,6 @@
 import React from 'react'
 import type { itemType } from '../App'
-import CustomSlider from './Carousel'
+import CustomSlider from './Carousel/Carousel'
 
 interface Props {
     onShowModal: boolean

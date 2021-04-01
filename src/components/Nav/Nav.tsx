@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 
 import { Link, useHistory } from 'react-router-dom'
 
-import LinkItemCart from './LinkItemCart'
+import LinkItemCart from '../Cart/LinkItemCart'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Menu from './Menu'
@@ -10,9 +10,10 @@ import Menu from './Menu'
 import { faReact } from '@fortawesome/free-brands-svg-icons'
 import { useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteToken } from '../stores/userSlice'
-import type { RootState } from '../stores/store'
+import { deleteToken } from '../../stores/userSlice'
+import type { RootState } from '../../stores/store'
 import { toast } from 'react-toastify'
+import { useTypeSafeTranslation } from '../../utility/useTypeSafeTranslation'
 
 interface Props { }
 
@@ -25,6 +26,7 @@ const Nav = ({ }: Props) => {
     const pathName = useLocation()
     const refSearch = useRef<HTMLInputElement | null>(null)
     let history = useHistory()
+    const { t } = useTypeSafeTranslation()
     const handleSearch = async (search: string) => {
         //console.log(search);
         history.push(`/search?q=${search}`)
@@ -105,7 +107,7 @@ const Nav = ({ }: Props) => {
                                         : ''
                                 }
                             >
-                                Cart
+                                {t('nav.cart')}
                             </span>
                         </Link>
                     </li>
@@ -121,7 +123,7 @@ const Nav = ({ }: Props) => {
                                                 : ''
                                         }
                                     >
-                                        Login
+                                        {t('nav.login')}
                                     </span>
                                 </Link>
                             </li>
@@ -134,7 +136,7 @@ const Nav = ({ }: Props) => {
                                                 : ''
                                         }
                                     >
-                                        Register
+                                        {t('nav.register')}
                                     </span>
                                 </Link>
                             </li>
@@ -150,8 +152,8 @@ const Nav = ({ }: Props) => {
                                                     : ''
                                             }
                                         >
-                                            Profile
-                                    </span>
+                                            {t('nav.profile')}
+                                        </span>
                                     </Link>
                                 </li>
                                 <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
@@ -167,8 +169,8 @@ const Nav = ({ }: Props) => {
                                                     : ''
                                             }
                                         >
-                                            Logout
-                                    </span>
+                                            {t('nav.logout')}
+                                        </span>
                                     </Link>
                                 </li>
                             </>
@@ -215,7 +217,7 @@ const Nav = ({ }: Props) => {
                                 className="bg-green-600 text-black p-1 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700"
                                 type="submit"
                             >
-                                Search
+                                {t('nav.search')}
                             </button>
                         </li>
                     </form>

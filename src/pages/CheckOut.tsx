@@ -11,7 +11,7 @@ import checkOutApi from '../api/checkOutApi'
 import { InputField, Error } from '../components/InputField'
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '../stores/store'
-import ListProductOnCheckout from '../components/ListProductOnCheckout'
+import ListProductOnCheckout from '../components/Checkout/ListProductOnCheckout'
 
 //zalo pay
 import CryptoJS from 'crypto-js'

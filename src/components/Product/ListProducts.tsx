@@ -2,11 +2,11 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 
-import { addToCart } from '../stores/cartsSlice'
+import { addToCart } from '../../stores/cartsSlice'
 
-import type { itemType } from '../App'
+import type { itemType } from '../../App'
 import CardProduct from './CardProduct'
-import Skeleton from './Skeleton'
+import Skeleton from '../Skeleton/Skeleton'
 
 interface Props {
     listProduct: itemType[]
@@ -49,21 +49,21 @@ const ListProducts = ({ listProduct, isLoading }: Props) => {
                         />
                     ))
             ) : (
-                <>
-                    <Skeleton key={1} />
-                    <Skeleton key={2} />
-                    <Skeleton key={3} />
-                    <Skeleton key={4} />
-                    <Skeleton key={5} />
-                    <Skeleton key={6} />
-                    <Skeleton key={7} />
-                    <Skeleton key={8} />
-                    <Skeleton key={9} />
-                    <Skeleton key={10} />
-                    <Skeleton key={11} />
-                    <Skeleton key={12} />
-                </>
-            )}
+                    <>
+                        <Skeleton key={1} />
+                        <Skeleton key={2} />
+                        <Skeleton key={3} />
+                        <Skeleton key={4} />
+                        <Skeleton key={5} />
+                        <Skeleton key={6} />
+                        <Skeleton key={7} />
+                        <Skeleton key={8} />
+                        <Skeleton key={9} />
+                        <Skeleton key={10} />
+                        <Skeleton key={11} />
+                        <Skeleton key={12} />
+                    </>
+                )}
         </div>
     )
 }

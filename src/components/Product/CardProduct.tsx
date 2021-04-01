@@ -1,9 +1,10 @@
 import React from 'react'
-import type { itemType } from '../App'
+import type { itemType } from '../../App'
 import LazyLoad from 'react-lazyload'
 
-import imgSale from '../../public/icon-saleoff.png'
+import imgSale from '../../../public/icon-saleoff.png'
 import { Link } from 'react-router-dom'
+import { useTypeSafeTranslation } from '../../utility/useTypeSafeTranslation'
 
 interface Props {
     product: itemType
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const CardProduct = ({ product, onAdd }: Props) => {
+    const { t } = useTypeSafeTranslation()
     return (
         <>
             <div className="relative w-56 sm:w-56 md:w-60 lg:w-56 xl:w-52 2xl:w-full h-96 bg-white rounded-md shadow-lg border border-gray-500 ">
@@ -85,7 +87,7 @@ const CardProduct = ({ product, onAdd }: Props) => {
                     className="bg-blue-600 active:bg-blue-400 focus:outline-none hover:bg-blue-800  px-4 py-2 z-20 rounded-md mt-2 font-semibold text-white"
                     onClick={() => onAdd(product)}
                 >
-                    Add to cart
+                    {t('common.addToCart')}
                 </button>
             </div>
         </>
