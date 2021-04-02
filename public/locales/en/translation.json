@@ -14,11 +14,94 @@
     "login": {
         "login": "Login",
         "register": "Register",
-        "forgot": "You forgot password?"
+        "forgot": "You forgot password?",
+        "password": "Password",
+        "message": {
+            "login": "You are logged in!"
+        }
+    },
+    "register": {
+        "login": "Login",
+        "register": "Register",
+        "password": "Password",
+        "re_password": "Re-enter password",
+        "message": {
+            "register": "Registered, login please!"
+        }
     },
     "common": {
         "title": "Buy or sell anything gears!",
         "addToCart": "Add to cart",
         "outOfProduct": "Out of Product"
+    },
+    "cart": {
+        "cart": "My cart",
+        "checkout": "Checkout",
+        "all": "All",
+        "item": "items",
+        "delivery": "Delivery",
+        "free": "Free",
+        "tax": "Tax",
+        "inPrice": "include in price",
+        "total": "Total",
+        "currency": "VND",
+        "no": "No product",
+        "sale": "Sale",
+        "price": "Price ",
+        "message": {
+            "add": " added to cart",
+            "reducer": " reducer from cart",
+            "remove": " removed from cart",
+            "warn": " Please login or register to checkout!",
+            "empty": " Cart is empty! Please buy something!"
+        }
+    },
+    "forgotPassword": {
+        "forgot": "Forgot password",
+        "submit": "Submit",
+        "login": "Login",
+        "hadAcc": "You had account?"
+    },
+    "changePassword": {
+        "oldPassword": "Old password",
+        "newPassword": "New password",
+        "reNewPassword": "Re-enter new password",
+        "changePassword": "Change password"
+    },
+    "productDetail": {
+        "save": "Saved!",
+        "notEmpty": "Text not empty, or less 220 character!",
+        "hadAcc": "You must login to comment!",
+        "name": "Name",
+        "company": "Company",
+        "price": "Price",
+        "currency": "VND",
+        "sale": "Sale",
+        "amount": "Amount",
+        "information": "Information",
+        "addCart": "Add to cart",
+        "loadMore": "Load More",
+        "send": "Send",
+        "comment": "Comment",
+        "noComment": "No Comment"
+    },
+    "profile": {
+        "profile": "My Profile",
+        "changePassword": "Change password",
+        "noBuy": "You don't buy anything?",
+        "itemListBill": {
+            "day": "Day ",
+            "month": " Month ",
+            "year": " Year ",
+            "hour": " Hour ",
+            "minute": " Minute ",
+            "code": "Code of Bill",
+            "amount": "Amount",
+            "receiver": "Receiver",
+            "phone": "Phone",
+            "address": "Address",
+            "price": "Price",
+            "currency": " VND"
+        }
     }
 }

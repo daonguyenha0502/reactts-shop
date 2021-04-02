@@ -4,6 +4,7 @@ import type { RootState } from '../../stores/store'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { useTypeSafeTranslation } from '../../utility/useTypeSafeTranslation'
 
 interface Props {
     cartItems: TypeItemCart[]
@@ -25,8 +26,9 @@ const getTotalPrice = (items: TypeItemCart[]) =>
 
 const Checkout = ({ cartItems }: Props) => {
     const user = useSelector((state: RootState) => state.users)
+    const { t } = useTypeSafeTranslation()
     const handleClick = () => {
-        toast.warning(`Please login or register to checkout!`, {
+        toast.warning(`${t('cart.message.warn')}`, {
             position: 'bottom-center',
             autoClose: 4000,
             hideProgressBar: true,
@@ -38,8 +40,7 @@ const Checkout = ({ cartItems }: Props) => {
     }
     const handleClickCheckOut = () => {
         toast.warn(
-            `Cart is empty!
-        Please buy something!`,
+            `${t('cart.message.empty')}`,
             {
                 position: 'bottom-center',
                 autoClose: 4000,
@@ -54,25 +55,25 @@ const Checkout = ({ cartItems }: Props) => {
     return (
         <div className="w-92 sm:w-120 bg-indigo-400 py-4 rounded-md leading-8">
             <div className="flex justify-between px-2">
-                <p>Subtotal({getTotalItems(cartItems)} items)</p>{' '}
-                <p>{getTotalPrice(cartItems)}</p>
+                <p>{t('cart.all')}({getTotalItems(cartItems)} {t('cart.item')})</p>{' '}
+                <p>{getTotalPrice(cartItems)} {t('cart.currency')}</p>
             </div>
             <div className="flex justify-between px-2">
-                <p>Delivery</p>
-                <p>Free</p>
+                <p>{t('cart.delivery')}</p>
+                <p>{t('cart.free')}</p>
             </div>
             <div className="flex justify-between px-2">
-                <p>Taxes and feesTaxes and fees</p> — —
+                <p>{t('cart.tax')}</p> {t('cart.inPrice')}
             </div>
 
             <div className="flex justify-between px-2">
-                <p>Est. total</p> {getTotalPrice(cartItems)}
+                <p>{t('cart.total')}</p> {getTotalPrice(cartItems)} {t('cart.currency')}
             </div>
             {cartItems.length > 0 ? (
                 user.accessToken ? (
                     <Link to="/checkout">
                         <button className="bg-blue-600 px-5 py-1 rounded-md hover:bg-red-400 active:bg-red-500 duration-500 focus:outline-none">
-                            Check out
+                            {t('cart.checkout')}
                         </button>
                     </Link>
                 ) : (
@@ -81,8 +82,8 @@ const Checkout = ({ cartItems }: Props) => {
                                 onClick={handleClick}
                                 className="bg-blue-600 px-5 py-1 rounded-md hover:bg-red-400 active:bg-red-500 duration-500 focus:outline-none"
                             >
-                                Check out
-                        </button>
+                                {t('cart.checkout')}
+                            </button>
                         </Link>
                     )
             ) : (
@@ -91,8 +92,8 @@ const Checkout = ({ cartItems }: Props) => {
                             onClick={handleClickCheckOut}
                             className="bg-blue-600 px-5 py-1 rounded-md hover:bg-red-400 active:bg-red-500 duration-500 focus:outline-none"
                         >
-                            Check out
-                    </button>
+                            {t('cart.checkout')}
+                        </button>
                     </Link>
                 )}
         </div>

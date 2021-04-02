@@ -13,6 +13,7 @@ import type { TypeItemCart } from '../stores/cartsSlice'
 import Checkout from '../components/Checkout/Checkout'
 import Footer from '../components/Footer/Footer'
 import ItemCart from '../components/Cart/ItemCart'
+import { useTypeSafeTranslation } from '../utility/useTypeSafeTranslation'
 
 interface Props { }
 
@@ -20,11 +21,12 @@ const Cart = (props: Props) => {
     ScrollToTop()
     const carts = useSelector((state: RootState) => state.carts)
     const dispatch = useDispatch()
+    const { t } = useTypeSafeTranslation()
     const handleAddToCart = (product: TypeItemCart) => {
         //console.log('addtoCart: ', product);
         const action = addToCart(product)
         dispatch(action)
-        toast.info(`🦄 ${product.name} added to cart`, {
+        toast.info(`🦄 ${product.name} ${t('cart.message.add')}`, {
             position: 'bottom-center',
             autoClose: 4000,
             hideProgressBar: true,
@@ -38,7 +40,7 @@ const Cart = (props: Props) => {
         //console.log('reducer: ', product);
         const action = reducerCart(product)
         dispatch(action)
-        toast.warning(`🦄 ${product.name} reducer from cart`, {
+        toast.warning(`🦄 ${product.name} ${t('cart.message.reducer')}`, {
             position: 'bottom-center',
             autoClose: 4000,
             hideProgressBar: true,
@@ -51,7 +53,7 @@ const Cart = (props: Props) => {
     const handleRemoveFromCart = (product: TypeItemCart) => {
         const action = deleteFromCart(product)
         dispatch(action)
-        toast.error(`🦄 ${product.name} removed from cart`, {
+        toast.error(`🦄 ${product.name} ${t('cart.message.remove')}`, {
             position: 'bottom-center',
             autoClose: 4000,
             hideProgressBar: true,
@@ -64,11 +66,11 @@ const Cart = (props: Props) => {
     return (
         <>
             <Helmet>
-                <title>My cart</title>
+                <title>{t('cart.cart')}</title>
                 <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
 
-            <h1 className="text-2xl mt-16 font-bold text-center">My Cart</h1>
+            <h1 className="text-2xl mt-16 font-bold text-center">{t('cart.cart')}</h1>
             <div className="py-4 h-120 min-h-full md:flex-row md:px-10 xl:px-4 xl:flex 2xl:px-20 2xl:mt-4 2xl:space-x-4 2xl:flex">
                 <div className="mx-auto overflow-y-auto h-1/2 xl:h-5/6 max-w-min mb-4">
                     {carts.length !== 0 ? (
@@ -84,8 +86,8 @@ const Cart = (props: Props) => {
                     ) : (
                             <div className="w-92 sm:w-120 h-4/5 py-4 border-gray-800 border rounded-lg leading-10 mb-8">
                                 <p className="font-bold text-xl text-red-700">
-                                    No product
-                            </p>
+                                    {t('cart.no')}
+                                </p>
                             </div>
                         )}
                 </div>

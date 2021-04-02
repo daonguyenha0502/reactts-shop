@@ -9,6 +9,7 @@ import { InputField, Error } from '../components/InputField'
 import userApi from '../api/userApi'
 import { toast } from 'react-toastify'
 import type { TypeResponse } from '../api/axiosClient'
+import { useTypeSafeTranslation } from '../utility/useTypeSafeTranslation'
 
 
 export interface TypeChangePassword {
@@ -44,6 +45,7 @@ interface Props { }
 const ChangePassword = (props: Props) => {
     const history = useHistory()
     const [errorChangePassword, setErrorChangePassword] = useState<string | null>(null)
+    const { t } = useTypeSafeTranslation()
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(changePasswordSchema),
     })
@@ -73,18 +75,18 @@ const ChangePassword = (props: Props) => {
     return (
         <div className="w-min h-auto text-left mt-28 sm:mt-32 mx-auto">
             <Helmet>
-                <title>Change password</title>
+                <title>{t('changePassword.changePassword')}</title>
                 <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
 
             <h1 className="font-bold text-2xl text-center mb-6">
-                Change password
-                    </h1>
+                {t('changePassword.changePassword')}
+            </h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <InputField
                     name="oldPassword"
                     typeInput="password"
-                    labelContent="Old Password"
+                    labelContent={t('changePassword.oldPassword')}
                     register={register}
                     autocomplete={'password'}
                     onBlur={() => setErrorChangePassword(null)}
@@ -108,7 +110,7 @@ const ChangePassword = (props: Props) => {
                 <InputField
                     name="password"
                     typeInput="password"
-                    labelContent="New Password"
+                    labelContent={t('changePassword.newPassword')}
                     register={register}
                     autocomplete="new-password"
                 />
@@ -131,7 +133,7 @@ const ChangePassword = (props: Props) => {
                 <InputField
                     name="re_password"
                     typeInput="password"
-                    labelContent="New Re-password"
+                    labelContent={t('changePassword.reNewPassword')}
                     register={register}
                     autocomplete="new-password"
                 />
@@ -148,8 +150,8 @@ const ChangePassword = (props: Props) => {
                         className="bg-blue-600 w-48 text-white py-2 focus:outline-none active:bg-blue-500 rounded px-4 hover:bg-green-700"
                         type="submit"
                     >
-                        Change Password
-                            </button>
+                        {t('changePassword.changePassword')}
+                    </button>
                 </div>
             </form>
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import type { TypeItemCart } from '../../stores/cartsSlice'
+import { useTypeSafeTranslation } from '../../utility/useTypeSafeTranslation'
 
 interface Props {
     item: TypeItemCart
@@ -9,6 +10,7 @@ interface Props {
 }
 
 const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
+    const { t } = useTypeSafeTranslation()
     return (
         <div className="w-92 sm:w-120 h-auto border-gray-800 border rounded-lg leading-5 mb-8">
             <div className="flex min-h-32">
@@ -34,13 +36,13 @@ const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
                         </button>
                     </div>
 
-                    <div className="flex space-x-4 w-full justify-center">
+                    <div className="flex space-x-4 mb-12 w-full justify-center">
                         <p>
-                            Price:{' '}
+                            {t('cart.price')}:{' '}
                             {(item.cartAmount * item.price).toLocaleString()}{' '}
-                            Đồng
+                            {t('cart.currency')}
                         </p>
-                        <p className="text-red-700">Sale: {item.sale}%</p>
+                        <p className="text-red-700">{t('cart.sale')}: {item.sale}%</p>
                     </div>
 
                     <div className="flex w-full justify-center absolute bottom-2">

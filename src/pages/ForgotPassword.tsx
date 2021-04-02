@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/dist/yup'
 import * as yup from 'yup'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 
 import userApi from '../api/userApi'
@@ -10,6 +10,7 @@ import userApi from '../api/userApi'
 import { InputField, Error } from '../components/InputField'
 import { toast } from 'react-toastify'
 import type { TypeResponse } from '../api/axiosClient'
+import { useTypeSafeTranslation } from '../utility/useTypeSafeTranslation'
 
 interface Props { }
 export interface TypeForgotPassword {
@@ -22,7 +23,7 @@ const forgotPasswordSchema = yup.object().shape({
 
 const ForgotPassword = (props: Props) => {
     const [errorForgotPassword, setErrorForgotPassword] = useState<string | null>(null)
-
+    const { t } = useTypeSafeTranslation()
     async function Forgot(email: TypeForgotPassword) {
         try {
             const response: TypeResponse = await userApi.forgotPassword(email)
@@ -54,13 +55,13 @@ const ForgotPassword = (props: Props) => {
     return (
         <div className="w-min h-auto text-left mt-36 mx-auto">
             <Helmet>
-                <title>Forgot password</title>
+                <title>{t('forgotPassword.forgot')}</title>
                 <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
 
             <h1 className="font-bold text-2xl text-center mb-6">
-                Forgot password
-                    </h1>
+                {t('forgotPassword.forgot')}
+            </h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <InputField
                     name="email"
@@ -87,14 +88,14 @@ const ForgotPassword = (props: Props) => {
                         className="bg-blue-600 w-36 text-white py-2 focus:outline-none active:bg-blue-500 rounded px-4 hover:bg-red-600"
                         type="submit"
                     >
-                        Submit
-                            </button>
+                        {t('forgotPassword.submit')}
+                    </button>
                 </div>
             </form>
-            <p className="text-red-900 text-base text-center">You had account?</p>
+            <p className="text-red-900 text-base text-center">{t('forgotPassword.hadAcc')}</p>
             <div className="mb-3 w-max mx-auto">
                 <Link to="/login"><button type="button" className="bg-green-600 w-36 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700">
-                    Login
+                    {t('forgotPassword.login')}
                 </button></Link>
             </div>
 

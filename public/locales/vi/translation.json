@@ -14,11 +14,88 @@
     "login": {
         "login": "Đăng nhập",
         "register": "Tạo tài khoản",
-        "forgot": "You forgot password?"
+        "forgot": "Bạn đã quên mật khẩu?",
+        "password": "Mật khẩu"
+    },
+    "register": {
+        "login": "Đăng nhập",
+        "register": "Tạo tài khoản",
+        "password": "Mật khẩu",
+        "re_password": "Nhập lại mật khẩu"
     },
     "common": {
         "title": "Mua bán gears bất kỳ!",
         "addToCart": "Thêm vào giỏ",
         "outOfProduct": "Hết sản phẩm"
+    },
+    "cart": {
+        "cart": "Giỏ hàng của bạn",
+        "checkout": "Thanh toán",
+        "all": "Tất cả",
+        "item": "sản phẩm",
+        "delivery": "Phí vận chuyển",
+        "free": "Miễn phí",
+        "tax": "Thuế",
+        "inPrice": "Đã bảo gồm trong giá",
+        "total": "Tổng",
+        "currency": "Đồng",
+        "no": "Không có sản phẩm",
+        "sale": "Giảm giá",
+        "price": "Giá",
+        "message": {
+            "add": " đã thêm vào giỏ hàng",
+            "reducer": " đã giảm số lượng",
+            "remove": " bị bỏ khỏi giỏ",
+            "warn": " Đăng nhập hoặc tạo tài khoản trước khi thanh toán!",
+            "empty": " Giỏ hàng đang trống! Bạn hãy mua sản phẩn nào đó!"
+        }
+    },
+    "forgotPassword": {
+        "forgot": "Quên mật khẩu",
+        "submit": "Gửi",
+        "login": "Đăng nhập",
+        "hadAcc": "Bạn đã có tài khoản?"
+    },
+    "changePassword": {
+        "oldPassword": "Mật khẩu cũ",
+        "newPassword": "Mật khẩu mới",
+        "reNewPassword": "Nhập lại mật khẩu mới",
+        "changePassword": "Đổi mật khẩu"
+    },
+    "productDetail": {
+        "save": "Lưu!",
+        "notEmpty": "Không được bỏ trống hoặc ô phải ít hơn 220 ký tự!",
+        "hadAcc": "Bạn phải có tài khoản mới được bình luận!",
+        "name": "Tên sản phẩm",
+        "company": "Công ty",
+        "price": "Giá",
+        "currency": "Đồng",
+        "sale": "Giảm giá",
+        "amount": "Số lượng",
+        "information": "Thông tin",
+        "addCart": "Thêm vào giỏ",
+        "loadMore": "Tải thêm",
+        "send": "Gửi",
+        "comment": "Bình luận",
+        "noComment": "Không có bình luận nào!"
+    },
+    "profile": {
+        "profile": "Hồ sơ của bạn",
+        "changePassword": "Đổi mật khẩu",
+        "noBuy": "Bạn chưa mua sản phẩm nào phải không?",
+        "itemListBill": {
+            "day": "Ngày ",
+            "month": " Tháng ",
+            "year": " Năm ",
+            "hour": " Giờ ",
+            "minute": " Phút ",
+            "code": "Mã HD",
+            "amount": "Số lượng",
+            "receiver": "Người nhận",
+            "phone": "SĐT",
+            "address": "Địa chỉ",
+            "price": "Giá",
+            "currency": " Đồng"
+        }
     }
 }

@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux'
 import type { RootState } from '../stores/store'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import ListComments from '../components/Product/ListComments'
+import { useTypeSafeTranslation } from '../utility/useTypeSafeTranslation'
 
 interface Props { }
 
@@ -45,6 +46,7 @@ export default function ProductDetail() {
 
     const [pictures, setPictures] = useState<string[] | []>([])
     const [isLoading, setIsLoading] = useState<boolean | true>(true)
+    const { t } = useTypeSafeTranslation()
 
     const user = useSelector((state: RootState) => state.users)
 
@@ -53,7 +55,7 @@ export default function ProductDetail() {
         //console.log('addtoCart: ', product);
         const action = addToCart(product)
         dispatch(action)
-        toast.info(`🦄 ${product.name} added to cart`, {
+        toast.info(`🦄 ${product.name} ${t('cart.message.add')}`, {
             position: 'bottom-center',
             autoClose: 4000,
             hideProgressBar: true,
@@ -180,7 +182,7 @@ export default function ProductDetail() {
                 saveCmt()
             } else {
                 //console.log('text not empty, or less 120 character!')
-                toast.warning(`Text not empty, or less 120 character!`, {
+                toast.warning(`${t('productDetail.notEmpty')}`, {
                     position: 'bottom-center',
                     autoClose: 4000,
                     hideProgressBar: true,
@@ -191,7 +193,7 @@ export default function ProductDetail() {
                 })
             }
         } else {
-            toast.warning(`You must login to comment!`, {
+            toast.warning(`${t('productDetail.hadAcc')}`, {
                 position: 'bottom-center',
                 autoClose: 4000,
                 hideProgressBar: true,
@@ -218,7 +220,7 @@ export default function ProductDetail() {
                         {/*header*/}
                         <div className="flex h-20 w-full items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
                             <p className="text-xl font-semibold">
-                                Name: {productDetail.idProduct.name}
+                                {t('productDetail.name')}: {productDetail.idProduct.name}
                             </p>
                         </div>
                         {/*body*/}
@@ -231,14 +233,14 @@ export default function ProductDetail() {
                             </div>
                             <div className="mt-20 md:mt-0 w-full md:min-h-72 h-auto text-left mb-4 pl-4">
                                 <p className="my-4  text-lg leading-relaxed">
-                                    Company:{' '}
+                                    {t('productDetail.company')}:{' '}
                                     <span className="text-gray-600">
                                         {productDetail.idProduct.company}
                                     </span>
                                 </p>
 
                                 <p className="my-4 text-lg leading-relaxed">
-                                    Price:{' '}
+                                    {t('productDetail.price')}:{' '}
                                     <span className="text-gray-600 line-through">
                                         {productDetail.idProduct.price.toLocaleString(
                                             'en-US',
@@ -263,21 +265,21 @@ export default function ProductDetail() {
                                     </span>
                                 </p>
                                 {productDetail.idProduct.sale !== 0 ? (<p className="my-4 text-red-500 text-lg leading-relaxed">
-                                    Sale:{' '}
+                                    {t('productDetail.sale')}:{' '}
                                     <span className="text-gray-600 ">
                                         {productDetail.idProduct.sale}%
                                     </span>
                                 </p>) : null}
 
                                 <p className="my-4 text-lg leading-relaxed">
-                                    Amount:{' '}
+                                    {t('productDetail.amount')}:{' '}
                                     <span className="text-gray-600">
                                         {productDetail.idProduct.amount -
                                             productDetail.idProduct.sold}
                                     </span>
                                 </p>
                                 <p>
-                                    Information:{' '}
+                                    {t('productDetail.information')}:{' '}
                                     <span className="text-gray-600">
                                         {productDetail.info}
                                     </span>
@@ -291,7 +293,7 @@ export default function ProductDetail() {
                                             )
                                         }
                                     >
-                                        Add to cart
+                                        {t('productDetail.addCart')}
                                     </button>
                                 </div>
                             </div>
@@ -308,7 +310,7 @@ export default function ProductDetail() {
                         <div className="flex items-center p-6 border-t border-solid border-gray-300 rounded-b">
                             <form className="w-full">
                                 <textarea className="w-full focus:outline-none focus:ring-2 px-2 py-1 bg-gray-300 rounded-md" maxLength={220} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)} value={content} name="content" id="content" rows={5}></textarea>
-                                <button onClick={handleSend} className=" float-right mt-2 px-6 py-2 rounded-sm bg-blue-600">Send</button>
+                                <button onClick={handleSend} className=" float-right mt-2 px-6 py-2 rounded-sm bg-blue-600">{t('productDetail.send')}</button>
                             </form>
                         </div>
 
@@ -317,7 +319,7 @@ export default function ProductDetail() {
 
                         <div>
                             {!isLoad ? null :
-                                isLoadingComments ? (<button className="px-6 py-2 rounded-sm bg-blue-600 focus:outline-none opacity-80" disabled ><FontAwesomeIcon icon={faSpinner} pulse /> Load More</button>) : (<button className="px-6 py-2 rounded-sm bg-red-500" onClick={loadMoreComment}>LoadMore</button>)
+                                isLoadingComments ? (<button className="px-6 py-2 rounded-sm bg-blue-600 focus:outline-none opacity-80" disabled ><FontAwesomeIcon icon={faSpinner} pulse /> {t('productDetail.loadMore')}</button>) : (<button className="px-6 py-2 rounded-sm bg-red-500" onClick={loadMoreComment}>{t('productDetail.loadMore')}</button>)
                             }
                         </div>
 

@@ -1,6 +1,8 @@
 import React from 'react'
 import type { TypeBill } from '../pages/Profile'
-import type { TypeItemCart } from 'src/stores/cartsSlice'
+import type { TypeItemCart } from '../stores/cartsSlice'
+import { useTypeSafeTranslation } from '../utility/useTypeSafeTranslation';
+
 
 interface Props {
     bill: TypeBill
@@ -17,36 +19,37 @@ const getTotalPrice = (items: TypeItemCart[]) =>
         0,
     )
 
-function getDetailTime(date: string) {
-    let newDate = new Date(date);
-    let time = 'Ngày ' + newDate.getDate() + ' Tháng ' + (newDate.getMonth() + 1) + ' Năm ' + newDate.getFullYear() + ' - ' + newDate.getHours() + ' Giờ ' + newDate.getMinutes() + ' Phút'
-    return time
-}
 
 const ItemListBill = ({ bill }: Props) => {
     const cart: TypeItemCart[] = JSON.parse(bill.cart)
+    const { t } = useTypeSafeTranslation()
+    function getDetailTime(date: string) {
+        let newDate = new Date(date);
+        let time = t('profile.itemListBill.day') + newDate.getDate() + t('profile.itemListBill.month') + (newDate.getMonth() + 1) + t('profile.itemListBill.year') + newDate.getFullYear() + ' - ' + newDate.getHours() + t('profile.itemListBill.hour') + newDate.getMinutes() + t('profile.itemListBill.minute')
+        return time
+    }
     return (
         <div className=" border-black border rounded-md mb-2">
             <div className="flex-row lg:flex justify-between p-2 mb-4"><p className="text-sm lg:text-base">{getDetailTime(bill.date)}</p>
-                <p className="text-sm lg:text-base">Mã HĐ: {bill._id}</p>
+                <p className="text-sm lg:text-base">{t('profile.itemListBill.code')}: {bill._id}</p>
             </div>
             {cart.map((item) =>
                 (<div key={item._id} className="flex-row lg:flex justify-between p-2 w-11/12 border-black border mx-auto rounded-sm mb-1">
-                    <p className="text-sm lg:text-base">{item.name} || Số lượng: {item.cartAmount}</p>
-                    <p className="text-sm lg:text-base">{item.price} d</p>
+                    <p className="text-sm lg:text-base">{item.name} || {t('profile.itemListBill.amount')}: {item.cartAmount}</p>
+                    <p className="text-sm lg:text-base">{item.price} {t('profile.itemListBill.currency')}</p>
                 </div>)
             )}
 
             <div className="flex-row lg:flex justify-between p-2 w-11/12 border-black border mx-auto rounded-sm mb-1">
-                <p className="text-sm lg:text-base">Người nhận: {bill.name}
+                <p className="text-sm lg:text-base">{t('profile.itemListBill.receiver')}: {bill.name}
                 </p>
-                <p className="text-sm lg:text-base">SĐT: {bill.phone}</p>
+                <p className="text-sm lg:text-base">{t('profile.itemListBill.phone')}: {bill.phone}</p>
             </div>
             <div className="flex-row lg:flex justify-between p-2 w-11/12 border-black border mx-auto rounded-sm mb-1">
-                <p className="text-sm lg:text-base">Địa chỉ: {bill.address}
+                <p className="text-sm lg:text-base">{t('profile.itemListBill.address')}: {bill.address}
                 </p>
             </div>
-            <div className="flex-row lg:flex justify-between bg-gray-400 border-black border-t rounded-b-md p-2 mt-4"><div>Giá: {getTotalPrice(cart).toLocaleString('es-US')}đ</div>
+            <div className="flex-row lg:flex justify-between bg-gray-400 border-black border-t rounded-b-md p-2 mt-4"><div>{t('profile.itemListBill.price')}: {getTotalPrice(cart).toLocaleString('es-US')}{t('profile.itemListBill.currency')}</div>
                 <p className="text-sm lg:text-base text-yellow-600">{bill.statePayment}</p>
                 <p className="text-sm lg:text-base text-green-800">{bill.typePayment}</p>
                 {/* <p className="text-sm lg:text-base">Chưa thanh toán</p> */}

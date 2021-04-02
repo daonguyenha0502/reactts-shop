@@ -13,6 +13,7 @@ import { saveToken } from '../stores/userSlice'
 import { toast } from 'react-toastify'
 import type { RootState } from 'src/stores/store'
 import type { TypeResponse } from '../api/axiosClient'
+import { useTypeSafeTranslation } from '../utility/useTypeSafeTranslation'
 
 interface Props { }
 export interface TypeLogin {
@@ -33,6 +34,7 @@ const loginSchema = yup.object().shape({
 const Login = (props: Props) => {
     const [errorLogin, setErrorLogin] = useState<string | null>(null)
     const history = useHistory()
+    const { t } = useTypeSafeTranslation()
     const users = useSelector((state: RootState) => state.users)
     const dispatch = useDispatch()
     async function Login(infLogin: TypeLogin) {
@@ -42,7 +44,7 @@ const Login = (props: Props) => {
                 const action = saveToken(response.data)
                 dispatch(action)
                 history.push('/')
-                toast.info(`You are logged in`, {
+                toast.info(`${t('login.login')}`, {
                     position: 'bottom-center',
                     autoClose: 4000,
                     hideProgressBar: true,
@@ -71,12 +73,12 @@ const Login = (props: Props) => {
             {!users.accessToken && !users.refreshToken ? (
                 <>
                     <Helmet>
-                        <title>Login</title>
+                        <title>{t('login.login')}</title>
                         <link rel="canonical" href="https://cpt-ha.web.app" />
                     </Helmet>
 
                     <h1 className="font-bold text-2xl text-center mb-6">
-                        Login
+                        {t('login.login')}
                     </h1>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <InputField
@@ -101,7 +103,7 @@ const Login = (props: Props) => {
                         <InputField
                             name="password"
                             typeInput="password"
-                            labelContent="Password"
+                            labelContent={t('login.password')}
                             register={register}
                             onBlur={() => setErrorLogin(null)}
                         />
@@ -123,22 +125,22 @@ const Login = (props: Props) => {
                         {errorLogin && <Error error={errorLogin} />}
                         <div className="mb-3 w-max mx-auto">
                             <button
-                                className="bg-blue-600 w-24 text-white py-2 focus:outline-none active:bg-blue-500 rounded px-4 hover:bg-red-600"
+                                className="bg-blue-600 min-w-24 text-white py-2 focus:outline-none active:bg-blue-500 rounded px-4 hover:bg-red-600"
                                 type="submit"
                             >
-                                Login
+                                {t('login.login')}
                             </button>
-                            <Link to="/register"><button type="button" className="bg-green-600 w-24 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700 ml-2">
-                                Register
+                            <Link to="/register"><button type="button" className="bg-green-600 min-w-24 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700 ml-2">
+                                {t('login.register')}
                             </button></Link>
                         </div>
-                        <Link to="/forgotPassword"><p className="text-red-900 text-base text-center">You forgot password?</p></Link>
+                        <Link to="/forgotPassword"><p className="text-red-900 text-base text-center">{t('login.forgot')}</p></Link>
 
                     </form>
                 </>
             ) : (
                     <>
-                        <h1 className="w-80">You are logged in!</h1>{' '}
+                        <h1 className="w-80">{t('login.message.login')}</h1>{' '}
                     </>
                 )
             }

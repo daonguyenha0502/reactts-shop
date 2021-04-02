@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../stores/store'
 import type { TypeResponse } from '../api/axiosClient'
+import { useTypeSafeTranslation } from '../utility/useTypeSafeTranslation'
 
 export interface TypeRegister {
     email: string
@@ -40,6 +41,7 @@ const Register = (props: Props) => {
     const history = useHistory()
     const users = useSelector((state: RootState) => state.users)
     const [errorRegister, setErrorRegister] = useState<string | null>(null)
+    const { t } = useTypeSafeTranslation()
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(registerSchema),
     })
@@ -48,7 +50,7 @@ const Register = (props: Props) => {
             const response: TypeResponse = await userApi.register(data)
             if (response.data) {
                 history.push('/login')
-                toast.info(`Registered, login please!`, {
+                toast.info(`${t('register.message.register')}`, {
                     position: 'bottom-center',
                     autoClose: 4000,
                     hideProgressBar: true,
@@ -69,12 +71,12 @@ const Register = (props: Props) => {
             {!users.accessToken && !users.refreshToken ? (
                 <>
                     <Helmet>
-                        <title>Register</title>
+                        <title>{t("register.register")}</title>
                         <link rel="canonical" href="https://cpt-ha.web.app" />
                     </Helmet>
 
                     <h1 className="font-bold text-2xl text-center mb-6">
-                        Register
+                        {t("register.register")}
                     </h1>
                     <form onSubmit={handleSubmit(onSubmit)} >
                         <InputField
@@ -101,7 +103,7 @@ const Register = (props: Props) => {
                         <InputField
                             name="password"
                             typeInput="password"
-                            labelContent="Password"
+                            labelContent={t('register.password')}
                             register={register}
                             autocomplete="new-password"
                         />
@@ -124,7 +126,7 @@ const Register = (props: Props) => {
                         <InputField
                             name="re_password"
                             typeInput="password"
-                            labelContent="Re-password"
+                            labelContent={t('register.re_password')}
                             register={register}
                             autocomplete="new-password"
                         />
@@ -138,13 +140,13 @@ const Register = (props: Props) => {
 
                         <div className="mt-4 w-max mx-auto">
                             <button
-                                className="bg-blue-600 w-24 text-white py-2 focus:outline-none active:bg-blue-500 rounded px-4 hover:bg-green-700"
+                                className="bg-blue-600 min-w-24 text-white py-2 focus:outline-none active:bg-blue-500 rounded px-4 hover:bg-green-700"
                                 type="submit"
                             >
-                                Register
+                                {t("register.register")}
                             </button>
-                            <Link to="/login"><button type="button" className="bg-green-600 w-24 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-red-600 ml-8">
-                                Login
+                            <Link to="/login"><button type="button" className="bg-green-600 min-w-24 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-red-600 ml-8">
+                                {t("register.login")}
                             </button></Link>
                         </div>
                     </form>
@@ -152,7 +154,7 @@ const Register = (props: Props) => {
             ) : (
                     <>
                         {' '}
-                        <h1 className="w-80">You are logged in!</h1>{' '}
+                        <h1 className="w-80">{t("login.message.login")}</h1>{' '}
                     </>
                 )}
         </div>

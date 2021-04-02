@@ -5,6 +5,8 @@ import type { RootState } from '../../stores/store'
 import { deleteToken } from '../../stores/userSlice'
 import { toast } from 'react-toastify'
 import { unwrapResult } from '@reduxjs/toolkit'
+import { useTypeSafeTranslation } from '../../utility/useTypeSafeTranslation'
+
 
 interface Props {
     refSearch: any
@@ -15,14 +17,15 @@ interface Props {
 
 const Menu = ({ refSearch, search, handleSubmit, setSearch }: Props) => {
     const pathName = useLocation()
+    const { t } = useTypeSafeTranslation()
     const users = useSelector((state: RootState) => state.users)
     const dispatch = useDispatch()
     const handleLogOut = async () => {
         try {
             const resultAction: any = await dispatch(deleteToken())
             if (deleteToken.fulfilled.match(resultAction)) {
-                console.log('Logout')
-                await toast.info(`Logout`, {
+                //console.log('Logout')
+                await toast.info(`${t('nav.logout')}`, {
                     position: 'bottom-center',
                     autoClose: 4000,
                     hideProgressBar: true,
@@ -61,7 +64,7 @@ const Menu = ({ refSearch, search, handleSubmit, setSearch }: Props) => {
                         type="submit"
                         onClick={handleSubmit}
                     >
-                        Search
+                        {t('nav.search')}
                     </button>
                 </li>
             </ul>
@@ -77,7 +80,7 @@ const Menu = ({ refSearch, search, handleSubmit, setSearch }: Props) => {
                                             : ''
                                     }
                                 >
-                                    Login
+                                    {t('nav.login')}
                                 </span>
                             </Link>
                         </li>
@@ -90,7 +93,7 @@ const Menu = ({ refSearch, search, handleSubmit, setSearch }: Props) => {
                                             : ''
                                     }
                                 >
-                                    Register
+                                    {t('nav.register')}
                                 </span>{' '}
                             </Link>
                         </li>
@@ -106,8 +109,8 @@ const Menu = ({ refSearch, search, handleSubmit, setSearch }: Props) => {
                                                 : ''
                                         }
                                     >
-                                        Profile
-                                </span>
+                                        {t('nav.register')}
+                                    </span>
                                 </Link>
                             </li>
                             <li className="px-10 bg-blue-500 rounded-sm mb-2  text-black block sm:block md:block lg:hidden">
@@ -116,7 +119,7 @@ const Menu = ({ refSearch, search, handleSubmit, setSearch }: Props) => {
                                     onClick={() => handleLogOut()}
                                     to="#"
                                 >
-                                    Logout{' '}
+                                    {t('nav.logout')}{' '}
                                 </Link>
                             </li>
                         </>
