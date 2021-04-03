@@ -10,7 +10,7 @@ const Policy = (props: Props) => {
     const { t } = useTypeSafeTranslation()
     return (
         <>
-            <ul className="flex-col text-left w-72 mx-auto pt-10 pl-8 text-white">
+            <ul className="flex-col text-left w-72 mx-auto pt-10 pl-8 text-black dark:text-white">
                 <li>{t('footer.lang')}:{' '}
                     <LangSelection />
                 </li>

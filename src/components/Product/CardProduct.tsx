@@ -15,9 +15,9 @@ const CardProduct = ({ product, onAdd }: Props) => {
     const { t } = useTypeSafeTranslation()
     return (
         <>
-            <div className="relative w-56 sm:w-56 md:w-60 lg:w-56 xl:w-52 2xl:w-full h-96 bg-white rounded-md shadow-lg border border-gray-500 ">
+            <div className="relative py-2 w-56 sm:w-56 md:w-60 lg:w-56 xl:w-52 2xl:w-full h-96 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-500 dark:border-gray-200">
                 <Link to={`products/${product._id}`}>
-                    <div className="w-full flex justify-between absolute left-1 top-2 z-10">
+                    <div className="w-11/12 flex justify-between absolute left-3 top-2 z-10">
                         {product.sale !== 0 ? (
                             <div className="flex-col text-sm font-bold">
                                 <div>
@@ -68,23 +68,23 @@ const CardProduct = ({ product, onAdd }: Props) => {
                     </div>
                     <LazyLoad>
                         <img
-                            className="h-60 w-11/12 mx-auto pt-2 pb-2 hover:opacity-80 duration-700 "
+                            className="h-60 rounded-lg w-11/12 mx-auto mb-2 hover:opacity-80 duration-700 "
                             src={product.img}
                             alt={product.name}
                         />
                     </LazyLoad>
 
-                    <hr className="border-t-4 border-gray-600 pb-2" />
+                    <hr className="border-t-4 border-gray-600 dark:border-gray-100 pb-2" />
 
                     <div className="h-16">
-                        <p className="h-16 overflow-ellipsis overflow-y-hidden text-lg font-semibold">
+                        <p className="h-16 dark:text-white text-black overflow-ellipsis overflow-y-hidden text-lg font-semibold">
                             {product.name}
                         </p>
                     </div>
                 </Link>
 
                 <button
-                    className="bg-blue-600 active:bg-blue-400 focus:outline-none hover:bg-blue-800  px-4 py-2 z-20 rounded-md mt-2 font-semibold text-white"
+                    className="bg-blue-600 active:bg-blue-400 focus:outline-none hover:bg-blue-800 px-4 py-2 z-20 rounded-md font-semibold text-white"
                     onClick={() => onAdd(product)}
                 >
                     {t('common.addToCart')}

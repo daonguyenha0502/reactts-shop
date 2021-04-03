@@ -1,5 +1,6 @@
 .snowpack
 .git
 .env
+.github
 build
 node_modules

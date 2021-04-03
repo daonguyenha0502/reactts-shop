@@ -12,16 +12,16 @@ interface Props {
 const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
     const { t } = useTypeSafeTranslation()
     return (
-        <div className="w-92 sm:w-120 h-auto border-gray-800 border rounded-lg leading-5 mb-8">
+        <div className="w-92 sm:w-120 h-auto border-gray-800 dark:border-gray-50 border rounded-lg leading-5 mb-8">
             <div className="flex min-h-32">
                 <img
-                    className="border-gray-800 w-28 h-auto border-r py-2 rounded-l-md"
+                    className="border-gray-800 dark:border-gray-50 w-28 h-auto border-r py-2 rounded-l-md"
                     //width="150px"
                     //height="auto"
                     src={item.img}
                     alt=""
                 />
-                <div className="flex-row text-center w-full py-2 relative">
+                <div className="flex-row dark:text-white text-center w-full py-2 relative">
                     <div className="flex mx-4">
                         <p className="text-center text-sm sm:text-base font-bold">
                             {item.name}
@@ -30,7 +30,7 @@ const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
                             onClick={() => onRemoveFromCart(item)}
                             className="ml-auto bg-transparent mb-3 border-0 outline-none focus:outline-none"
                         >
-                            <span className="bg-transparent text-red-500 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                            <span className="bg-transparent text-red-500 dark:text-red-400 h-6 w-6 text-2xl block outline-none focus:outline-none">
                                 ×
                             </span>
                         </button>
@@ -42,7 +42,7 @@ const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
                             {(item.cartAmount * item.price).toLocaleString()}{' '}
                             {t('cart.currency')}
                         </p>
-                        <p className="text-red-700">{t('cart.sale')}: {item.sale}%</p>
+                        <p className="text-red-700 dark:text-red-500">{t('cart.sale')}: {item.sale}%</p>
                     </div>
 
                     <div className="flex w-full justify-center absolute bottom-2">
@@ -62,7 +62,7 @@ const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

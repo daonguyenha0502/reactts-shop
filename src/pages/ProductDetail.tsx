@@ -69,36 +69,44 @@ export default function ProductDetail() {
     let { id }: any = useParams()
     useEffect(() => {
         const getProductDetail = async (id: string) => {
-            const response: TypeResponse = await productApi.get(id)
-            //console.log(product)
-            if (!response.data.error) {
+            try {
+                const response: TypeResponse = await productApi.get(id)
+                //console.log(product)
                 setProductDetail(response.data)
                 setPictures(await response.data.img.split(','))
-            } else {
+                await setIsLoading(false)
+            } catch (error) {
                 setProductDetail(null)
                 setPictures([])
+                setIsLoading(false)
             }
-            await setIsLoading(false)
         }
         getProductDetail(id)
     }, [id])
 
     useEffect(() => {
         const getListComments = async (id: string) => {
-            const response: TypeResponse = await productApi.getComments(id, {
-                _limit: 10,
-                _page: page,
-            })
-            if (listComments.length === 0) {
-                setListComments(response.data)
+            try {
+                const response: TypeResponse = await productApi.getComments(id, {
+                    _limit: 10,
+                    _page: page,
+                })
+                if (listComments.length === 0) {
+                    setListComments(response.data)
+                    setIsLoadingComments(false)
+                } else {
+                    setListComments([...listComments, ...response.data])
+                    setIsLoadingComments(false)
+                }
+                if (response.data.length >= 0 && response.data.length < 8) {
+                    setIsLoad(false)
+                }
+            } catch (error) {
+                setListComments([])
                 setIsLoadingComments(false)
-            } else {
-                setListComments([...listComments, ...response.data])
-                setIsLoadingComments(false)
-            }
-            if (response.data.length >= 0 && response.data.length < 8) {
                 setIsLoad(false)
             }
+
         }
         getListComments(id)
     }, [id, page])
@@ -113,7 +121,6 @@ export default function ProductDetail() {
 
     }
 
-
     const settings = {
         appendDots: (customDots: any) => (
             <ul
@@ -122,7 +129,7 @@ export default function ProductDetail() {
                     display: 'flex',
                     justifyContent: 'space-evenly',
                     position: 'absolute',
-                    bottom: '-4rem',
+                    bottom: '-5rem',
                     width: '100%',
                     padding: 0,
                     marginLeft: 0,
@@ -137,7 +144,7 @@ export default function ProductDetail() {
             return (
                 <a>
                     <img
-                        className="rounded-md border py-0.5 border-gray-900 w-14 h-16"
+                        className="rounded-md border border-gray-900 w-16 h-16"
                         src={pictures[i]}
                         alt={pictures[i]}
                     />
@@ -214,11 +221,11 @@ export default function ProductDetail() {
                     <link rel="canonical" href="https://cpt-ha.web.app" />
                 </Helmet>
 
-                <div className="h-auto py-6 mx-auto max-w-5xl">
+                <div className="h-auto dark:text-white py-6 mx-auto max-w-5xl">
                     {/*content*/}
-                    <div className=" border-0 py-6 rounded-lg shadow-lg  flex flex-col w-full bg-white outline-none focus:outline-none">
+                    <div className=" border-0 py-6 rounded-lg shadow-lg  flex flex-col w-full bg-white dark:bg-gray-800 outline-none focus:outline-none">
                         {/*header*/}
-                        <div className="flex h-20 w-full items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+                        <div className="flex h-20 w-full items-start justify-between p-5 border-b border-solid border-gray-300 dark:border-gray-50 rounded-t">
                             <p className="text-xl font-semibold">
                                 {t('productDetail.name')}: {productDetail.idProduct.name}
                             </p>
@@ -234,20 +241,20 @@ export default function ProductDetail() {
                             <div className="mt-20 md:mt-0 w-full md:min-h-72 h-auto text-left mb-4 pl-4">
                                 <p className="my-4  text-lg leading-relaxed">
                                     {t('productDetail.company')}:{' '}
-                                    <span className="text-gray-600">
+                                    <span className="text-gray-600 dark:text-gray-400">
                                         {productDetail.idProduct.company}
                                     </span>
                                 </p>
 
                                 <p className="my-4 text-lg leading-relaxed">
                                     {t('productDetail.price')}:{' '}
-                                    <span className="text-gray-600 line-through">
+                                    <span className="text-gray-600 dark:text-gray-400 line-through">
                                         {productDetail.idProduct.price.toLocaleString(
                                             'en-US',
                                         )}
                                         đ
                                     </span>
-                                    -
+                                    {' '}-{' '}
                                     <span className="text-red-500">
                                         {(
                                             productDetail.idProduct.price -
@@ -266,21 +273,21 @@ export default function ProductDetail() {
                                 </p>
                                 {productDetail.idProduct.sale !== 0 ? (<p className="my-4 text-red-500 text-lg leading-relaxed">
                                     {t('productDetail.sale')}:{' '}
-                                    <span className="text-gray-600 ">
+                                    <span className="text-gray-600 dark:text-gray-400 ">
                                         {productDetail.idProduct.sale}%
                                     </span>
                                 </p>) : null}
 
                                 <p className="my-4 text-lg leading-relaxed">
                                     {t('productDetail.amount')}:{' '}
-                                    <span className="text-gray-600">
+                                    <span className="text-gray-600 dark:text-gray-400">
                                         {productDetail.idProduct.amount -
                                             productDetail.idProduct.sold}
                                     </span>
                                 </p>
                                 <p>
                                     {t('productDetail.information')}:{' '}
-                                    <span className="text-gray-600">
+                                    <span className="text-gray-600 dark:text-gray-400">
                                         {productDetail.info}
                                     </span>
                                 </p>
@@ -309,7 +316,7 @@ export default function ProductDetail() {
                         </div>
                         <div className="flex items-center p-6 border-t border-solid border-gray-300 rounded-b">
                             <form className="w-full">
-                                <textarea className="w-full focus:outline-none focus:ring-2 px-2 py-1 bg-gray-300 rounded-md" maxLength={220} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)} value={content} name="content" id="content" rows={5}></textarea>
+                                <textarea className="w-full text-black focus:outline-none focus:ring-2 px-2 py-1 bg-gray-300 rounded-md" maxLength={220} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)} value={content} name="content" id="content" rows={5}></textarea>
                                 <button onClick={handleSend} className=" float-right mt-2 px-6 py-2 rounded-sm bg-blue-600">{t('productDetail.send')}</button>
                             </form>
                         </div>
@@ -329,13 +336,13 @@ export default function ProductDetail() {
         )
     } else {
         return !isLoading ? (
-            <div className="mt-48">
+            <div className="min-h-screen pt-48">
                 <Helmet>
                     <meta charSet="utf-8" />
                     <title>Product</title>
                     <link rel="canonical" href="cpt-ha.web.app" />
                 </Helmet>
-                <h1 className="text-4xl text-red-600">
+                <h1 className="text-4xl text-red-600 dark:text-red-500">
                     Something went wrong 🤣
                 </h1>
             </div>

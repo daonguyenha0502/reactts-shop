@@ -24,12 +24,12 @@ const InputField = ({
 }: Props) => {
     return (
         <>
-            <label className="font-bold ml-4" htmlFor={name}>
+            <label className="font-bold ml-4 dark:text-white text-black" htmlFor={name}>
                 {labelContent}
             </label>
             <div className="mb-2 w-84">
                 <input
-                    className="text-lg ml-3 w-80 pl-2 py-3
+                    className="text-lg text-black ml-3 w-80 pl-2 py-3
                      focus:border-blue-500 focus:outline-none border
                       border-gray-900 rounded-md"
                     type={typeInput}

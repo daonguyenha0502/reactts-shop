@@ -69,7 +69,7 @@ const Login = (props: Props) => {
     }
 
     return (
-        <div className="w-min h-auto text-left mt-36 mx-auto">
+        <div className="w-min min-h-screen text-left pt-36 mx-auto">
             {!users.accessToken && !users.refreshToken ? (
                 <>
                     <Helmet>
@@ -77,7 +77,7 @@ const Login = (props: Props) => {
                         <link rel="canonical" href="https://cpt-ha.web.app" />
                     </Helmet>
 
-                    <h1 className="font-bold text-2xl text-center mb-6">
+                    <h1 className="font-bold dark:text-white text-black text-2xl text-center mb-6">
                         {t('login.login')}
                     </h1>
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -134,7 +134,7 @@ const Login = (props: Props) => {
                                 {t('login.register')}
                             </button></Link>
                         </div>
-                        <Link to="/forgotPassword"><p className="text-red-900 text-base text-center">{t('login.forgot')}</p></Link>
+                        <Link to="/forgotPassword"><p className="text-red-900 dark:text-red-500 text-base text-center">{t('login.forgot')}</p></Link>
 
                     </form>
                 </>

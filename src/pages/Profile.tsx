@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet-async'
 import type { TypeResponse } from '../api/axiosClient'
 import Loading from '../components/Skeleton/Loading'
 import { useTypeSafeTranslation } from '../utility/useTypeSafeTranslation'
+import Footer from '../components/Footer/Footer'
 
 interface Props { }
 
@@ -52,7 +53,7 @@ const Profile = (props: Props) => {
                 <title>{t('profile.profile')}</title>
                 <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
-            <div className="my-12 px-4">
+            <div className="mt-12 px-4 min-h-screen">
 
                 <div className="flex justify-between items-center">
                     <h1 className="text-3xl text-red-500">{t('profile.profile')}</h1>
@@ -65,6 +66,7 @@ const Profile = (props: Props) => {
                     ) : <><h1 className="text-lg text-red-600">{t('profile.noBuy')}</h1></>}
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

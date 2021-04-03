@@ -12,11 +12,11 @@ const SkeletonDetailProduct = (props: Props) => {
                 <link rel="canonical" href="cpt-ha.web.app" />
             </Helmet>
 
-            <div className="h-auto my-6 mx-auto max-w-5xl">
+            <div className="min-h-screen mx-auto max-w-5xl">
                 {/*content*/}
-                <div className=" border-0 mt-12 rounded-lg shadow-lg  flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className=" border-0 mt-12 rounded-lg shadow-lg  flex flex-col w-full bg-white dark:bg-gray-800 outline-none focus:outline-none">
                     {/*header*/}
-                    <div className="flex h-20 w-full items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+                    <div className="flex h-20 w-full items-start justify-between p-5 border-b border-solid border-gray-300 dark:border-gray-50 rounded-t">
                         <div className="animate-pulse text-xl bg-gray-600 mt-2 w-80 h-8 font-semibold"></div>
                     </div>
                     {/*body*/}

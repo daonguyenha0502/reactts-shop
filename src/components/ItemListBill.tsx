@@ -29,7 +29,7 @@ const ItemListBill = ({ bill }: Props) => {
         return time
     }
     return (
-        <div className=" border-black border rounded-md mb-2">
+        <div className=" border-black dark:border-white dark:text-white text-black border rounded-md mb-2">
             <div className="flex-row lg:flex justify-between p-2 mb-4"><p className="text-sm lg:text-base">{getDetailTime(bill.date)}</p>
                 <p className="text-sm lg:text-base">{t('profile.itemListBill.code')}: {bill._id}</p>
             </div>
@@ -40,18 +40,18 @@ const ItemListBill = ({ bill }: Props) => {
                 </div>)
             )}
 
-            <div className="flex-row lg:flex justify-between p-2 w-11/12 border-black border mx-auto rounded-sm mb-1">
+            <div className="flex-row lg:flex justify-between p-2 w-11/12 border-black dark:border-white border mx-auto rounded-sm mb-1">
                 <p className="text-sm lg:text-base">{t('profile.itemListBill.receiver')}: {bill.name}
                 </p>
                 <p className="text-sm lg:text-base">{t('profile.itemListBill.phone')}: {bill.phone}</p>
             </div>
-            <div className="flex-row lg:flex justify-between p-2 w-11/12 border-black border mx-auto rounded-sm mb-1">
+            <div className="flex-row lg:flex justify-between p-2 w-11/12 border-black dark:border-white border mx-auto rounded-sm mb-1">
                 <p className="text-sm lg:text-base">{t('profile.itemListBill.address')}: {bill.address}
                 </p>
             </div>
-            <div className="flex-row lg:flex justify-between bg-gray-400 border-black border-t rounded-b-md p-2 mt-4"><div>{t('profile.itemListBill.price')}: {getTotalPrice(cart).toLocaleString('es-US')}{t('profile.itemListBill.currency')}</div>
-                <p className="text-sm lg:text-base text-yellow-600">{bill.statePayment}</p>
-                <p className="text-sm lg:text-base text-green-800">{bill.typePayment}</p>
+            <div className="flex-row lg:flex justify-between bg-gray-400 dark:bg-gray-800 border-black dark:border-white border-t rounded-b-md p-2 mt-4"><div>{t('profile.itemListBill.price')}: {getTotalPrice(cart).toLocaleString('es-US')}{t('profile.itemListBill.currency')}</div>
+                <p className="text-sm lg:text-base text-yellow-600 dark:text-yellow-500">{bill.statePayment}</p>
+                <p className="text-sm lg:text-base text-green-800 dark:text-green-500">{bill.typePayment}</p>
                 {/* <p className="text-sm lg:text-base">Chưa thanh toán</p> */}
             </div>
         </div>

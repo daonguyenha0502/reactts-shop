@@ -13,7 +13,7 @@ interface Props { }
 const Socials = (props: Props) => {
     return (
         <>
-            <ul className="flex-col text-left w-72 mx-auto pt-10 pl-8 sm:pl-24 text-white">
+            <ul className="flex-col text-left w-72 mx-auto pt-10 pl-8 sm:pl-24 text-black dark:text-white">
                 <li>
                     <FontAwesomeIcon icon={faFacebook} size="2x" /> Facebook
                 </li>

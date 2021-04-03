@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import LinkItemCart from '../Cart/LinkItemCart'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Menu from './Menu'
 
@@ -14,10 +14,14 @@ import { deleteToken } from '../../stores/userSlice'
 import type { RootState } from '../../stores/store'
 import { toast } from 'react-toastify'
 import { useTypeSafeTranslation } from '../../utility/useTypeSafeTranslation'
+import type { TypeTheme } from '../../stores/themeSlice'
 
-interface Props { }
+interface Props {
+    changeTheme: () => void,
+    theme: TypeTheme
+}
 
-const Nav = ({ }: Props) => {
+const Nav = ({ changeTheme, theme }: Props) => {
     const [search, setSearch] = useState('')
     const [isOpenMenu, setIsOpenMenu] = useState<boolean | false>(false)
     const carts = useSelector((state: RootState) => state.carts)
@@ -90,14 +94,14 @@ const Nav = ({ }: Props) => {
 
     return (
         <>
-            <nav className="lg:flex w-full h-12 bg-gray-800 fixed top-0 z-50">
-                <ul className="h-12 lg:w-1/2 sm:w-full w-full justify-center flex space-x-4 items-center">
-                    <li className="w-36 h-auto text-white">
+            <nav className="lg:flex font-semibold w-full h-12 bg-blue-700 dark:bg-gray-700 fixed top-0 z-50">
+                <ul className="text-white h-12 lg:w-1/2 sm:w-full w-full justify-center flex space-x-4 items-center">
+                    <li className="w-36 h-auto ">
                         <Link className="cursor-pointer" to="/">
                             <FontAwesomeIcon icon={faReact} size="2x" />
                         </Link>
                     </li>
-                    <li className="w-36 text-white">
+                    <li className="w-36">
                         <Link className="cursor-pointer" to="/cart">
                             <LinkItemCart cartItems={carts} />{' '}
                             <span
@@ -114,7 +118,7 @@ const Nav = ({ }: Props) => {
 
                     {!users.accessToken ? (
                         <>
-                            <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
+                            <li className="w-36  hidden sm:hidden md:hidden lg:block">
                                 <Link className="cursor-pointer" to="/login">
                                     <span
                                         className={
@@ -127,7 +131,7 @@ const Nav = ({ }: Props) => {
                                     </span>
                                 </Link>
                             </li>
-                            <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
+                            <li className="w-36  hidden sm:hidden md:hidden lg:block">
                                 <Link className="cursor-pointer" to="/register">
                                     <span
                                         className={
@@ -143,7 +147,7 @@ const Nav = ({ }: Props) => {
                         </>
                     ) : (
                             <>
-                                <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
+                                <li className="w-36  hidden sm:hidden md:hidden lg:block">
                                     <Link to="/profile">
                                         <span
                                             className={
@@ -156,7 +160,7 @@ const Nav = ({ }: Props) => {
                                         </span>
                                     </Link>
                                 </li>
-                                <li className="w-36 text-white hidden sm:hidden md:hidden lg:block">
+                                <li className="w-36  hidden sm:hidden md:hidden lg:block">
                                     <Link
                                         className="cursor-pointer"
                                         to="#"
@@ -196,12 +200,18 @@ const Nav = ({ }: Props) => {
                     )}
                 </ul>
                 <ul className="w-1/2 justify-end space-x-4 items-center mr-4 hidden sm:hidden md:hidden lg:flex">
+                    {theme.theme === 'dark' ? <li className="h-auto p-1 rounded-md cursor-pointer text-black">
+                        <FontAwesomeIcon icon={faMoon} size='lg' onClick={() => changeTheme()} />
+                    </li> : <li className="h-auto p-1 rounded-md cursor-pointer text-white ">
+                            <FontAwesomeIcon icon={faSun} size='lg' onClick={() => changeTheme()} />
+                        </li>}
+
                     <form
                         className="flex justify-end space-x-4 items-center"
                         onSubmit={onSubmit}
                     >
                         <li className="text-white">
-                            <label className="text-gray-800" htmlFor="search">Search</label>
+                            {/* <label className="text-gray-800" htmlFor="search">Search</label> */}
                             <input
                                 ref={refSearch}
                                 className="w-56 pl-2 focus:outline-none focus:ring rounded text-black text-xl"

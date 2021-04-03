@@ -2,19 +2,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 
 export interface TypeTheme {
-    theme: 'dark' | 'white'
+    theme: 'dark' | 'light'
 }
 
 const initialLang: TypeTheme = {
-    theme: 'white'
+    theme: 'light'
 }
 
 const theme = createSlice({
     name: 'themes',
     initialState: initialLang,
     reducers: {
-        changeTheme: (state, action: PayloadAction<TypeTheme>) => {
-            state.theme = action.payload.theme
+        changeTheme: (state) => {
+            state.theme = state.theme === 'dark' ? 'light' : 'dark'
         }
     },
 })

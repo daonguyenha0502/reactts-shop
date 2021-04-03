@@ -27,6 +27,9 @@ import ForgotPassword from './pages/ForgotPassword'
 import RestorePassword from './pages/RestorePassword'
 import UploadImage from './pages/DashBoard/UploadImage'
 import AddCarousel from './pages/DashBoard/AddCarousel'
+import { useSelector, useDispatch } from 'react-redux'
+import type { RootState } from './stores/store'
+import { changeTheme } from './stores/themeSlice'
 //import TestCheckOut from './pages/TestCheckOut';
 
 export function ScrollToTop(): any {
@@ -57,8 +60,23 @@ export interface itemType {
     cartAmount: number | 0
 }
 
-
 function App({ }: AppProps) {
+    const themes = useSelector((state: RootState) => state.themes)
+    const dispatch = useDispatch()
+    const action = changeTheme()
+
+    function setTheme() {
+        if (themes.theme === 'light') {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+
+        console.log(themes.theme)
+    }
+    function changeThemes() {
+        dispatch(action)
+    }
     const [hiddenScroll, setHiddenScroll] = useState<boolean | true>(true)
     function handleUpTop() {
         window.scroll(0, 0)
@@ -77,11 +95,14 @@ function App({ }: AppProps) {
         //bug
         handleGetPositionScroll()
     }, [])
+    useEffect(() => {
+        setTheme()
+    }, [themes.theme])
 
     return (
         <Router basename="/">
-            <div className="App">
-                <Nav />
+            <div className="App dark:bg-gray-800">
+                <Nav changeTheme={changeThemes} theme={themes} />
                 <Switch>
                     <Route exact path="/">
                         <Index />
@@ -159,7 +180,7 @@ function App({ }: AppProps) {
                     className={clsx(
                         hiddenScroll
                             ? 'fixed bottom-20 right-8 sm:right-2 xl:right-12 cursor-pointer hidden'
-                            : 'animate-bounce fixed bottom-20 right-8 sm:right-2 xl:right-12 cursor-pointer',
+                            : 'animate-bounce dark:text-white text-gray-800 fixed bottom-20 right-8 sm:right-2 xl:right-12 cursor-pointer',
                     )}
                     title="Scroll Back to Top"
                 >
