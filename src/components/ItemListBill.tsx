@@ -29,7 +29,7 @@ const ItemListBill = ({ bill }: Props) => {
         return time
     }
     return (
-        <div className=" border-black dark:border-white dark:text-white text-black border rounded-md mb-2">
+        <div className=" border-black dark:border-white dark:text-gray-200 text-black border rounded-md mb-2">
             <div className="flex-row lg:flex justify-between p-2 mb-4"><p className="text-sm lg:text-base">{getDetailTime(bill.date)}</p>
                 <p className="text-sm lg:text-base">{t('profile.itemListBill.code')}: {bill._id}</p>
             </div>

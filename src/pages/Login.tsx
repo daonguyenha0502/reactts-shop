@@ -77,7 +77,7 @@ const Login = (props: Props) => {
                         <link rel="canonical" href="https://cpt-ha.web.app" />
                     </Helmet>
 
-                    <h1 className="font-bold dark:text-white text-black text-2xl text-center mb-6">
+                    <h1 className="font-bold dark:text-gray-200 text-black text-2xl text-center mb-6">
                         {t('login.login')}
                     </h1>
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -125,16 +125,16 @@ const Login = (props: Props) => {
                         {errorLogin && <Error error={errorLogin} />}
                         <div className="mb-3 w-max mx-auto">
                             <button
-                                className="bg-blue-600 min-w-24 text-white py-2 focus:outline-none active:bg-blue-500 rounded px-4 hover:bg-red-600"
+                                className="bg-blue-600 min-w-24 text-white py-2 focus:outline-none hover:bg-blue-500 rounded px-4 active::bg-red-600"
                                 type="submit"
                             >
                                 {t('login.login')}
                             </button>
-                            <Link to="/register"><button type="button" className="bg-green-600 min-w-24 text-white py-2 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700 ml-2">
+                            <Link to="/register"><button type="button" className="bg-green-600 min-w-24 text-white py-2 focus:outline-none hover:bg-green-500 rounded px-4 active:bg-blue-700 ml-2">
                                 {t('login.register')}
                             </button></Link>
                         </div>
-                        <Link to="/forgotPassword"><p className="text-red-900 dark:text-red-500 text-base text-center">{t('login.forgot')}</p></Link>
+                        <Link to="/forgotPassword"><p className="text-red-700 dark:text-red-500 text-base text-center">{t('login.forgot')}</p></Link>
 
                     </form>
                 </>

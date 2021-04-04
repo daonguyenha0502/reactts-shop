@@ -15,13 +15,13 @@ const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
         <div className="w-92 sm:w-120 h-auto border-gray-800 dark:border-gray-50 border rounded-lg leading-5 mb-8">
             <div className="flex min-h-32">
                 <img
-                    className="border-gray-800 dark:border-gray-50 w-28 h-auto border-r py-2 rounded-l-md"
+                    className="border-gray-800 dark:filter-brightness-80 dark:border-gray-50 w-28 h-auto border-r p-1 rounded-lg"
                     //width="150px"
                     //height="auto"
                     src={item.img}
                     alt=""
                 />
-                <div className="flex-row dark:text-white text-center w-full py-2 relative">
+                <div className="flex-row dark:text-gray-200 text-center w-full py-2 relative">
                     <div className="flex mx-4">
                         <p className="text-center text-sm sm:text-base font-bold">
                             {item.name}

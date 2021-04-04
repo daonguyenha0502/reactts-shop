@@ -214,7 +214,7 @@ const Nav = ({ changeTheme, theme }: Props) => {
                             {/* <label className="text-gray-800" htmlFor="search">Search</label> */}
                             <input
                                 ref={refSearch}
-                                className="w-56 pl-2 focus:outline-none focus:ring rounded text-black text-xl"
+                                className="w-56 pl-2 focus:outline-none focus:ring rounded text-black text-xl dark:bg-gray-600 dark:text-gray-100"
                                 type="text"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}

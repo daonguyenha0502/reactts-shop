@@ -1,12 +1,14 @@
 /* Override tailwindCss */
 .demo-wrapper {
     min-height: 80vh;
+    color: black;
 }
 .demo-editor {
     border: 1px black solid;
     max-height: 80vh;
     border-radius: 5px;
 }
+
 h1 {
   display: block !important;
   font-size: 2rem !important;
@@ -65,3 +67,9 @@ h6 {
   margin-right: 0 !important;
   font-weight: bold !important;
 }
+
+.content {
+  filter: invert(1) !important;
+}
+
+

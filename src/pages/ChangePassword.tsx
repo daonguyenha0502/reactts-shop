@@ -73,13 +73,13 @@ const ChangePassword = (props: Props) => {
     }
 
     return (
-        <div className="w-min h-auto text-left mt-28 sm:mt-32 mx-auto">
+        <div className="w-min min-h-screen text-left pt-28 sm:pt-32 mx-auto">
             <Helmet>
                 <title>{t('changePassword.changePassword')}</title>
                 <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
 
-            <h1 className="font-bold text-2xl text-center mb-6">
+            <h1 className="font-bold dark:text-gray-200 text-2xl text-center mb-6">
                 {t('changePassword.changePassword')}
             </h1>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -147,7 +147,7 @@ const ChangePassword = (props: Props) => {
 
                 <div className="mt-4 w-max mx-auto">
                     <button
-                        className="bg-blue-600 w-48 text-white py-2 focus:outline-none active:bg-blue-500 rounded px-4 hover:bg-green-700"
+                        className="bg-blue-600 w-48 text-white py-2 focus:outline-none hover:bg-blue-500 rounded px-4 active:bg-green-700"
                         type="submit"
                     >
                         {t('changePassword.changePassword')}

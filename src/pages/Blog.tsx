@@ -7,6 +7,8 @@ import reactDraftWysiwyg from 'react-draft-wysiwyg'
 import { Helmet } from 'react-helmet-async'
 import type { TypeResponse } from '../api/axiosClient'
 import Loading from '../components/Skeleton/Loading'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../stores/store'
 
 const Blog = () => {
     const { idBlog }: any = useParams()
@@ -16,9 +18,19 @@ const Blog = () => {
     const [title, setTitle] = useState<string | ''>('')
     const [errorBlog, setErrorBlog] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState<boolean | true>(true)
+    const themes = useSelector((state: RootState) => state.themes)
 
     const onEditorStateChange = (editorState: any) => {
         setEditorState(editorState)
+    }
+    const invertColor = () => {
+        if (themes.theme === "light") {
+            let content = document.getElementById('content')
+            content?.classList.add('content')
+        } else {
+            let content = document.getElementById('content')
+            content?.classList.remove('content')
+        }
     }
 
     useEffect(() => {
@@ -32,6 +44,7 @@ const Blog = () => {
                     let b: any = await Draft.convertFromRaw(JSON.parse(a))
                     setEditorState(Draft.EditorState.createWithContent(b))
                     setIsLoading(false)
+                    invertColor()
                 } else {
                     setErrorBlog("Page not found!")
                     setIsLoading(false)
@@ -44,20 +57,29 @@ const Blog = () => {
         }
         getBlog()
     }, [idBlog])
+
+    useEffect(() => {
+        invertColor()
+    }, [themes.theme])
     return (
-        <div className="mt-14 w-11/12 xl:w-2/3 md:h-3/4 mx-auto rounded-sm">
+        <div className="pt-14 min-h-screen w-11/12 xl:w-2/3 md:h-3/4 mx-auto rounded-sm">
             {isLoading ? <Loading /> : errorBlog ? <><h1 className="text-red-700 pt-28">{errorBlog}</h1></> : (<><Helmet>
                 <title>{title}</title>
                 <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
-                <reactDraftWysiwyg.Editor
-                    readOnly
-                    toolbarHidden
-                    editorState={editorState}
-                    // wrapperClassName="demo-wrapper"
-                    // editorClassName="demo-editor"
-                    onEditorStateChange={onEditorStateChange}
-                /></>)}
+                <div id="content">
+                    <reactDraftWysiwyg.Editor
+                        readOnly
+                        toolbarHidden
+                        editorState={editorState}
+                        // wrapperClassName="demo-wrapper"
+                        // editorClassName="demo-editor"
+                        onEditorStateChange={onEditorStateChange}
+                    />
+                </div></>
+            )}
+
+
 
         </div>
 

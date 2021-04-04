@@ -37,12 +37,12 @@ const PageSearch = (props: Props) => {
         }
     }, [location.search])
     return (
-        <div className="mt-16">
+        <div className="pt-16 min-h-screen">
             <Helmet>
                 <title>Search</title>
                 <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
-            <h1 className="text-3xl">
+            <h1 className="text-3xl dark:text-gray-200">
                 Result for{' '}
                 <span className="text-red-600">
                     {location.search.slice(3, location.search.length)}

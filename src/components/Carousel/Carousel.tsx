@@ -1,7 +1,7 @@
 import React from 'react'
 import Slider from 'react-slick'
 
-//import './Carousel.css'
+// import './Carousel.css'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
@@ -33,7 +33,7 @@ export default function CustomSlider({ settings, listPictures }: CustomSlider) {
                     }) : (listPictures as string[]).map((picture: string) => {
                         return (
                             <div key={picture}>
-                                <img src={picture} alt="" />
+                                <img className="dark:filter-brightness-80" src={picture} alt="" />
                             </div>
                         )
                     })

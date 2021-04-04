@@ -1,3 +1,4 @@
+const plugin = require('tailwindcss/plugin')
 module.exports = {
     purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
     darkMode: 'class', // or 'media' or 'class'
@@ -13,6 +14,7 @@ module.exports = {
                 '120': '30rem',
             },
             height: {
+                '92': '23rem',
                 '104': '26rem',
                 '112': '28rem',
                 '120': '30rem'
@@ -32,5 +34,21 @@ module.exports = {
             backgroundColor: ['active'],
         },
     },
-    plugins: [],
+    plugins: [
+        plugin(function ({ addUtilities }) {
+            const newUtilities = {
+                '.filter-none': {
+                    filter: 'none'
+                },
+                '.filter-brightness-80': {
+                    filter: 'brightness(80%)'
+                },
+                '.filter-brightness-70': {
+                    filter: 'brightness(70%)'
+                }
+            }
+
+            addUtilities(newUtilities, ['dark'])
+        })
+    ],
 }

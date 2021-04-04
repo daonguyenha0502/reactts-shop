@@ -25,6 +25,19 @@ const AddContentBlog = () => {
     const [alias, setAlias] = useState<string | ''>('')
     const [title, setTitle] = useState<string | ''>('')
 
+    const themes = useSelector((state: RootState) => state.themes)
+    const invertColor = () => {
+
+        if (themes.theme === "light") {
+            let content = document.getElementsByClassName('demo-editor')
+            content[0]?.classList.add('content')
+        } else {
+            let content = document.getElementsByClassName('demo-editor')
+            content[0]?.classList.remove('content')
+        }
+
+    }
+
     const [errorAddContentBlog, setErrorAddContentBlog] = useState<string | null>(null)
     useEffect(() => {
         async function getTK(user: TypeUser) {
@@ -39,6 +52,7 @@ const AddContentBlog = () => {
     )
     const onEditorStateChange = (editorState: any) => {
         setEditorState(editorState)
+        invertColor()
     }
     const onSave = () => {
         setErrorAddContentBlog(null)
@@ -79,6 +93,9 @@ const AddContentBlog = () => {
             setErrorAddContentBlog('Input the field!')
         }
     }
+    useEffect(() => {
+        invertColor()
+    }, [themes.theme])
     return (
         <>
             {role === 'admin' ? (
@@ -87,7 +104,7 @@ const AddContentBlog = () => {
                         <title>Add new blog</title>
                         <link rel="canonical" href="https://cpt-ha.web.app" />
                     </Helmet>
-                    <div className="mt-14 w-11/12 xl:w-2/3 md:h-3/4 mx-auto border border-gray-700 rounded-sm">
+                    <div className="pt-14 w-11/12 dark:text-white xl:w-2/3 md:h-3/4 mx-auto border border-gray-700 rounded-sm">
                         <reactDraftWysiwyg.Editor
                             editorState={editorState}
                             wrapperClassName="demo-wrapper"
@@ -97,7 +114,7 @@ const AddContentBlog = () => {
                     </div>
                     <div className="mt-4 w-11/12 xl:w-2/3 md:h-3/4 mx-auto border border-gray-700 rounded-sm">
                         <input
-                            className="w-full"
+                            className="w-full dark:bg-gray-700 dark:text-gray-200"
                             type="text"
                             value={alias}
                             onChange={(event: ChangeEvent<HTMLInputElement>) =>
@@ -109,7 +126,7 @@ const AddContentBlog = () => {
                     </div>
                     <div className="mt-2 w-11/12 xl:w-2/3 md:h-3/4 mx-auto border border-gray-700 rounded-sm">
                         <input
-                            className="w-full"
+                            className="w-full dark:bg-gray-700 dark:text-gray-200"
                             type="text"
                             value={title}
                             onChange={(event: ChangeEvent<HTMLInputElement>) =>

@@ -84,7 +84,7 @@ const Cart = (props: Props) => {
                             />
                         ))
                     ) : (
-                            <div className="w-92 sm:w-120 h-4/5 py-4 border-gray-800 border rounded-lg leading-10 mb-8">
+                            <div className="w-92 sm:w-120 h-4/5 py-4 border-gray-800 dark:border-gray-100 border rounded-lg leading-10 mb-8">
                                 <p className="font-bold text-xl text-red-700">
                                     {t('cart.no')}
                                 </p>

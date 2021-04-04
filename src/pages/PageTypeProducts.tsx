@@ -102,7 +102,7 @@ const PageTypeProducts = (props: Props) => {
         setValueOfRange(parseInt(e.target.value))
     }
     return (
-        <div className="mt-16 py-4">
+        <div className="pt-20 dark:text-gray-200 pb-4">
             <Helmet>
                 <title>
                     {location.search
@@ -119,11 +119,11 @@ const PageTypeProducts = (props: Props) => {
             </h1>
 
             {isLoading ? (
-                <div className="xl:h-14 h-24 flex-col xl:flex-row xl:p-2 p-4 w-5/6 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 2xl:w-3/4 mx-auto bg-gray-500 sticky top-12 z-30 flex rounded-md text-gray-500">
+                <div className="xl:h-14 h-24 flex-col xl:flex-row xl:p-2 p-4 w-5/6 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 2xl:w-3/4 mx-auto bg-gray-500 dark:bg-gray-400 sticky top-12 z-30 flex rounded-md text-gray-500 dark:text-gray-400">
                     haha{' '}
                 </div>
             ) : (
-                    <div className="xl:h-14 h-24 flex-col xl:flex-row xl:p-2 p-4 w-5/6 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 2xl:w-3/4 mx-auto bg-gray-500 sticky top-12 z-30 flex rounded-md">
+                    <div className="text-black xl:h-14 h-24 flex-col xl:flex-row xl:p-2 p-4 w-5/6 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 2xl:w-3/4 mx-auto bg-gray-500 dark:bg-gray-400 sticky top-12 z-30 flex rounded-md">
                         <form className="hidden sm:flex xl:justify-start justify-center items-center w-full xl:w-1/2 mb-1">
                             <div className="flex relative">
                                 {valueOfRange !== 0 ? (

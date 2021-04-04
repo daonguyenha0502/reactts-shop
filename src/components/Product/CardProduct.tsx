@@ -40,7 +40,7 @@ const CardProduct = ({ product, onAdd }: Props) => {
                                 </div>
                             </div>
                         ) : (
-                                <div className="flex-col text-sm font-bold">
+                                <div className="flex-col dark:text-black text-sm font-bold">
                                     <div>
                                         <span>
                                             {product.price.toLocaleString('en-US')}
@@ -68,7 +68,7 @@ const CardProduct = ({ product, onAdd }: Props) => {
                     </div>
                     <LazyLoad>
                         <img
-                            className="h-60 rounded-lg w-11/12 mx-auto mb-2 hover:opacity-80 duration-700 "
+                            className="h-60 dark:filter-brightness-80 rounded-lg w-11/12 mx-auto mb-2 hover:opacity-80 duration-700"
                             src={product.img}
                             alt={product.name}
                         />
@@ -77,14 +77,14 @@ const CardProduct = ({ product, onAdd }: Props) => {
                     <hr className="border-t-4 border-gray-600 dark:border-gray-100 pb-2" />
 
                     <div className="h-16">
-                        <p className="h-16 dark:text-white text-black overflow-ellipsis overflow-y-hidden text-lg font-semibold">
+                        <p className="h-16 dark:text-gray-200 text-black overflow-ellipsis overflow-y-hidden text-lg font-semibold">
                             {product.name}
                         </p>
                     </div>
                 </Link>
 
                 <button
-                    className="bg-blue-600 active:bg-blue-400 focus:outline-none hover:bg-blue-800 px-4 py-2 z-20 rounded-md font-semibold text-white"
+                    className="bg-blue-600 active:bg-blue-400 focus:outline-none hover:bg-blue-800 px-4 py-2 z-20 rounded-md font-semibold text-gray-200"
                     onClick={() => onAdd(product)}
                 >
                     {t('common.addToCart')}

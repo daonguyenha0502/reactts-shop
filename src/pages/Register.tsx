@@ -75,7 +75,7 @@ const Register = (props: Props) => {
                         <link rel="canonical" href="https://cpt-ha.web.app" />
                     </Helmet>
 
-                    <h1 className="font-bold dark:text-white text-black text-2xl text-center mb-6">
+                    <h1 className="font-bold dark:text-gray-200 text-black text-2xl text-center mb-6">
                         {t("register.register")}
                     </h1>
                     <form onSubmit={handleSubmit(onSubmit)} >

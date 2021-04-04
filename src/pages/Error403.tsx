@@ -5,12 +5,12 @@ interface Props { }
 
 const Error403 = (props: Props) => {
     return (
-        <div className="mt-14">
+        <div className="pt-14 min-h-screen">
             <Helmet>
                 <title>Error</title>
                 <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
-            <h1 className="text-3xl text-red-500 pt-14">403</h1>
+            <h1 className="text-3xl text-red-500 dark:text-red-400 pt-14">403</h1>
         </div>
     )
 }

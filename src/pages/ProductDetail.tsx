@@ -144,7 +144,7 @@ export default function ProductDetail() {
             return (
                 <a>
                     <img
-                        className="rounded-md border border-gray-900 w-16 h-16"
+                        className="rounded-md dark:filter-brightness-80 border border-gray-900 w-16 h-16"
                         src={pictures[i]}
                         alt={pictures[i]}
                     />
