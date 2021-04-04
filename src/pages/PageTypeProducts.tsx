@@ -102,7 +102,7 @@ const PageTypeProducts = (props: Props) => {
         setValueOfRange(parseInt(e.target.value))
     }
     return (
-        <div className="pt-20 dark:text-gray-200 pb-4">
+        <div className="pt-20 min-h-screen dark:text-gray-200 pb-4">
             <Helmet>
                 <title>
                     {location.search

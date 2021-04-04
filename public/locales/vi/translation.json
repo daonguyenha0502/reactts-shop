@@ -97,5 +97,22 @@
             "price": "Giá",
             "currency": " Đồng"
         }
+    },
+    "addCarousel": {
+        "title": "Thêm Carousel mới",
+        "save": "Lưu"
+    },
+    "addContentBlog": {
+        "title": "Thêm Blog mới",
+        "save": "Lưu",
+        "input": {
+            "alias": "Đường dẫn",
+            "title": "Tiêu đề"
+        }
+    },
+    "uploadImage": {
+        "title": "Tải ảnh",
+        "upload": "Tải lên",
+        "fileRequire": "Tệp cần được chọn!"
     }
 }

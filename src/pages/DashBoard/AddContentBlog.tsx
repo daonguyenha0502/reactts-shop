@@ -12,6 +12,7 @@ import blogApi from '../../api/blogApi'
 import type { TypeUser } from '../../stores/userSlice'
 import { Helmet } from 'react-helmet-async'
 import { toast } from 'react-toastify'
+import { useTypeSafeTranslation } from '../../utility/useTypeSafeTranslation'
 
 export interface TypeBlog {
     alias: string
@@ -96,15 +97,21 @@ const AddContentBlog = () => {
     useEffect(() => {
         invertColor()
     }, [themes.theme])
+    const { t } = useTypeSafeTranslation()
     return (
         <>
             {role === 'admin' ? (
                 <>
                     <Helmet>
-                        <title>Add new blog</title>
+                        <title>{t('addContentBlog.title')}</title>
                         <link rel="canonical" href="https://cpt-ha.web.app" />
                     </Helmet>
-                    <div className="pt-14 w-11/12 dark:text-white xl:w-2/3 md:h-3/4 mx-auto border border-gray-700 rounded-sm">
+
+                    <h1 className="pt-14 font-bold dark:text-gray-200 text-black text-2xl text-center mb-6">
+                        {t('addContentBlog.title')}
+                    </h1>
+
+                    <div className="p-1 w-11/12 dark:text-white xl:w-2/3 md:h-3/4 mx-auto border border-gray-700 rounded-sm">
                         <reactDraftWysiwyg.Editor
                             editorState={editorState}
                             wrapperClassName="demo-wrapper"
@@ -120,7 +127,7 @@ const AddContentBlog = () => {
                             onChange={(event: ChangeEvent<HTMLInputElement>) =>
                                 setAlias(event.target.value)
                             }
-                            placeholder="Alias"
+                            placeholder={t('addContentBlog.input.alias')}
                             onBlur={() => setErrorAddContentBlog(null)}
                         />
                     </div>
@@ -132,7 +139,7 @@ const AddContentBlog = () => {
                             onChange={(event: ChangeEvent<HTMLInputElement>) =>
                                 setTitle(event.target.value)
                             }
-                            placeholder="Title"
+                            placeholder={t('addContentBlog.input.title')}
                             onBlur={() => setErrorAddContentBlog(null)}
                         />
                     </div>
@@ -143,7 +150,7 @@ const AddContentBlog = () => {
 
 
                     <button className="px-6 py-2 bg-blue-600 mt-4 rounded-md" onClick={onSave}>
-                        Save
+                        {t('addContentBlog.save')}
                     </button>
                 </>
             ) : (

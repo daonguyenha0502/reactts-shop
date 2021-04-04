@@ -53,7 +53,7 @@ const PageSearch = (props: Props) => {
             ) : (
                     <>
                         {listProduct.length === 0 ? (
-                            <h1 className="text-3xl mt-40">
+                            <h1 className="text-3xl dark:text-gray-200 pt-40">
                                 Not found product{' '}
                                 <span className="text-red-600">
                                     {location.search.slice(

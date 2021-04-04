@@ -26,7 +26,7 @@ export default function CustomSlider({ settings, listPictures }: CustomSlider) {
                         return (
                             <Link key={picture._id} to={`blog/${picture.urlBlog}`}>
                                 <div >
-                                    <img className="w-full h-auto" src={picture.urlImg} alt={picture.alt} />
+                                    <img className="w-full h-auto dark:filter-brightness-80" src={picture.urlImg} alt={picture.alt} />
                                 </div>
                             </Link>
                         )

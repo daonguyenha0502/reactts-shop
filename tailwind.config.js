@@ -25,6 +25,9 @@ module.exports = {
             },
             minWidth: {
                 '24': '6rem'
+            },
+            translate: {
+                '12/100': '12%'
             }
         },
 

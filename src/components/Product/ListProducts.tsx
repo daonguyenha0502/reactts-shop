@@ -7,6 +7,7 @@ import { addToCart } from '../../stores/cartsSlice'
 import type { itemType } from '../../App'
 import CardProduct from './CardProduct'
 import Skeleton from '../Skeleton/Skeleton'
+import { useTypeSafeTranslation } from '../../utility/useTypeSafeTranslation'
 
 interface Props {
     listProduct: itemType[]
@@ -16,11 +17,12 @@ interface Props {
 const ListProducts = ({ listProduct, isLoading }: Props) => {
     //console.log('lisproduct')
     const dispatch = useDispatch()
+    const { t } = useTypeSafeTranslation()
     const handleAddToCart = (product: itemType) => {
         //console.log('addtoCart: ', product);
         const action = addToCart(product)
         dispatch(action)
-        toast.info(`🦄 ${product.name} added to cart`, {
+        toast.info(`🦄 ${product.name} ${t('productDetail.addCart')}`, {
             position: 'bottom-center',
             autoClose: 4000,
             hideProgressBar: true,

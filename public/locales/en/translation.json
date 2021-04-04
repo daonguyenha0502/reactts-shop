@@ -103,5 +103,22 @@
             "price": "Price",
             "currency": " VND"
         }
+    },
+    "addCarousel": {
+        "title": "Add new Carousel",
+        "save": "Save"
+    },
+    "addContentBlog": {
+        "title": "Add new Blog",
+        "save": "Save",
+        "input": {
+            "alias": "Alias",
+            "title": "Title"
+        }
+    },
+    "uploadImage": {
+        "title": "Upload Image",
+        "upload": "Upload",
+        "fileRequire": "File is required"
     }
 }

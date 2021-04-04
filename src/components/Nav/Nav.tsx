@@ -95,7 +95,7 @@ const Nav = ({ changeTheme, theme }: Props) => {
     return (
         <>
             <nav className="lg:flex font-semibold w-full h-12 bg-blue-700 dark:bg-gray-700 fixed top-0 z-50">
-                <ul className="text-white h-12 lg:w-1/2 sm:w-full w-full justify-center flex space-x-4 items-center">
+                <ul className="text-gray-200 h-12 lg:w-1/2 sm:w-full w-full justify-center flex space-x-4 items-center">
                     <li className="w-36 h-auto ">
                         <Link className="cursor-pointer" to="/">
                             <FontAwesomeIcon icon={faReact} size="2x" />
@@ -190,19 +190,21 @@ const Nav = ({ changeTheme, theme }: Props) => {
                             color="white"
                         />
                     </li>
-                    {isOpenMenu && (
-                        <Menu
-                            refSearch={refSearch}
-                            search={search}
-                            handleSubmit={onSubmit}
-                            setSearch={setSearch}
-                        />
-                    )}
                 </ul>
+                {isOpenMenu && (
+                    <Menu
+                        theme={theme.theme}
+                        darkMode={changeTheme}
+                        refSearch={refSearch}
+                        search={search}
+                        handleSubmit={onSubmit}
+                        setSearch={setSearch}
+                    />
+                )}
                 <ul className="w-1/2 justify-end space-x-4 items-center mr-4 hidden sm:hidden md:hidden lg:flex">
                     {theme.theme === 'dark' ? <li className="h-auto p-1 rounded-md cursor-pointer text-black">
                         <FontAwesomeIcon icon={faMoon} size='lg' onClick={() => changeTheme()} />
-                    </li> : <li className="h-auto p-1 rounded-md cursor-pointer text-white ">
+                    </li> : <li className="h-auto p-1 rounded-md cursor-pointer text-gray-200">
                             <FontAwesomeIcon icon={faSun} size='lg' onClick={() => changeTheme()} />
                         </li>}
 
@@ -210,7 +212,7 @@ const Nav = ({ changeTheme, theme }: Props) => {
                         className="flex justify-end space-x-4 items-center"
                         onSubmit={onSubmit}
                     >
-                        <li className="text-white">
+                        <li className="text-gray-200">
                             {/* <label className="text-gray-800" htmlFor="search">Search</label> */}
                             <input
                                 ref={refSearch}
@@ -222,9 +224,9 @@ const Nav = ({ changeTheme, theme }: Props) => {
                             />
 
                         </li>
-                        <li className="h-auto text-white">
+                        <li className="h-auto text-gray-200">
                             <button
-                                className="bg-green-600 text-black p-1 focus:outline-none active:bg-green-500 rounded px-4 hover:bg-blue-700"
+                                className="bg-green-600 text-black dark:text-gray-200 p-1 focus:outline-none hover:bg-green-500 rounded px-4 active:bg-blue-700"
                                 type="submit"
                             >
                                 {t('nav.search')}

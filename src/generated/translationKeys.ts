@@ -75,4 +75,13 @@ export type TranslationKeys =
 	| "profile.itemListBill.phone"
 	| "profile.itemListBill.address"
 	| "profile.itemListBill.price"
-	| "profile.itemListBill.currency";
+	| "profile.itemListBill.currency"
+	| "addCarousel.title"
+	| "addCarousel.save"
+	| "addContentBlog.title"
+	| "addContentBlog.save"
+	| "addContentBlog.input.alias"
+	| "addContentBlog.input.title"
+	| "uploadImage.title"
+	| "uploadImage.upload"
+	| "uploadImage.fileRequire";

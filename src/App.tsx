@@ -71,8 +71,6 @@ function App({ }: AppProps) {
         } else {
             document.documentElement.classList.remove('dark')
         }
-
-        console.log(themes.theme)
     }
     function changeThemes() {
         dispatch(action)
@@ -180,7 +178,7 @@ function App({ }: AppProps) {
                     className={clsx(
                         hiddenScroll
                             ? 'fixed bottom-20 right-8 sm:right-2 xl:right-12 cursor-pointer hidden'
-                            : 'animate-bounce dark:text-white text-gray-800 fixed bottom-20 right-8 sm:right-2 xl:right-12 cursor-pointer',
+                            : 'animate-bounce dark:text-gray-200 text-gray-800 fixed bottom-20 right-8 sm:right-2 xl:right-12 cursor-pointer',
                     )}
                     title="Scroll Back to Top"
                 >

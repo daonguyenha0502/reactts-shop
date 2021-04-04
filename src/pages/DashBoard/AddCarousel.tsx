@@ -12,6 +12,7 @@ import { Helmet } from 'react-helmet-async'
 import { InputField, Error } from '../../components/InputField';
 import type { TypeResponse } from '../../api/axiosClient';
 import { toast } from 'react-toastify';
+import { useTypeSafeTranslation } from '../../utility/useTypeSafeTranslation';
 
 interface Props {
 
@@ -89,17 +90,20 @@ const AddCarousel = (props: Props) => {
 
     }
     //console.log(errors);
-
+    const { t } = useTypeSafeTranslation()
 
     return (
         <>
             {role === 'admin' ? (
                 <>
                     <Helmet>
-                        <title>Add new blog</title>
+                        <title>{t('addCarousel.title')}</title>
                         <link rel="canonical" href="https://cpt-ha.web.app" />
                     </Helmet>
-                    <div className="w-min h-auto text-left mt-36 mx-auto">
+                    <div className="w-min min-h-screen text-left pt-36 mx-auto">
+                        <h1 className="font-bold dark:text-gray-200 text-black text-2xl text-center mb-6">
+                            {t('addCarousel.title')}
+                        </h1>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <InputField
                                 name="img"
@@ -159,11 +163,11 @@ const AddCarousel = (props: Props) => {
 
                             <div className="mb-3 w-max mx-auto">
                                 <button
-                                    className="bg-blue-600 w-24 text-white py-2 focus:outline-none active:bg-blue-500 rounded px-4 hover:bg-red-600"
+                                    className="bg-blue-600 w-24 text-white py-2 focus:outline-none hover:bg-blue-500 rounded px-4 active:bg-red-600"
                                     type="submit"
                                 >
-                                    Save
-                            </button>
+                                    {t('addCarousel.save')}
+                                </button>
                             </div>
                         </form>
                     </div>

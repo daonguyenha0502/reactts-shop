@@ -231,7 +231,7 @@ export default function ProductDetail() {
                             </p>
                         </div>
                         {/*body*/}
-                        <div className="px-12 py-6 sm:flex-row md:py-12 md:flex">
+                        <div className="md:px-12 py-6 sm:flex-row md:py-12 md:flex">
                             <div className="w-80 h-auto -mt-12 mx-auto">
                                 <CustomSlider
                                     settings={settings}
