@@ -2,6 +2,7 @@ import React from 'react'
 import type { TypeItemCart } from '../../stores/cartsSlice'
 import type { TypeCheckout } from '../../pages/CheckOut'
 import clsx from 'clsx'
+import { useTypeSafeTranslation } from '../../utility/useTypeSafeTranslation'
 
 interface Props {
     carts: TypeItemCart[]
@@ -9,32 +10,33 @@ interface Props {
 }
 
 const ListProductOnCheckout = ({ carts, stateCheckout }: Props) => {
+    const { t } = useTypeSafeTranslation()
     return (
         <div
             className={clsx(
                 stateCheckout !== 'VIEW_CART' &&
-                'bg-gray-200 opacity-50 w-full pt-4 rounded-lg select-none',
+                'bg-gray-200 dark:bg-gray-700 opacity-50 w-full pt-4 rounded-lg select-none',
             )}
         >
             <div className="mx-auto overflow-y-auto h-1/2 xl:h-5/6 max-w-min mb-4">
                 {carts.map((item) => (
                     <div
                         key={item._id}
-                        className="w-80 sm:w-100  h-auto border-gray-800 border rounded-lg leading-5 mb-8"
+                        className="w-80 sm:w-100 h-auto border-gray-800 dark:border-gray-200 border rounded-lg leading-5 mb-8"
                     >
                         <div className="flex h-18">
                             <img
-                                className="border-gray-800 w-14 h-auto border-r py-2 rounded-l-md"
+                                className="border-gray-800 dark:border-gray-200 dark:filter-brightness-80 w-14 h-auto border-r py-2 rounded-md"
                                 //width="150px"
                                 //height="auto"
                                 src={item.img}
                                 alt=""
                             />
-                            <div className="flex-row text-center w-full py-2 relative self-center">
+                            <div className="flex-row text-black dark:text-gray-200 text-center w-full py-2 relative self-center">
                                 <div className="flex mx-4 text-center text-sm sm:text-base font-bold space-x-4">
-                                    <p>Amount: {item.cartAmount}</p>
-                                    <p className="text-red-700">
-                                        Discounted:{' '}
+                                    <p>{t('checkout.amount')}: {item.cartAmount}</p>
+                                    <p className="text-red-700 dark:text-red-600">
+                                        {t('checkout.discounted')}:{' '}
                                         {(
                                             item.cartAmount *
                                             (item.price -
@@ -45,7 +47,7 @@ const ListProductOnCheckout = ({ carts, stateCheckout }: Props) => {
                                                 ) *
                                                 10000)
                                         ).toLocaleString()}{' '}
-                                        Đồng
+                                        {t('checkout.currency')}
                                     </p>
                                 </div>
                             </div>

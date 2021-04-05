@@ -12,15 +12,18 @@ import { InputField, Error } from '../components/InputField'
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '../stores/store'
 import ListProductOnCheckout from '../components/Checkout/ListProductOnCheckout'
-
-//zalo pay
-import CryptoJS from 'crypto-js'
-import moment from 'moment'
 import axios from 'axios'
 import { TypeItemCart, freeCart } from '../stores/cartsSlice'
 import { useHistory } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import type { TypeResponse } from '../api/axiosClient'
+import { useTypeSafeTranslation } from '../utility/useTypeSafeTranslation'
+import Footer from '../components/Footer/Footer'
+//zalo pay
+import CryptoJS from 'crypto-js'
+import moment from 'moment'
+
+
 const configZalo = {
     app_id: '2553',
     key1: 'PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL',
@@ -70,7 +73,8 @@ export type TypeCheckout =
     | 'ADD_PAYMENT'
     | 'PAYMENT'
 
-const customStyles = {
+//custom style of react select
+const customStyles: object = {
     input: (provided: any, state: any) => ({
         ...provided,
         margin: 0,
@@ -104,7 +108,51 @@ const customStyles = {
         margin: 0,
         fontSize: '1.125rem',
         lineHeight: '1.75rem',
+    })
+}
+const customDarkStyles: object = {
+    input: (provided: any, state: any) => ({
+        ...provided,
+        margin: 0,
+        fontSize: '1.125rem',
+        lineHeight: '1.75rem',
+        width: '20rem',
+        paddingTop: '0.75rem',
+        paddingBottom: '0.75rem',
+        borderRadius: '0.375rem',
     }),
+    control: (provided: any, state: any) => ({
+        ...provided,
+        backgroundColor: '#4B5563',
+        borderRadius: '0.375rem',
+        borderColor: '#FFFFFF',
+        fontSize: '1.125rem',
+        lineHeight: '1.75rem',
+        padding: 0,
+        margin: 0,
+    }),
+    valueContainer: (provided: any, state: any) => ({
+        ...provided,
+        padding: 0,
+        margin: 0,
+        marginLeft: '0.75rem',
+        fontSize: '1.125rem',
+        lineHeight: '1.75rem',
+    }),
+    placeholder: (provided: any, state: any) => ({
+        ...provided,
+        color: '#E5E7EB',
+        padding: 0,
+        margin: 0,
+        fontSize: '1.125rem',
+        lineHeight: '1.75rem',
+    }),
+    singleValue: (provided: any) => {
+        return {
+            ...provided,
+            color: '#E5E7EB',
+        }
+    }
 }
 
 const CheckOut = (props: Props) => {
@@ -178,8 +226,18 @@ const CheckOut = (props: Props) => {
 
     const [bill, setBill] = useState<BillAttr | ''>('')
     const [typePayment, setTypePayment] = useState<'ZaloPay' | 'COD'>('COD')
-
+    const { t } = useTypeSafeTranslation()
     const dispatch = useDispatch()
+    const theme = useSelector((state: RootState) => state.themes)
+    const [customSelector, setCustomSelector] = useState<object>(customStyles)
+    useEffect(() => {
+        if (theme.theme === 'light') {
+            setCustomSelector(customDarkStyles)
+        } else {
+            setCustomSelector(customStyles)
+        }
+
+    }, [theme.theme])
 
     const getCities = async () => {
         const res: TypeResponse = await locationsApi.getListCity()
@@ -325,18 +383,18 @@ const CheckOut = (props: Props) => {
     return (
         <>
             <Helmet>
-                <title>Checkout</title>
+                <title>{t('checkout.title')}</title>
                 <link rel="canonical" href="https://cpt-ha.web.app" />
             </Helmet>
             {user.accessToken ? (
                 <div className="w-5/6 sm:w-5/6 md:w-5/6 lg:w-5/6 xl:w-5/6 2xl:w-3/4 text-left py-20 mx-auto">
                     {carts.length > 0 ? (
-                        <h1 className="text-2xl text-red-700 text-center mb-4">
-                            This is checkout
+                        <h1 className="text-2xl text-red-600 dark:text-red-500 text-center mb-4">
+                            {t('checkout.title')}
                         </h1>
                     ) : (
-                            <h1 className="text-2xl text-gray-500 text-center mb-4">
-                                Cart is empty. Please buy something to checkout!
+                            <h1 className="text-2xl text-gray-500 dark:text-red-500  text-center mb-4">
+                                {t('checkout.cartEmpty')}
                             </h1>
                         )}
 
@@ -354,7 +412,7 @@ const CheckOut = (props: Props) => {
                             )}
                             onClick={() => changeStateCheckout('ADD_ADDRESS')}
                         >
-                            Continue
+                            {t('checkout.continue')}
                         </button>
                     </div>
 
@@ -363,13 +421,13 @@ const CheckOut = (props: Props) => {
                             className={clsx(
                                 stateCheckout === 'ADD_ADDRESS'
                                     ? 'w-min mx-auto justify-center lg:w-full pb-4'
-                                    : 'w-min mx-auto lg:w-full pb-4 bg-gray-200 opacity-50 cursor-not-allowed rounded-lg select-none',
+                                    : 'w-min mx-auto lg:w-full pb-4 bg-gray-200 dark:bg-gray-700 opacity-50 cursor-not-allowed rounded-lg select-none',
                             )}
                         >
                             <div className="space-x-0 lg:space-x-4 flex-col w-min mx-auto justify-center lg:w-full lg:flex-row lg:flex pb-4">
                                 <div>
                                     <InputField
-                                        labelContent="First Name"
+                                        labelContent={t('checkout.firstName')}
                                         name="firstname"
                                         register={register}
                                         typeInput="text"
@@ -385,7 +443,7 @@ const CheckOut = (props: Props) => {
                                     )}
 
                                     <InputField
-                                        labelContent="Last Name"
+                                        labelContent={t('checkout.lastName')}
                                         name="lastname"
                                         register={register}
                                         typeInput="text"
@@ -420,7 +478,7 @@ const CheckOut = (props: Props) => {
                                     )}
 
                                     <InputField
-                                        labelContent="Telephone"
+                                        labelContent={t('checkout.telephone')}
                                         name="phonenumber"
                                         register={register}
                                         typeInput="tel"
@@ -447,7 +505,7 @@ const CheckOut = (props: Props) => {
                                 </div>
                                 <div>
                                     <InputField
-                                        labelContent="Street address"
+                                        labelContent={t('checkout.streetAddress')}
                                         name="street"
                                         register={register}
                                         typeInput="text"
@@ -462,8 +520,8 @@ const CheckOut = (props: Props) => {
                                         <Error error="Max is 120" />
                                     )}
 
-                                    <p className="text-base font-bold ml-3">
-                                        City
+                                    <p className="text-base dark:text-gray-200 font-bold ml-3">
+                                        {t('checkout.city')}
                                     </p>
                                     {errorsLocation && (
                                         <Error error="Please choose address!" />
@@ -478,10 +536,11 @@ const CheckOut = (props: Props) => {
                                         isSearchable={true}
                                         name="city"
                                         options={listCity}
-                                        styles={customStyles}
+                                        styles={customSelector}
+                                        placeholder={t('checkout.placeholder')}
                                     />
-                                    <p className="text-base font-bold ml-3">
-                                        District
+                                    <p className="text-base dark:text-gray-200 font-bold ml-3">
+                                        {t('checkout.district')}
                                     </p>
                                     <Select
                                         onChange={(data) => {
@@ -495,10 +554,11 @@ const CheckOut = (props: Props) => {
                                         isSearchable={true}
                                         name="district"
                                         options={listDistrict}
-                                        styles={customStyles}
+                                        styles={customSelector}
+                                        placeholder={t('checkout.placeholder')}
                                     />
-                                    <p className="text-base font-bold ml-3">
-                                        Ward
+                                    <p className="text-base dark:text-gray-200 font-bold ml-3">
+                                        {t('checkout.ward')}
                                     </p>
                                     <Select
                                         onChange={(data) => {
@@ -512,7 +572,8 @@ const CheckOut = (props: Props) => {
                                         isSearchable={true}
                                         name="ward"
                                         options={listWard}
-                                        styles={customStyles}
+                                        styles={customSelector}
+                                        placeholder={t('checkout.placeholder')}
                                     />
                                 </div>
                             </div>
@@ -522,14 +583,14 @@ const CheckOut = (props: Props) => {
                                     <input
                                         className="text-white hover:text-black py-2 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400"
                                         type="submit"
-                                        value="Continue"
+                                        value={t('checkout.continue')}
                                     />
                                 ) : (
                                         <input
                                             className="text-white hover:text-black py-2 rounded-md px-8 bg-blue-600 focus:outline-none active:bg-pink-500 hover:bg-yellow-400"
                                             disabled
                                             type="submit"
-                                            value="Continue"
+                                            value={t('checkout.continue')}
                                         />
                                     )}
                             </div>
@@ -544,7 +605,7 @@ const CheckOut = (props: Props) => {
                     >
                         <form onSubmit={handleSubmit2(onSubmit2)}>
                             <div className="flex-row justify-center">
-                                <div className="flex space-x-8 justify-center py-4">
+                                <div className="flex dark:text-gray-200 dark:bg-gray-700 space-x-8 justify-center py-4">
                                     <div>
                                         <label className="text-lg">
                                             ZaloPay&nbsp;
@@ -574,24 +635,24 @@ const CheckOut = (props: Props) => {
                                 </div>
                                 {errors2.Payment?.type === 'required' && (
                                     <p className="text-center text-red-500">
-                                        Please choose method payment!
+                                        {t('checkout.requirePayment')}
                                     </p>
                                 )}
                             </div>
 
-                            <div className="text-center py-4">
+                            <div className="text-center py-4 dark:bg-gray-700">
                                 {stateCheckout === 'ADD_PAYMENT' ? (
                                     <input
-                                        className="bg-red-700 px-6 py-2 rounded-md"
+                                        className="bg-red-700 text-gray-200 dark:bg-red-500 px-6 py-2 rounded-md"
                                         type="submit"
-                                        value="Continue"
+                                        value={t('checkout.continue')}
                                     />
                                 ) : (
                                         <input
-                                            className="bg-red-700 px-6 py-2 rounded-md"
+                                            className="bg-red-700 text-gray-200 dark:bg-red-500 px-6 py-2 rounded-md"
                                             disabled
                                             type="submit"
-                                            value="Continue"
+                                            value={t('checkout.continue')}
                                         />
                                     )}
                             </div>
@@ -600,24 +661,24 @@ const CheckOut = (props: Props) => {
                     <div
                         className={clsx(
                             stateCheckout !== 'PAYMENT'
-                                ? 'w-full text-left mt-4 mx-auto bg-gray-200 opacity-50 cursor-not-allowed rounded-lg select-none'
+                                ? 'w-full text-left mt-4 mx-auto bg-gray-200 dark:bg-gray-700 opacity-50 cursor-not-allowed rounded-lg select-none'
                                 : 'w-full text-left mt-4 mx-auto',
                         )}
                     >
                         <div className="text-center py-4">
                             {stateCheckout === 'PAYMENT' ? (
                                 <button
-                                    className="bg-red-700 px-6 py-2 rounded-md"
+                                    className="bg-red-700 text-gray-200 dark:bg-red-500 px-6 py-2 rounded-md"
                                     onClick={handleClick}
                                 >
-                                    Pay
+                                    {t('checkout.pay')}
                                 </button>
                             ) : (
                                     <button
-                                        className="bg-red-700 px-6 py-2 rounded-md"
+                                        className="bg-red-700 text-gray-200 dark:bg-red-500 px-6 py-2 rounded-md"
                                         disabled
                                     >
-                                        Pay
+                                        {t('checkout.pay')}
                                     </button>
                                 )}
                         </div>
@@ -625,11 +686,12 @@ const CheckOut = (props: Props) => {
                 </div>
             ) : (
                     <div className="p-4">
-                        <p className="mt-40 text-4xl font-bold text-red-600">
-                            Please login to checkout
-                    </p>
+                        <p className="mt-40 text-4xl font-bold dark:bg-red-500 text-red-600">
+                            {t('checkout.requireLogin')}
+                        </p>
                     </div>
                 )}
+            <Footer />
         </>
     )
 }

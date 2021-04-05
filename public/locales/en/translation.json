@@ -101,7 +101,10 @@
             "phone": "Phone",
             "address": "Address",
             "price": "Price",
-            "currency": " VND"
+            "currency": " VND",
+            "state": {
+                "pending": "Pending"
+            }
         }
     },
     "addCarousel": {
@@ -120,5 +123,24 @@
         "title": "Upload Image",
         "upload": "Upload",
         "fileRequire": "File is required"
+    },
+    "checkout": {
+        "title": "Chekout",
+        "amount": "Amount",
+        "discounted": "Discounted",
+        "continue": "Continue",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "telephone": "Telephone",
+        "streetAddress": "Street address",
+        "city": "City",
+        "placeholder": "Select...",
+        "district": "District",
+        "ward": "Ward",
+        "pay": "Pay",
+        "currency": " VND",
+        "cartEmpty": "Cart is empty. Please buy something to checkout!",
+        "requirePayment": "Please choose method payment!",
+        "requireLogin": "Please login to checkout"
     }
 }

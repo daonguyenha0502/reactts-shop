@@ -95,7 +95,10 @@
             "phone": "SĐT",
             "address": "Địa chỉ",
             "price": "Giá",
-            "currency": " Đồng"
+            "currency": " Đồng",
+            "state": {
+                "pending": "Đang chuẩn bị"
+            }
         }
     },
     "addCarousel": {
@@ -114,5 +117,24 @@
         "title": "Tải ảnh",
         "upload": "Tải lên",
         "fileRequire": "Tệp cần được chọn!"
+    },
+    "checkout": {
+        "title": "Thanh toán",
+        "amount": "Số lượng",
+        "discounted": "Giảm còn",
+        "continue": "Tiếp tục",
+        "firstName": "Họ và tên đệm",
+        "lastName": "Tên",
+        "telephone": "Số điện thoại",
+        "streetAddress": "Địa chỉ",
+        "city": "Tỉnh - Thành phố",
+        "placeholder": "Chọn...",
+        "district": "Quận - Huyện",
+        "ward": "Xã - Phường",
+        "pay": "Thanh toán",
+        "currency": " Đồng",
+        "cartEmpty": "Giỏ hàng đang trống, vui lòng mua hàng!",
+        "requirePayment": "Vui lòng chọn phương thức thanh toán!",
+        "requireLogin": "Vui lòng đăng nhập trước khi thanh toán!"
     }
 }

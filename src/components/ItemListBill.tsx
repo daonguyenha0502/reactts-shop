@@ -34,23 +34,23 @@ const ItemListBill = ({ bill }: Props) => {
                 <p className="text-sm lg:text-base">{t('profile.itemListBill.code')}: {bill._id}</p>
             </div>
             {cart.map((item) =>
-                (<div key={item._id} className="flex-row lg:flex justify-between p-2 w-11/12 border-black border mx-auto rounded-sm mb-1">
+                (<div key={item._id} className="flex-row lg:flex justify-between p-2 w-11/12 border-black dark:border-white border mx-auto rounded-sm mb-1">
                     <p className="text-sm lg:text-base">{item.name} || {t('profile.itemListBill.amount')}: {item.cartAmount}</p>
                     <p className="text-sm lg:text-base">{item.price} {t('profile.itemListBill.currency')}</p>
                 </div>)
             )}
 
-            <div className="flex-row lg:flex justify-between p-2 w-11/12 border-black dark:border-white border mx-auto rounded-sm mb-1">
+            <div className="flex-row lg:flex justify-between p-2 w-11/12 border-black dark:border-gray-300 border mx-auto rounded-sm mb-1">
                 <p className="text-sm lg:text-base">{t('profile.itemListBill.receiver')}: {bill.name}
                 </p>
                 <p className="text-sm lg:text-base">{t('profile.itemListBill.phone')}: {bill.phone}</p>
             </div>
-            <div className="flex-row lg:flex justify-between p-2 w-11/12 border-black dark:border-white border mx-auto rounded-sm mb-1">
+            <div className="flex-row lg:flex justify-between p-2 w-11/12 border-black dark:border-gray-300 border mx-auto rounded-sm mb-1">
                 <p className="text-sm lg:text-base">{t('profile.itemListBill.address')}: {bill.address}
                 </p>
             </div>
             <div className="flex-row lg:flex justify-between bg-gray-400 dark:bg-gray-800 border-black dark:border-white border-t rounded-b-md p-2 mt-4"><div>{t('profile.itemListBill.price')}: {getTotalPrice(cart).toLocaleString('es-US')}{t('profile.itemListBill.currency')}</div>
-                <p className="text-sm lg:text-base text-yellow-600 dark:text-yellow-500">{bill.statePayment}</p>
+                <p className="text-sm lg:text-base text-yellow-600 dark:text-yellow-500">{bill.statePayment === 'Pending' ? t('profile.itemListBill.state.pending') : "Pending"}</p>
                 <p className="text-sm lg:text-base text-green-800 dark:text-green-500">{bill.typePayment}</p>
                 {/* <p className="text-sm lg:text-base">Chưa thanh toán</p> */}
             </div>
