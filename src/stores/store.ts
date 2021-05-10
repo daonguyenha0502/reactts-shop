@@ -39,6 +39,7 @@ const store = configureStore({
             ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
     }),
+    devTools: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
 })
 export type RootState = ReturnType<typeof store.getState>
 export default store

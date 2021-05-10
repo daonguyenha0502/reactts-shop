@@ -1,35 +1,38 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, lazy, Suspense } from 'react'
 import './App.css'
 
-import Nav from './components/Nav/Nav'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import clsx from 'clsx'
-import Index from './pages/Index'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Carts from './pages/Carts'
+
+import Loading from './components/Skeleton/Loading'
+const Nav = lazy(() => import('./components/Nav/Nav'))
+const Index = lazy(() => import('./pages/Index'))
+const Login = lazy(() => import('./pages/Login'))
+const Register = lazy(() => import('./pages/Register'))
+const Carts = lazy(() => import('./pages/Carts'))
+const ProductDetail = lazy(() => import('./pages/ProductDetail'))
+const PageSearch = lazy(() => import('./pages/PageSearch'))
+const PageTypeProducts = lazy(() => import('./pages/PageTypeProducts'))
+const CheckOut = lazy(() => import('./pages/CheckOut'))
+const Blog = lazy(() => import('./pages/Blog'))
+const AddContentBlog = lazy(() => import('./pages/DashBoard/AddContentBlog'))
+const Profile = lazy(() => import('./pages/Profile'))
+const ChangePassword = lazy(() => import('./pages/ChangePassword'))
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'))
+const RestorePassword = lazy(() => import('./pages/RestorePassword'))
+const UploadImage = lazy(() => import('./pages/DashBoard/UploadImage'))
+const AddCarousel = lazy(() => import('./pages/DashBoard/AddCarousel'))
+
 import { useLocation } from 'react-router-dom'
-import ProductDetail from './pages/ProductDetail'
-
 import { ToastContainer } from 'react-toastify'
-
 import 'react-toastify/dist/ReactToastify.css'
-import PageSearch from './pages/PageSearch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretSquareUp } from '@fortawesome/free-solid-svg-icons'
-import PageTypeProducts from './pages/PageTypeProducts'
-import CheckOut from './pages/CheckOut'
-import Blog from './pages/Blog'
-import AddContentBlog from './pages/DashBoard/AddContentBlog'
-import Profile from './pages/Profile'
-import ChangePassword from './pages/ChangePassword'
-import ForgotPassword from './pages/ForgotPassword'
-import RestorePassword from './pages/RestorePassword'
-import UploadImage from './pages/DashBoard/UploadImage'
-import AddCarousel from './pages/DashBoard/AddCarousel'
+
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from './stores/store'
 import { changeTheme } from './stores/themeSlice'
+
 //import TestCheckOut from './pages/TestCheckOut';
 
 export function ScrollToTop(): any {
@@ -42,7 +45,7 @@ export function ScrollToTop(): any {
     return null
 }
 
-interface AppProps { }
+interface AppProps {}
 
 export interface itemType {
     _id: string
@@ -60,7 +63,7 @@ export interface itemType {
     cartAmount: number | 0
 }
 
-function App({ }: AppProps) {
+function App({}: AppProps) {
     const themes = useSelector((state: RootState) => state.themes)
     const dispatch = useDispatch()
     const action = changeTheme()
@@ -100,66 +103,70 @@ function App({ }: AppProps) {
     return (
         <Router basename="/">
             <div className="App dark:bg-gray-800">
-                <Nav changeTheme={changeThemes} theme={themes} />
-                <Switch>
-                    <Route exact path="/">
-                        <Index />
-                    </Route>
-                    <Route exact path="/login">
-                        <Login />
-                    </Route>
-                    <Route exact path="/register">
-                        <Register />
-                    </Route>
-                    <Route exact path="/changePassword">
-                        <ChangePassword />
-                    </Route>
-                    <Route exact path="/forgotPassword">
-                        <ForgotPassword />
-                    </Route>
-                    <Route exact path="/restorePassword">
-                        <RestorePassword />
-                    </Route>
-                    <Route exact path="/cart">
-                        <Carts />
-                    </Route>
-                    <Route exact path="/products/:id">
-                        <ProductDetail />
-                    </Route>
-                    <Route exact path="/search">
-                        <PageSearch />
-                    </Route>
-                    <Route exact path="/products">
-                        <PageTypeProducts />
-                    </Route>
-                    <Route exact path="/checkout">
-                        <CheckOut />
-                    </Route>
-                    <Route exact path="/admin/addBlog">
-                        <AddContentBlog />
-                    </Route>
-                    <Route exact path="/admin/addCarousel">
-                        <AddCarousel />
-                    </Route>
+                <Suspense fallback={<Loading />}>
+                    <Nav changeTheme={changeThemes} theme={themes} />
+                    <Switch>
+                        <Route exact path="/">
+                            <Index />
+                        </Route>
+                        <Route exact path="/login">
+                            <Login />
+                        </Route>
+                        <Route exact path="/register">
+                            <Register />
+                        </Route>
+                        <Route exact path="/changePassword">
+                            <ChangePassword />
+                        </Route>
+                        <Route exact path="/forgotPassword">
+                            <ForgotPassword />
+                        </Route>
+                        <Route exact path="/restorePassword">
+                            <RestorePassword />
+                        </Route>
+                        <Route exact path="/cart">
+                            <Carts />
+                        </Route>
+                        <Route exact path="/products/:id">
+                            <ProductDetail />
+                        </Route>
+                        <Route exact path="/search">
+                            <PageSearch />
+                        </Route>
+                        <Route exact path="/products">
+                            <PageTypeProducts />
+                        </Route>
+                        <Route exact path="/checkout">
+                            <CheckOut />
+                        </Route>
+                        <Route exact path="/admin/addBlog">
+                            <AddContentBlog />
+                        </Route>
+                        <Route exact path="/admin/addCarousel">
+                            <AddCarousel />
+                        </Route>
 
-                    <Route exact path="/blog/:idBlog">
-                        <Blog />
-                    </Route>
-                    <Route exact path="/profile">
-                        <Profile />
-                    </Route>
-                    <Route exact path="/admin/uploadImage">
-                        <UploadImage />
-                    </Route>
+                        <Route exact path="/blog/:idBlog">
+                            <Blog />
+                        </Route>
+                        <Route exact path="/profile">
+                            <Profile />
+                        </Route>
+                        <Route exact path="/admin/uploadImage">
+                            <UploadImage />
+                        </Route>
 
-                    <Route
-                        exact
-                        path="*"
-                        render={() => (
-                            <div className="text-5xl mt-52">Page not found</div>
-                        )}
-                    />
-                </Switch>
+                        <Route
+                            exact
+                            path="*"
+                            render={() => (
+                                <div className="text-5xl mt-52">
+                                    Page not found
+                                </div>
+                            )}
+                        />
+                    </Switch>
+                </Suspense>
                 <ToastContainer
                     style={{ width: '20rem' }}
                     position="bottom-center"

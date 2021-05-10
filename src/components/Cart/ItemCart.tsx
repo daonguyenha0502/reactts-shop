@@ -15,7 +15,8 @@ const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
         <div className="w-92 sm:w-120 h-auto border-gray-800 dark:border-gray-50 border rounded-lg leading-5 mb-8">
             <div className="flex min-h-32">
                 <img
-                    className="border-gray-800 dark:filter-brightness-80 dark:border-gray-50 w-28 h-auto border-r p-1 rounded-lg"
+                    // style={{ width: '7rem', height: '8rem' }}
+                    className="w-28 h-32 border-gray-800 dark:filter-brightness-80 dark:border-gray-50 border-r p-1 rounded-lg"
                     //width="150px"
                     //height="auto"
                     src={item.img}
@@ -42,7 +43,9 @@ const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
                             {(item.cartAmount * item.price).toLocaleString()}{' '}
                             {t('cart.currency')}
                         </p>
-                        <p className="text-red-700 dark:text-red-500">{t('cart.sale')}: {item.sale}%</p>
+                        <p className="text-red-700 dark:text-red-500">
+                            {t('cart.sale')}: {item.sale}%
+                        </p>
                     </div>
 
                     <div className="flex w-full justify-center absolute bottom-2">
@@ -62,7 +65,7 @@ const ItemCart = ({ item, onAdd, onReducer, onRemoveFromCart }: Props) => {
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 

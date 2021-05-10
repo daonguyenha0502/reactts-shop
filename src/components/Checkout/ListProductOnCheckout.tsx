@@ -15,7 +15,7 @@ const ListProductOnCheckout = ({ carts, stateCheckout }: Props) => {
         <div
             className={clsx(
                 stateCheckout !== 'VIEW_CART' &&
-                'bg-gray-200 dark:bg-gray-700 opacity-50 w-full pt-4 rounded-lg select-none',
+                    'bg-gray-200 dark:bg-gray-700 opacity-50 w-full pt-4 rounded-lg select-none',
             )}
         >
             <div className="mx-auto overflow-y-auto h-1/2 xl:h-5/6 max-w-min mb-4">
@@ -26,15 +26,19 @@ const ListProductOnCheckout = ({ carts, stateCheckout }: Props) => {
                     >
                         <div className="flex h-18">
                             <img
-                                className="border-gray-800 dark:border-gray-200 dark:filter-brightness-80 w-14 h-auto border-r py-2 rounded-md"
+                                style={{ width: '3.5rem', height: '4.7rem' }}
+                                className="border-gray-800 dark:border-gray-200 dark:filter-brightness-80 border-r py-2 rounded-md"
                                 //width="150px"
                                 //height="auto"
                                 src={item.img}
-                                alt=""
+                                alt="item"
                             />
                             <div className="flex-row text-black dark:text-gray-200 text-center w-full py-2 relative self-center">
                                 <div className="flex mx-4 text-center text-sm sm:text-base font-bold space-x-4">
-                                    <p>{t('checkout.amount')}: {item.cartAmount}</p>
+                                    <p>
+                                        {t('checkout.amount')}:{' '}
+                                        {item.cartAmount}
+                                    </p>
                                     <p className="text-red-700 dark:text-red-600">
                                         {t('checkout.discounted')}:{' '}
                                         {(
@@ -43,9 +47,9 @@ const ListProductOnCheckout = ({ carts, stateCheckout }: Props) => {
                                                 Math.ceil(
                                                     ((item.price / 10000) *
                                                         item.sale) /
-                                                    100,
+                                                        100,
                                                 ) *
-                                                10000)
+                                                    10000)
                                         ).toLocaleString()}{' '}
                                         {t('checkout.currency')}
                                     </p>

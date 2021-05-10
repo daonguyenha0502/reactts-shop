@@ -1,9 +1,9 @@
 import React from 'react'
 import Slider from 'react-slick'
 
-// import './Carousel.css'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
+import './Carousel.css'
+// import 'slick-carousel/slick/slick.css'
+// import 'slick-carousel/slick/slick-theme.css'
 
 import type { TypeSlide } from '../../pages/Index'
 import { Link } from 'react-router-dom'
@@ -21,23 +21,36 @@ export default function CustomSlider({ settings, listPictures }: CustomSlider) {
                 prevArrow={<PrevArrow />}
                 nextArrow={<NextArrow />}
             >
-                {typeof listPictures[0] === 'object' ?
-                    (listPictures as TypeSlide[]).map((picture: TypeSlide) => {
-                        return (
-                            <Link key={picture._id} to={`blog/${picture.urlBlog}`}>
-                                <div >
-                                    <img className="w-full h-auto dark:filter-brightness-80" src={picture.urlImg} alt={picture.alt} />
-                                </div>
-                            </Link>
-                        )
-                    }) : (listPictures as string[]).map((picture: string) => {
-                        return (
-                            <div key={picture}>
-                                <img className="dark:filter-brightness-80" src={picture} alt="" />
-                            </div>
-                        )
-                    })
-                }
+                {typeof listPictures[0] === 'object'
+                    ? (listPictures as TypeSlide[]).map(
+                          (picture: TypeSlide) => {
+                              return (
+                                  <Link
+                                      key={picture._id}
+                                      to={`blog/${picture.urlBlog}`}
+                                  >
+                                      <div>
+                                          <img
+                                              className="w-full h-auto dark:filter-brightness-80"
+                                              src={picture.urlImg}
+                                              alt={picture.alt}
+                                          />
+                                      </div>
+                                  </Link>
+                              )
+                          },
+                      )
+                    : (listPictures as string[]).map((picture: string) => {
+                          return (
+                              <div key={picture}>
+                                  <img
+                                      className="dark:filter-brightness-80"
+                                      src={picture}
+                                      alt=""
+                                  />
+                              </div>
+                          )
+                      })}
             </Slider>
         </div>
     )
